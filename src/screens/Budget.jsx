@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useOrderStore from '../store/orderStore';
+import budgetDoodle from '../assets/budget-doodle.png';
 
 export default function Budget() {
   const navigate = useNavigate();
@@ -27,15 +28,15 @@ export default function Budget() {
       margin: '0 auto',
     }}>
 
-      <div style={{
-        width: '160px', height: '160px',
-        border: '2px solid var(--color-light)',
-        borderRadius: 'var(--radius)',
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-        color: 'var(--color-pencil)', fontFamily: 'var(--font-hint)', fontSize: '13px',
-      }}>
-        [ doodle here ]
-      </div>
+      <img
+        src={budgetDoodle}
+        alt="Budget doodle"
+        style={{
+          width: '200px',
+          height: '200px',
+          objectFit: 'contain',
+        }}
+      />
 
       <p style={{ fontFamily: 'var(--font-body)', fontSize: '20px', textAlign: 'center' }}>
         What is your total budget for this table?

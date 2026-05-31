@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import useOrderStore from '../store/orderStore';
+import confirmationDoodle from '../assets/confirmation-doodle.png';
 
 export default function Confirmation() {
   const navigate = useNavigate();
@@ -37,15 +38,15 @@ export default function Confirmation() {
         Your table is confirmed.
       </p>
 
-      <div style={{
-        width: '120px', height: '120px',
-        border: '2px solid var(--color-light)',
-        borderRadius: 'var(--radius)',
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-        color: 'var(--color-pencil)', fontFamily: 'var(--font-hint)', fontSize: '13px',
-      }}>
-        [ doodle here ]
-      </div>
+      <img
+        src={confirmationDoodle}
+        alt="Confirmation doodle"
+        style={{
+          width: '240px',
+          height: '180px',
+          objectFit: 'contain',
+        }}
+      />
 
       <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '10px' }}>
         {steps.map((s) => (

@@ -1,4 +1,6 @@
 import { useNavigate } from 'react-router-dom';
+import welcomeDoodle from '../assets/welcome-doodle.png';
+import logo from '../assets/billtable-logo.png';
 
 export default function Welcome() {
   const navigate = useNavigate();
@@ -15,29 +17,25 @@ export default function Welcome() {
       gap: '24px',
     }}>
 
-      <h1 style={{
-        fontFamily: 'var(--font-logo)',
-        fontSize: '48px',
-        color: 'var(--color-ink)',
-        letterSpacing: '-1px',
-      }}>
-        BillTable
-      </h1>
+      <img
+        src={logo}
+        alt="BillTable"
+        style={{
+          height: '64px',
+          objectFit: 'contain',
+          marginBottom: '-8px',
+        }}
+      />
 
-      <div style={{
-        width: '200px',
-        height: '200px',
-        border: '2px solid var(--color-light)',
-        borderRadius: 'var(--radius)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        color: 'var(--color-pencil)',
-        fontFamily: 'var(--font-hint)',
-        fontSize: '13px',
-      }}>
-        [ doodle here ]
-      </div>
+      <img
+        src={welcomeDoodle}
+        alt="Welcome doodle"
+        style={{
+          width: '280px',
+          height: '280px',
+          objectFit: 'contain',
+        }}
+      />
 
       <p style={{
         fontFamily: 'var(--font-body)',

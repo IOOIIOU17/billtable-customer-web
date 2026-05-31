@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useOrderStore from '../store/orderStore';
+import communityDoodle from '../assets/community-doodle.png';
 
 export default function CommunityOrder() {
   const navigate = useNavigate();
@@ -28,15 +29,15 @@ export default function CommunityOrder() {
       margin: '0 auto',
     }}>
 
-      <div style={{
-        width: '160px', height: '160px',
-        border: '2px solid var(--color-light)',
-        borderRadius: 'var(--radius)',
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-        color: 'var(--color-pencil)', fontFamily: 'var(--font-hint)', fontSize: '13px',
-      }}>
-        [ doodle here ]
-      </div>
+      <img
+        src={communityDoodle}
+        alt="Community doodle"
+        style={{
+          width: '220px',
+          height: '180px',
+          objectFit: 'contain',
+        }}
+      />
 
       <p style={{ fontFamily: 'var(--font-body)', fontSize: '20px', textAlign: 'center' }}>
         Every table can make the city a little warmer.

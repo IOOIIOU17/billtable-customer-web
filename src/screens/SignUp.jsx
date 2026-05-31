@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import logo from '../assets/billtable-logo.png';
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -39,7 +40,16 @@ export default function SignUp() {
       maxWidth: '400px',
       margin: '0 auto',
     }}>
-      <h1 style={{ fontFamily: 'var(--font-logo)', fontSize: '36px' }}>BillTable</h1>
+
+      <img
+        src={logo}
+        alt="BillTable"
+        style={{
+          height: '56px',
+          objectFit: 'contain',
+        }}
+      />
+
       <p style={{ fontFamily: 'var(--font-body)', fontSize: '20px', textAlign: 'center' }}>
         Let's save your table first.
       </p>

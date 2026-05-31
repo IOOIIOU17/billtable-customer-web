@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useOrderStore from '../store/orderStore';
 import api from '../services/api';
+import aiMatchingDoodle from '../assets/ai-matching-doodle.png';
 
 export default function AiMatching() {
   const navigate = useNavigate();
@@ -60,15 +61,15 @@ export default function AiMatching() {
       margin: '0 auto',
     }}>
 
-      <div style={{
-        width: '160px', height: '160px',
-        border: '2px solid var(--color-light)',
-        borderRadius: 'var(--radius)',
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-        color: 'var(--color-pencil)', fontFamily: 'var(--font-hint)', fontSize: '13px',
-      }}>
-        [ doodle here ]
-      </div>
+      <img
+        src={aiMatchingDoodle}
+        alt="AI Matching"
+        style={{
+          width: '220px',
+          height: '220px',
+          objectFit: 'contain',
+        }}
+      />
 
       <p style={{ fontFamily: 'var(--font-logo)', fontSize: '28px', textAlign: 'center' }}>
         Bill AI is building your table.
