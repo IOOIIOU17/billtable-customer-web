@@ -5,6 +5,7 @@ import confirmationDoodle from '../assets/confirmation-doodle.png';
 export default function Confirmation() {
   const navigate = useNavigate();
   const reset = useOrderStore((s) => s.reset);
+  const order = useOrderStore((s) => s.order);
 
   const steps = [
     'Order received',
@@ -41,11 +42,7 @@ export default function Confirmation() {
       <img
         src={confirmationDoodle}
         alt="Confirmation doodle"
-        style={{
-          width: '240px',
-          height: '180px',
-          objectFit: 'contain',
-        }}
+        style={{ width: '240px', height: '180px', objectFit: 'contain' }}
       />
 
       <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '10px' }}>
@@ -57,24 +54,56 @@ export default function Confirmation() {
         ))}
       </div>
 
+      {order && order.restaurant_phone && (
+        <div style={{
+          width: '100%',
+          border: '2px solid var(--color-ink)',
+          borderRadius: 'var(--radius)',
+          padding: '16px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '8px',
+        }}>
+          <p style={{ fontFamily: 'var(--font-hint)', fontSize: '14px', color: 'var(--color-pencil)', margin: 0 }}>
+            ติดต่อร้านอาหารได้ที่
+          </p>
+          <p style={{ fontFamily: 'var(--font-body)', fontSize: '20px', margin: 0 }}>
+            {order.restaurant_phone}
+          </p>
+          <a href={'tel:' + order.restaurant_phone} style={{
+            width: '100%',
+            padding: '12px',
+            background: 'var(--color-paper)',
+            color: 'var(--color-ink)',
+            border: '2px solid var(--color-ink)',
+            borderRadius: '12px',
+            fontFamily: 'var(--font-body)',
+            fontSize: '16px',
+            cursor: 'pointer',
+            textAlign: 'center',
+            textDecoration: 'none',
+            display: 'block',
+          }}>
+            โทรหาร้าน
+          </a>
+        </div>
+      )}
+
       <p style={{ fontFamily: 'var(--font-hint)', fontSize: '16px', color: 'var(--color-pencil)' }}>
         Thank you! ♡
       </p>
 
-      <button
-        onClick={handleDone}
-        style={{
-          width: '100%',
-          background: 'var(--color-ink)',
-          color: 'var(--color-paper)',
-          border: '2px solid var(--color-ink)',
-          borderRadius: 'var(--radius)',
-          padding: '14px',
-          fontFamily: 'var(--font-body)',
-          fontSize: '18px',
-          cursor: 'pointer',
-        }}
-      >
+      <button onClick={handleDone} style={{
+        width: '100%',
+        background: 'var(--color-ink)',
+        color: 'var(--color-paper)',
+        border: '2px solid var(--color-ink)',
+        borderRadius: 'var(--radius)',
+        padding: '14px',
+        fontFamily: 'var(--font-body)',
+        fontSize: '18px',
+        cursor: 'pointer',
+      }}>
         Start a new table
       </button>
 
