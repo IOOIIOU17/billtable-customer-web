@@ -6,6 +6,12 @@ export default function Confirmation() {
   const navigate = useNavigate();
   const reset = useOrderStore((s) => s.reset);
   const order = useOrderStore((s) => s.order);
+  const theme = useOrderStore((s) => s.theme);
+  const budget = useOrderStore((s) => s.budget);
+  const guestCount = useOrderStore((s) => s.guestCount);
+  const allergies = useOrderStore((s) => s.allergies);
+  const avoidSpicy = useOrderStore((s) => s.avoidSpicy);
+  const setMatchedRestaurant = useOrderStore((s) => s.setMatchedRestaurant);
 
   const steps = [
     'Order received',
@@ -19,6 +25,30 @@ export default function Confirmation() {
   const handleDone = () => {
     reset();
     navigate('/');
+  };
+
+  const handleChangeRestaurant = async () => {
+    try {
+      const res = await fetch('/api/matching/find', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          theme,
+          budget,
+          guest_count: guestCount,
+          allergies,
+          avoid_spicy: avoidSpicy,
+          exclude_restaurant: order?.restaurant_id,
+        }),
+      });
+      const data = await res.json();
+      if (data.restaurant) {
+        setMatchedRestaurant(data.restaurant);
+        navigate('/ai-matching');
+      }
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (
@@ -105,6 +135,20 @@ export default function Confirmation() {
         cursor: 'pointer',
       }}>
         Start a new table
+      </button>
+
+      <button onClick={handleChangeRestaurant} style={{
+        width: '100%',
+        background: 'var(--color-paper)',
+        color: 'var(--color-ink)',
+        border: '2px solid var(--color-ink)',
+        borderRadius: 'var(--radius)',
+        padding: '14px',
+        fontFamily: 'var(--font-body)',
+        fontSize: '18px',
+        cursor: 'pointer',
+      }}>
+        🔄 ไม่ Happy? เปลี่ยนร้านใหม่
       </button>
 
     </div>
