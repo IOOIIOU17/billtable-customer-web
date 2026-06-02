@@ -91,7 +91,7 @@ export default function SignUp() {
           cursor: 'pointer',
         }}
       >
-        Send code
+        Let's go
       </button>
     </div>
   );
