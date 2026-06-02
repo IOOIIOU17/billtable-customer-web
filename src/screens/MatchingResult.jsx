@@ -8,7 +8,7 @@ export default function MatchingResult() {
   const store = useOrderStore();
   const r = store.matchedRestaurant;
 
-  const handleChangeRestaurant = async () => {
+  const handleFind = async () => {
     try {
       const res = await api.post('/api/matching/find', {
         latitude: 34.0522, longitude: -118.2437,
@@ -32,6 +32,7 @@ export default function MatchingResult() {
   return (
     <div style={{ minHeight: '100vh', background: '#FEFEFE', maxWidth: '480px', margin: '0 auto', fontFamily: "'Patrick Hand', cursive" }}>
 
+      {/* Hero Text */}
       <div style={{ padding: '40px 28px 0' }}>
         <p style={{ fontFamily: "'Kalam', cursive", fontSize: '13px', color: '#999', margin: '0 0 6px' }}>
           we found the perfect place
@@ -44,13 +45,17 @@ export default function MatchingResult() {
         </p>
       </div>
 
+      {/* Table Illustration */}
       <div style={{ padding: '16px 0', textAlign: 'center' }}>
         <img src={tableImg} alt="your table" style={{ width: '100%', objectFit: 'contain' }} />
       </div>
 
+      {/* Restaurant + Menus */}
       <div style={{ padding: '0 28px', display: 'flex', gap: '20px', alignItems: 'flex-start', marginBottom: '28px' }}>
+
+        {/* Left: Restaurant Info */}
         <div style={{ flex: '0 0 auto', width: '44%' }}>
-          <h2 style={{ fontFamily: "'Caveat', cursive", fontSize: '1.5rem', fontWeight: '700', color: '#1A1A1A', margin: '0 0 8px' }}>
+          <h2 style={{ fontFamily: "'Caveat', cursive", fontSize: '1.5rem', fontWeight: '700', color: '#1A1A1A', margin: '0 0 4px' }}>
             {r.restaurant_name || r.name}
           </h2>
           <div style={{ display: 'flex', gap: '5px', flexWrap: 'wrap', marginBottom: '12px' }}>
@@ -69,6 +74,7 @@ export default function MatchingResult() {
           </div>
         </div>
 
+        {/* Right: Menus */}
         <div style={{ flex: 1 }}>
           <p style={{ fontFamily: "'Kalam', cursive", fontSize: '11px', color: '#999', margin: '0 0 12px', textAlign: 'right' }}>
             recommended for your table
@@ -91,8 +97,9 @@ export default function MatchingResult() {
         </div>
       </div>
 
+      {/* 3 Buttons */}
       <div style={{ padding: '0 28px 48px', display: 'flex', gap: '10px' }}>
-        <button onClick={() => navigate('/matching')}
+        <button onClick={() => navigate('/edit-menu')}
           style={{ flex: 1, padding: '14px 8px', background: 'none', color: '#1A1A1A', border: '1.5px solid #1A1A1A', borderRadius: '12px', fontFamily: "'Caveat', cursive", fontSize: '1rem', cursor: 'pointer' }}>
           Edit
         </button>
@@ -100,7 +107,7 @@ export default function MatchingResult() {
           style={{ flex: 1, padding: '14px 8px', background: '#1A1A1A', color: '#FEFEFE', border: 'none', borderRadius: '12px', fontFamily: "'Caveat', cursive", fontSize: '1.1rem', cursor: 'pointer', letterSpacing: '1px' }}>
           Perfect
         </button>
-        <button onClick={handleChangeRestaurant}
+        <button onClick={handleFind}
           style={{ flex: 1, padding: '14px 8px', background: 'none', color: '#1A1A1A', border: '1.5px solid #1A1A1A', borderRadius: '12px', fontFamily: "'Caveat', cursive", fontSize: '1rem', cursor: 'pointer' }}>
           Find
         </button>
