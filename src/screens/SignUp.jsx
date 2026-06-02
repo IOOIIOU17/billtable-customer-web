@@ -20,15 +20,13 @@ export default function SignUp() {
         password: form.phone,
         role: 'customer'
       });
-      localStorage.setItem('token', res.data.accessToken || res.data.token);
+      if (res.data && (res.data.accessToken || res.data.token)) {
+        localStorage.setItem('token', res.data.accessToken || res.data.token);
+      }
       navigate('/theme');
     } catch (e) {
-      const res2 = await api.post('/api/auth/login', {
-        email: form.email,
-        password: form.phone
-      }).catch(() => null);
-      if (res2) {
-        localStorage.setItem('token', res2.data.accessToken || res2.data.token);
+      const msg = e?.response?.data?.message || '';
+      if (msg.toLowerCase().includes('already') || msg.toLowerCase().includes('exist') || e?.response?.status === 409) {
         navigate('/theme');
       }
     }
