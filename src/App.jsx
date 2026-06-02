@@ -12,6 +12,7 @@ import CommunityOrder from './screens/CommunityOrder';
 import Summary from './screens/Summary';
 import Payment from './screens/Payment';
 import Confirmation from './screens/Confirmation';
+import MatchingResult from './screens/MatchingResult';
 
 export default function App() {
   return (
@@ -26,6 +27,7 @@ export default function App() {
         <Route path="/taste" element={<TastePreference />} />
         <Route path="/time" element={<TimeLocation />} />
         <Route path="/matching" element={<AiMatching />} />
+        <Route path="/result" element={<MatchingResult />} />
         <Route path="/community" element={<CommunityOrder />} />
         <Route path="/summary" element={<Summary />} />
         <Route path="/payment" element={<Payment />} />

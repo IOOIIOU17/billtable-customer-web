@@ -39,7 +39,7 @@ export default function AiMatching() {
       }
       setTimeout(() => {
         clearInterval(interval);
-        navigate('/community');
+        navigate('/result');
       }, 4500);
     };
 
