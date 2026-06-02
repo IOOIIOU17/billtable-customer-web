@@ -13,6 +13,7 @@ import Summary from './screens/Summary';
 import Payment from './screens/Payment';
 import Confirmation from './screens/Confirmation';
 import MatchingResult from './screens/MatchingResult';
+import EditMenu from './screens/EditMenu';
 
 export default function App() {
   return (
@@ -28,6 +29,7 @@ export default function App() {
         <Route path="/time" element={<TimeLocation />} />
         <Route path="/matching" element={<AiMatching />} />
         <Route path="/result" element={<MatchingResult />} />
+        <Route path="/edit-menu" element={<EditMenu />} />
         <Route path="/community" element={<CommunityOrder />} />
         <Route path="/summary" element={<Summary />} />
         <Route path="/payment" element={<Payment />} />
