@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { useOrderStore } from '../store/orderStore';
+import useOrderStore from '../store/orderStore';
 import api from '../services/api';
 
 const TableIllustration = () => (
