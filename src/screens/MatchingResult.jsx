@@ -61,10 +61,10 @@ export default function MatchingResult() {
             ))}
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-            <p style={{ margin: 0, fontSize: '13px', color: '#333' }}>👥 {store.guestCount || '—'} people</p>
-            <p style={{ margin: 0, fontSize: '13px', color: '#333' }}>💵 ${store.budget || '—'} budget</p>
-            <p style={{ margin: 0, fontSize: '13px', color: '#333' }}>⏱ ~1.5 hr estimated duration</p>
-            <p style={{ margin: 0, fontSize: '13px', color: '#333' }}>📍 {r.address || r.location || 'Los Angeles, CA'}</p>
+            <p style={{ margin: 0, fontSize: '13px', color: '#333' }}>{store.guestCount || '—'} people</p>
+            <p style={{ margin: 0, fontSize: '13px', color: '#333' }}>${store.budget || '—'} budget</p>
+            <p style={{ margin: 0, fontSize: '13px', color: '#333' }}>~1.5 hr estimated duration</p>
+            <p style={{ margin: 0, fontSize: '13px', color: '#333' }}>{r.address || r.location || 'Los Angeles, CA'}</p>
             {r.rating && <p style={{ margin: 0, fontSize: '13px', color: '#333' }}>☆ {r.rating} ({r.review_count || 0} reviews)</p>}
           </div>
         </div>
