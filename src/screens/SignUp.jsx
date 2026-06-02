@@ -1,3 +1,4 @@
+import api from '../services/api';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import logo from '../assets/billtable-logo.png';
@@ -10,9 +11,27 @@ export default function SignUp() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!form.name || !form.phone || !form.email) return;
-    navigate('/theme');
+    try {
+      const res = await api.post('/api/auth/register', {
+        name: form.name,
+        email: form.email,
+        password: form.phone,
+        role: 'customer'
+      });
+      localStorage.setItem('token', res.data.accessToken || res.data.token);
+      navigate('/theme');
+    } catch (e) {
+      const res2 = await api.post('/api/auth/login', {
+        email: form.email,
+        password: form.phone
+      }).catch(() => null);
+      if (res2) {
+        localStorage.setItem('token', res2.data.accessToken || res2.data.token);
+        navigate('/theme');
+      }
+    }
   };
 
   const inputStyle = {
