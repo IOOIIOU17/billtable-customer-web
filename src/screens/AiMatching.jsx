@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useOrderStore from '../store/orderStore';
-import { api } from '../services/api';
+import api from '../services/api';
 import aiMatchingDoodle from '../assets/ai-matching-doodle.png';
 
 export default function AiMatching() {
@@ -60,17 +60,10 @@ export default function AiMatching() {
       maxWidth: '400px',
       margin: '0 auto',
     }}>
-
-      <img
-        src={aiMatchingDoodle}
-        alt="AI Matching"
-        style={{ width: '220px', height: '220px', objectFit: 'contain' }}
-      />
-
+      <img src={aiMatchingDoodle} alt="AI Matching" style={{ width: '220px', height: '220px', objectFit: 'contain' }} />
       <p style={{ fontFamily: 'var(--font-logo)', fontSize: '28px', textAlign: 'center' }}>
         Bill AI is building your table.
       </p>
-
       <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', width: '100%' }}>
         {steps.map((s, i) => (
           <div key={s} style={{ display: 'flex', alignItems: 'center', gap: '12px', opacity: i <= step ? 1 : 0.2, transition: 'opacity 0.4s' }}>
@@ -79,7 +72,6 @@ export default function AiMatching() {
           </div>
         ))}
       </div>
-
     </div>
   );
 }
