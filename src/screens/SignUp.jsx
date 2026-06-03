@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
-import useOrderStore from '../store/orderStore';
+import billTableLogo from '../assets/billtable-logo.png';
 
 export default function SignUp() {
   const navigate = useNavigate();
-  const store = useOrderStore();
   const [form, setForm] = useState({ name: '', phone: '', email: '' });
 
   const handleChange = (field) => (e) => {
@@ -41,14 +40,24 @@ export default function SignUp() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', background: '#FEFEFE', maxWidth: '480px', margin: '0 auto', padding: '48px 24px', fontFamily: "'Patrick Hand', cursive" }}>
+    <div style={{
+      minHeight: '100vh',
+      background: '#FEFEFE',
+      maxWidth: '480px',
+      margin: '0 auto',
+      padding: '24px',
+      fontFamily: "'Patrick Hand', cursive",
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+    }}>
 
-      <h1 style={{ fontFamily: "'Caveat', cursive", fontSize: '2.5rem', fontWeight: '700', color: '#1A1A1A', textAlign: 'center', margin: '0 0 8px' }}>
-        BillTable
-      </h1>
-      <p style={{ fontFamily: "'Kalam', cursive", fontSize: '14px', color: '#999', textAlign: 'center', margin: '0 0 40px' }}>
-        Let's save your table first.
-      </p>
+      <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+        <img src={billTableLogo} alt="BillTable" style={{ height: '60px', objectFit: 'contain' }} />
+        <p style={{ fontFamily: "'Kalam', cursive", fontSize: '14px', color: '#999', margin: '8px 0 0' }}>
+          Let's save your table first.
+        </p>
+      </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '32px' }}>
         <input
