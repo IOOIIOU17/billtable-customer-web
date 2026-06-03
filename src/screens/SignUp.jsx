@@ -49,38 +49,21 @@ export default function SignUp() {
       fontFamily: "'Patrick Hand', cursive",
       display: 'flex',
       flexDirection: 'column',
+      alignItems: 'center',
       justifyContent: 'center',
     }}>
 
-      <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-        <img src={billTableLogo} alt="BillTable" style={{ height: '60px', objectFit: 'contain' }} />
-        <p style={{ fontFamily: "'Kalam', cursive", fontSize: '14px', color: '#999', margin: '8px 0 0' }}>
+      <div style={{ textAlign: 'center', marginBottom: '40px', width: '100%' }}>
+        <img src={billTableLogo} alt="BillTable" style={{ height: '64px', objectFit: 'contain', display: 'block', margin: '0 auto 8px' }} />
+        <p style={{ fontFamily: "'Kalam', cursive", fontSize: '14px', color: '#999', margin: 0 }}>
           Let's save your table first.
         </p>
       </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '32px' }}>
-        <input
-          type="text"
-          placeholder="Your name"
-          value={form.name}
-          onChange={handleChange('name')}
-          style={inputStyle}
-        />
-        <input
-          type="tel"
-          placeholder="Phone number"
-          value={form.phone}
-          onChange={handleChange('phone')}
-          style={inputStyle}
-        />
-        <input
-          type="email"
-          placeholder="Email address"
-          value={form.email}
-          onChange={handleChange('email')}
-          style={inputStyle}
-        />
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '32px', width: '100%' }}>
+        <input type="text" placeholder="Your name" value={form.name} onChange={handleChange('name')} style={inputStyle} />
+        <input type="tel" placeholder="Phone number" value={form.phone} onChange={handleChange('phone')} style={inputStyle} />
+        <input type="email" placeholder="Email address" value={form.email} onChange={handleChange('email')} style={inputStyle} />
       </div>
 
       <button onClick={handleSubmit}
