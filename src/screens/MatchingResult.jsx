@@ -8,18 +8,7 @@ export default function MatchingResult() {
   const store = useOrderStore();
   const r = store.matchedRestaurant;
 
-  const handleFind = async () => {
-    try {
-      const res = await api.post('/api/matching/find', {
-        latitude: 34.0522, longitude: -118.2437,
-        cuisine_type: store.theme, budget: store.budget,
-        guest_count: store.guestCount, allergies: store.allergies,
-        avoid_spicy: store.avoidSpicy,
-        exclude_restaurant: r?.restaurant_id || r?.id,
-      });
-      store.setMatchedRestaurant(res.data);
-    } catch (e) { console.log(e); }
-  };
+  const handleFind = () => { navigate("/ai-matching"); };
 
   if (!r) return (
     <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Patrick Hand', cursive" }}>
