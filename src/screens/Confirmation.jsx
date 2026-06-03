@@ -27,29 +27,7 @@ export default function Confirmation() {
     navigate('/');
   };
 
-  const handleChangeRestaurant = async () => {
-    try {
-      const res = await fetch('/api/matching/find', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          theme,
-          budget,
-          guest_count: guestCount,
-          allergies,
-          avoid_spicy: avoidSpicy,
-          exclude_restaurant: order?.restaurant_id,
-        }),
-      });
-      const data = await res.json();
-      if (data.restaurant) {
-        setMatchedRestaurant(data.restaurant);
-        navigate('/matching');
-      }
-    } catch (e) {
-      console.error(e);
-    }
-  };
+  const handleChangeRestaurant = () => { navigate('/matching'); };
 
   return (
     <div style={{
