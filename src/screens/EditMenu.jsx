@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useOrderStore from '../store/orderStore';
+import billTableLogo from '../assets/billtable-logo.png';
 
 const MOCK_AI_MENUS = [
   { id: 1, name: 'Pad Thai', reason: 'Popular choice for groups' },
@@ -55,9 +56,10 @@ export default function EditMenu() {
         pick what you want · swap what you don't
       </p>
 
-      <p style={{ fontFamily: "'Caveat', cursive", fontWeight: '700', fontSize: '1.2rem', color: '#1A1A1A', margin: '0 0 12px' }}>
-        BillTable recommends
-      </p>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
+        <img src={billTableLogo} alt="BillTable" style={{ height: '22px', objectFit: 'contain' }} />
+        <span style={{ fontFamily: "'Kalam', cursive", fontSize: '13px', color: '#999' }}>recommends</span>
+      </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '28px' }}>
         {aiMenus.map((menu, i) => {
