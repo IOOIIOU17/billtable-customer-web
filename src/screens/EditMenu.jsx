@@ -2,14 +2,30 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useOrderStore from '../store/orderStore';
 
+const MOCK_AI_MENUS = [
+  { id: 1, name: 'Pad Thai', reason: 'Popular choice for groups' },
+  { id: 2, name: 'Green Curry', reason: 'Matches your flavor preference' },
+  { id: 3, name: 'Spring Rolls', reason: 'Great starter for your theme' },
+  { id: 4, name: 'Mango Sticky Rice', reason: 'Perfect dessert pairing' },
+  { id: 5, name: 'Tom Yum Soup', reason: 'Crowd favorite, fits budget' },
+];
+
+const MOCK_EXTRAS = [
+  { id: 6, name: 'Fried Rice', reason: 'Alternative to Pad Thai' },
+  { id: 7, name: 'Basil Chicken', reason: 'Fan favorite backup' },
+  { id: 8, name: 'Papaya Salad', reason: 'Light option for variety' },
+];
+
 export default function EditMenu() {
   const navigate = useNavigate();
   const store = useOrderStore();
   const r = store.matchedRestaurant;
-  const menus = r?.menus || r?.recommended_menus || [];
-  const extras = r?.extra_menus || [];
 
-  const [selected, setSelected] = useState(menus.map((_, i) => i));
+  const aiMenus = r?.menus?.length ? r.menus : MOCK_AI_MENUS;
+  const extras = r?.extra_menus?.length ? r.extra_menus : MOCK_EXTRAS;
+  const allMenus = [...aiMenus, ...extras];
+
+  const [selected, setSelected] = useState(aiMenus.map((_, i) => i));
   const [comment, setComment] = useState('');
 
   const toggleMenu = (index) => {
@@ -18,102 +34,110 @@ export default function EditMenu() {
     );
   };
 
-  const allMenus = [...menus, ...extras];
-
   const handleConfirm = () => {
     const finalMenus = allMenus.filter((_, i) => selected.includes(i));
     store.setMatchedRestaurant({ ...r, menus: finalMenus, comment });
     navigate('/result');
   };
 
-  if (!r) return (
-    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Patrick Hand', cursive" }}>
-      <p>ไม่พบข้อมูล กรุณาเริ่มใหม่</p>
-    </div>
-  );
-
   return (
-    <div style={{ minHeight: '100vh', background: '#FEFEFE', maxWidth: '480px', margin: '0 auto', fontFamily: "'Patrick Hand', cursive", padding: '40px 28px 48px' }}>
+    <div style={{ minHeight: '100vh', background: '#FEFEFE', maxWidth: '480px', margin: '0 auto', padding: '32px 24px 48px', fontFamily: "'Patrick Hand', cursive" }}>
 
       <button onClick={() => navigate('/result')}
-        style={{ background: 'none', border: 'none', fontFamily: "'Kalam', cursive", fontSize: '14px', color: '#999', cursor: 'pointer', padding: '0 0 20px', display: 'block' }}>
+        style={{ background: 'none', border: 'none', fontFamily: "'Kalam', cursive", fontSize: '14px', color: '#999', cursor: 'pointer', padding: '0 0 24px', display: 'block' }}>
         ← back
       </button>
 
-      <h1 style={{ fontFamily: "'Caveat', cursive", fontSize: '2rem', fontWeight: '700', color: '#1A1A1A', margin: '0 0 6px' }}>
+      <h1 style={{ fontFamily: "'Caveat', cursive", fontSize: '2rem', fontWeight: '700', color: '#1A1A1A', margin: '0 0 4px' }}>
         edit your menu
       </h1>
       <p style={{ fontFamily: "'Kalam', cursive", fontSize: '13px', color: '#999', margin: '0 0 28px' }}>
         pick what you want · swap what you don't
       </p>
 
-      {/* Menu List */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '32px' }}>
-        {allMenus.map((menu, i) => {
+      <p style={{ fontFamily: "'Caveat', cursive", fontSize: '1.1rem', color: '#1A1A1A', margin: '0 0 12px' }}>
+        ✦ AI recommended
+      </p>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '28px' }}>
+        {aiMenus.map((menu, i) => {
           const isSelected = selected.includes(i);
-          const isExtra = i >= menus.length;
           return (
-            <div key={i}
-              onClick={() => toggleMenu(i)}
+            <div key={i} onClick={() => toggleMenu(i)}
               style={{
-                display: 'flex', alignItems: 'center', gap: '14px',
+                display: 'flex', alignItems: 'center', gap: '12px',
                 padding: '14px', borderRadius: '12px', cursor: 'pointer',
-                border: isSelected ? '2px solid #1A1A1A' : '1.5px solid #E8E8E8',
-                background: isSelected ? '#FAFAFA' : '#FEFEFE',
+                border: isSelected ? '2px solid #1A1A1A' : '1.5px solid #D8D8D8',
+                background: isSelected ? '#F4F4F4' : '#FEFEFE',
                 transition: 'all 0.15s'
               }}>
               <div style={{
-                width: '44px', height: '44px', borderRadius: '50%',
-                border: '1.5px solid #ccc', flexShrink: 0, background: '#f8f8f8'
-              }} />
-              <div style={{ flex: 1 }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <p style={{ margin: 0, fontSize: '15px', fontFamily: "'Caveat', cursive", fontWeight: 'bold', color: '#1A1A1A' }}>
-                    {menu.name}
-                  </p>
-                  {isExtra && (
-                    <span style={{ fontSize: '10px', fontFamily: "'Kalam', cursive", color: '#999', border: '1px solid #ccc', borderRadius: '10px', padding: '1px 8px' }}>
-                      alternative
-                    </span>
-                  )}
-                </div>
-                <p style={{ margin: 0, fontSize: '12px', color: '#888', fontFamily: "'Kalam', cursive" }}>
-                  {menu.reason || menu.description || ''}
-                </p>
-              </div>
-              <div style={{
-                width: '22px', height: '22px', borderRadius: '50%', flexShrink: 0,
-                border: '1.5px solid #1A1A1A',
-                background: isSelected ? '#1A1A1A' : 'none',
+                width: '22px', height: '22px', borderRadius: '6px', flexShrink: 0,
+                border: '2px solid #1A1A1A',
+                background: isSelected ? '#1A1A1A' : 'transparent',
                 display: 'flex', alignItems: 'center', justifyContent: 'center'
               }}>
-                {isSelected && <span style={{ color: '#FEFEFE', fontSize: '12px' }}>✓</span>}
+                {isSelected && <span style={{ color: '#FEFEFE', fontSize: '13px' }}>✓</span>}
+              </div>
+              <div>
+                <p style={{ margin: 0, fontFamily: "'Patrick Hand', cursive", fontSize: '15px', color: '#1A1A1A' }}>{menu.name}</p>
+                <p style={{ margin: 0, fontFamily: "'Kalam', cursive", fontSize: '12px', color: '#888' }}>{menu.reason || ''}</p>
               </div>
             </div>
           );
         })}
       </div>
 
-      {/* Comment Box */}
-      <div style={{ marginBottom: '28px' }}>
-        <p style={{ fontFamily: "'Kalam', cursive", fontSize: '13px', color: '#999', margin: '0 0 8px' }}>
-          anything else you'd like to add?
-        </p>
-        <textarea
-          value={comment}
-          onChange={(e) => setComment(e.target.value)}
-          placeholder="e.g. no peanuts, extra spicy, gluten free..."
-          style={{
-            width: '100%', minHeight: '80px', padding: '12px',
-            fontFamily: "'Patrick Hand', cursive", fontSize: '14px',
-            border: '1.5px solid #1A1A1A', borderRadius: '12px',
-            background: '#FEFEFE', color: '#1A1A1A', resize: 'none',
-            outline: 'none', boxSizing: 'border-box'
-          }}
-        />
+      <p style={{ fontFamily: "'Caveat', cursive", fontSize: '1.1rem', color: '#1A1A1A', margin: '0 0 12px' }}>
+        ◎ swap with these
+      </p>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '32px' }}>
+        {extras.map((menu, i) => {
+          const idx = aiMenus.length + i;
+          const isSelected = selected.includes(idx);
+          return (
+            <div key={idx} onClick={() => toggleMenu(idx)}
+              style={{
+                display: 'flex', alignItems: 'center', gap: '12px',
+                padding: '14px', borderRadius: '12px', cursor: 'pointer',
+                border: isSelected ? '2px solid #1A1A1A' : '1.5px dashed #C8C8C8',
+                background: isSelected ? '#F4F4F4' : '#FEFEFE',
+                transition: 'all 0.15s'
+              }}>
+              <div style={{
+                width: '22px', height: '22px', borderRadius: '6px', flexShrink: 0,
+                border: '2px solid #1A1A1A',
+                background: isSelected ? '#1A1A1A' : 'transparent',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                {isSelected && <span style={{ color: '#FEFEFE', fontSize: '13px' }}>✓</span>}
+              </div>
+              <div>
+                <p style={{ margin: 0, fontFamily: "'Patrick Hand', cursive", fontSize: '15px', color: '#1A1A1A' }}>{menu.name}</p>
+                <p style={{ margin: 0, fontFamily: "'Kalam', cursive", fontSize: '12px', color: '#888' }}>{menu.reason || ''}</p>
+              </div>
+            </div>
+          );
+        })}
       </div>
 
-      {/* Confirm Button */}
+      <p style={{ fontFamily: "'Kalam', cursive", fontSize: '13px', color: '#999', margin: '0 0 8px' }}>
+        anything else you'd like to add?
+      </p>
+      <textarea
+        value={comment}
+        onChange={(e) => setComment(e.target.value)}
+        placeholder="e.g. no peanuts, extra spicy, gluten free..."
+        style={{
+          width: '100%', minHeight: '80px', padding: '12px',
+          fontFamily: "'Patrick Hand', cursive", fontSize: '14px',
+          border: '1.5px solid #1A1A1A', borderRadius: '12px',
+          background: '#FEFEFE', color: '#1A1A1A', resize: 'none',
+          outline: 'none', boxSizing: 'border-box', marginBottom: '28px'
+        }}
+      />
+
       <button onClick={handleConfirm}
         style={{
           width: '100%', padding: '16px', background: '#1A1A1A', color: '#FEFEFE',
