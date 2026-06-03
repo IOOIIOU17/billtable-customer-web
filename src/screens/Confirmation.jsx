@@ -148,7 +148,7 @@ export default function Confirmation() {
         fontSize: '18px',
         cursor: 'pointer',
       }}>
-        🔄 ไม่ Happy? เปลี่ยนร้านใหม่
+        Change restaurant or menu
       </button>
 
     </div>
