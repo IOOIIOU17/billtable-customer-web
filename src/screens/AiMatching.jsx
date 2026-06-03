@@ -34,14 +34,14 @@ export default function AiMatching() {
           avoid_spicy: store.avoidSpicy,
         });
         store.setMatchedRestaurant(res.data);
-      await new Promise(r => setTimeout(r, 3000));
+      
       } catch (e) {
         console.log('matching error', e);
       }
       setTimeout(() => {
         clearInterval(interval);
         navigate('/result');
-      }, 4500);
+      }, 2500);
     };
 
     run();
