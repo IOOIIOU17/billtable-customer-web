@@ -9,7 +9,7 @@ export default function MatchingResult() {
   const match = store.matchedRestaurant;
 
   useEffect(() => {
-    if (!match) navigate('/matching');
+    if (!match) navigate("/");
   }, []);
 
   if (!match) return null;
