@@ -28,44 +28,35 @@ export default function MatchingResult() {
       padding: '32px 24px',
       fontFamily: "'Patrick Hand', sans-serif",
     }}>
-
-      <div style={{ width: '100%', maxWidth: '400px' }}>
-
+      <div style={{ width: '100%', maxWidth: '400px', textAlign: 'center' }}>
         <p style={{ fontFamily: "'Kalam', cursive", fontSize: '13px', color: '#4A4A4A', margin: '0 0 4px' }}>
           we found the perfect place
         </p>
-
         <h1 style={{ fontFamily: "'Caveat', cursive", fontSize: '2.2rem', fontWeight: '700', color: '#1A1A1A', margin: '0 0 8px', lineHeight: 1.1 }}>
           your table<br />is ready
         </h1>
-
         <h2 style={{ fontFamily: "'Caveat', cursive", fontSize: '1.4rem', fontWeight: '700', color: '#1A1A1A', margin: '0 0 4px' }}>
-          {restaurant.name}
+          {restaurant.name || 'Your Restaurant'}
         </h2>
-
         <p style={{ fontFamily: "'Kalam', cursive", fontSize: '13px', color: '#4A4A4A', margin: '0 0 20px' }}>
           We found the perfect place for your {store.theme || 'event'}.
         </p>
-
         <div style={{ textAlign: 'center', marginBottom: '24px' }}>
           <img src={tableIllustration} alt="Table" style={{ width: '100%', maxWidth: '280px', objectFit: 'contain' }} />
         </div>
-
-        <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '12px' }}>
+        <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', justifyContent: 'center', marginBottom: '12px' }}>
           {[store.theme, 'Casual', 'Family Friendly'].filter(Boolean).map((tag, i) => (
             <span key={i} style={{ border: '1.5px solid #1A1A1A', borderRadius: '20px', padding: '2px 12px', fontSize: '12px', fontFamily: "'Kalam', cursive" }}>
               {tag}
             </span>
           ))}
         </div>
-
-        <div style={{ marginBottom: '16px' }}>
+        <div style={{ marginBottom: '16px', textAlign: 'left' }}>
           <p style={{ margin: '0 0 4px', fontSize: '13px', color: '#333' }}>{store.guestCount || '-'} people</p>
           <p style={{ margin: '0 0 4px', fontSize: '13px', color: '#333' }}>${store.budget || '-'} budget</p>
           <p style={{ margin: '0 0 4px', fontSize: '13px', color: '#333' }}>~1.5 hr estimated duration</p>
           {restaurant.address && <p style={{ margin: 0, fontSize: '13px', color: '#333' }}>{restaurant.address}</p>}
         </div>
-
         {menus.length > 0 && (
           <div style={{ marginBottom: '24px' }}>
             <p style={{ fontFamily: "'Kalam', cursive", fontSize: '12px', color: '#4A4A4A', textAlign: 'right', margin: '0 0 8px' }}>
@@ -84,7 +75,6 @@ export default function MatchingResult() {
             ))}
           </div>
         )}
-
         <div style={{ display: 'flex', gap: '10px' }}>
           <button onClick={() => navigate('/edit-menu')}
             style={{ flex: 1, padding: '12px', border: '2px solid #1A1A1A', borderRadius: '14px', background: '#fff', fontFamily: "'Patrick Hand', sans-serif", fontSize: '15px', cursor: 'pointer' }}>
@@ -99,7 +89,6 @@ export default function MatchingResult() {
             Find
           </button>
         </div>
-
       </div>
     </div>
   );

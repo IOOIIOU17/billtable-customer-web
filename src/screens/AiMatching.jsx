@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useOrderStore from '../store/orderStore';
 import api from '../services/api';
@@ -33,13 +33,13 @@ export default function AiMatching() {
           allergies: store.allergies,
           avoid_spicy: store.avoidSpicy,
         });
-        store.setMatchedRestaurant(res.data);
+        store.setMatchedRestaurant(res.data.matches[0]);
         clearInterval(interval);
         navigate('/result');
       } catch (e) {
         console.log('matching error', e);
         clearInterval(interval);
-        navigate('/result');
+        navigate('/matching');
       }
     };
 
@@ -66,8 +66,8 @@ export default function AiMatching() {
       </p>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', width: '100%' }}>
         {steps.map((s, i) => (
-          <div key={s} style={{ display: 'flex', alignItems: 'center', gap: '12px', opacity: i <= step ? 1 : 0.2, transition: 'opacity 0.4s' }}>
-            <span style={{ fontSize: '16px' }}>{i <= step ? '✓' : '○'}</span>
+          <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px', opacity: i <= step ? 1 : 0.2, transition: 'opacity 0.4s' }}>
+            <span style={{ fontSize: '16px' }}>{i <= step ? '✓' : 'O'}</span>
             <span style={{ fontFamily: 'var(--font-body)', fontSize: '16px', color: 'var(--color-ink)' }}>{s}</span>
           </div>
         ))}

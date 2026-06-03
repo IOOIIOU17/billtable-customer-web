@@ -13,7 +13,6 @@ export default function SignUp() {
 
   const handleSubmit = () => {
     if (!form.name || !form.phone || !form.email) return;
-    navigate('/theme');
     api.post('/api/auth/register', {
       name: form.name,
       email: form.email,
@@ -23,36 +22,28 @@ export default function SignUp() {
       if (res.data?.accessToken || res.data?.token) {
         localStorage.setItem('token', res.data.accessToken || res.data.token);
       }
-    }).catch(() => {});
+      navigate('/theme');
+    }).catch(() => {
+      navigate('/theme');
+    });
   };
 
   const inputStyle = {
-    width: '100%',
-    padding: '16px',
-    fontFamily: "'Patrick Hand', cursive",
-    fontSize: '16px',
-    border: '1.5px solid #1A1A1A',
-    borderRadius: '12px',
-    background: '#FEFEFE',
-    color: '#1A1A1A',
-    outline: 'none',
-    boxSizing: 'border-box'
+    width: '100%', padding: '16px',
+    fontFamily: "'Patrick Hand', cursive", fontSize: '16px',
+    border: '1.5px solid #1A1A1A', borderRadius: '12px',
+    background: '#FEFEFE', color: '#1A1A1A',
+    outline: 'none', boxSizing: 'border-box'
   };
 
   return (
     <div style={{
-      minHeight: '100vh',
-      background: '#FEFEFE',
-      maxWidth: '480px',
-      margin: '0 auto',
-      padding: '24px',
-      fontFamily: "'Patrick Hand', cursive",
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
+      minHeight: '100vh', background: '#FEFEFE',
+      maxWidth: '480px', margin: '0 auto',
+      padding: '24px', fontFamily: "'Patrick Hand', cursive",
+      display: 'flex', flexDirection: 'column',
+      alignItems: 'center', justifyContent: 'center',
     }}>
-
       <div style={{ textAlign: 'center', marginBottom: '40px', width: '100%' }}>
         <img src={billTableLogo} alt="BillTable" style={{ height: '64px', objectFit: 'contain', display: 'block', margin: '0 auto 8px' }} />
         <p style={{ fontFamily: "'Kalam', cursive", fontSize: '14px', color: '#999', margin: 0 }}>
@@ -66,15 +57,13 @@ export default function SignUp() {
         <input type="email" placeholder="Email address" value={form.email} onChange={handleChange('email')} style={inputStyle} />
       </div>
 
-      <button onClick={handleSubmit}
-        style={{
-          width: '100%', padding: '16px', background: '#1A1A1A', color: '#FEFEFE',
-          border: 'none', borderRadius: '12px', fontFamily: "'Caveat', cursive",
-          fontSize: '1.2rem', cursor: 'pointer', letterSpacing: '1px'
-        }}>
+      <button onClick={handleSubmit} style={{
+        width: '100%', padding: '16px', background: '#1A1A1A', color: '#FEFEFE',
+        border: 'none', borderRadius: '12px', fontFamily: "'Caveat', cursive",
+        fontSize: '1.2rem', cursor: 'pointer', letterSpacing: '1px'
+      }}>
         Let's go
       </button>
-
     </div>
   );
 }
