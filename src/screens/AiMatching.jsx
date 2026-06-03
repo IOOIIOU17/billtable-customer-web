@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useOrderStore from '../store/orderStore';
-import api from '../services/api';
+import { api } from '../services/api';
 import aiMatchingDoodle from '../assets/ai-matching-doodle.png';
 
 export default function AiMatching() {
@@ -34,14 +34,13 @@ export default function AiMatching() {
           avoid_spicy: store.avoidSpicy,
         });
         store.setMatchedRestaurant(res.data);
-      
-      } catch (e) {
-        console.log('matching error', e);
-      }
-      setTimeout(() => {
         clearInterval(interval);
         navigate('/result');
-      }, 2500);
+      } catch (e) {
+        console.log('matching error', e);
+        clearInterval(interval);
+        navigate('/result');
+      }
     };
 
     run();
@@ -65,11 +64,7 @@ export default function AiMatching() {
       <img
         src={aiMatchingDoodle}
         alt="AI Matching"
-        style={{
-          width: '220px',
-          height: '220px',
-          objectFit: 'contain',
-        }}
+        style={{ width: '220px', height: '220px', objectFit: 'contain' }}
       />
 
       <p style={{ fontFamily: 'var(--font-logo)', fontSize: '28px', textAlign: 'center' }}>
@@ -78,11 +73,7 @@ export default function AiMatching() {
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', width: '100%' }}>
         {steps.map((s, i) => (
-          <div key={s} style={{
-            display: 'flex', alignItems: 'center', gap: '12px',
-            opacity: i <= step ? 1 : 0.2,
-            transition: 'opacity 0.4s',
-          }}>
+          <div key={s} style={{ display: 'flex', alignItems: 'center', gap: '12px', opacity: i <= step ? 1 : 0.2, transition: 'opacity 0.4s' }}>
             <span style={{ fontSize: '16px' }}>{i <= step ? '✓' : '○'}</span>
             <span style={{ fontFamily: 'var(--font-body)', fontSize: '16px', color: 'var(--color-ink)' }}>{s}</span>
           </div>
