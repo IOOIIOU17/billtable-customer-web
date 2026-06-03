@@ -1,106 +1,95 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import useOrderStore from '../store/orderStore';
-import api from '../services/api';
-import tableImg from '../assets/table-illustration.png';
+import { useOrderStore } from '../store/orderStore';
 
 export default function MatchingResult() {
   const navigate = useNavigate();
   const store = useOrderStore();
-  const r = store.matchedRestaurant;
+  const matches = store.matches || [];
 
-  const handleFind = () => { navigate("/matching"); };
+  useEffect(() => {
+    if (!matches.length) {
+      navigate('/matching');
+    }
+  }, []);
 
-  if (!r) return (
-    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Patrick Hand', cursive" }}>
-      <p>ไม่พบข้อมูล กรุณาเริ่มใหม่</p>
-    </div>
-  );
-
-  const menus = r.menus || r.recommended_menus || [];
+  const handleFind = () => navigate('/matching');
+  const handleEdit = () => navigate('/edit-menu');
 
   return (
-    <div style={{ minHeight: '100vh', background: '#FEFEFE', maxWidth: '480px', margin: '0 auto', fontFamily: "'Patrick Hand', cursive" }}>
+    <div style={{ minHeight: '100vh', background: '#FEFEFE', fontFamily: "'Patrick Hand', sans-serif", padding: '24px 16px' }}>
 
-      {/* Hero Text */}
-      <div style={{ padding: '40px 28px 0' }}>
-        <p style={{ fontFamily: "'Kalam', cursive", fontSize: '13px', color: '#999', margin: '0 0 6px' }}>
-          we found the perfect place
-        </p>
-        <h1 style={{ fontFamily: "'Caveat', cursive", fontSize: '2.6rem', fontWeight: '700', color: '#1A1A1A', margin: '0', lineHeight: '1.1' }}>
-          your table<br />is ready
-        </h1>
-        <p style={{ fontFamily: "'Kalam', cursive", fontSize: '14px', color: '#666', margin: '10px 0 0' }}>
-          We found the perfect place for your {store.theme || 'dinner'}.
-        </p>
+      {/* Header */}
+      <div style={{ textAlign: 'center', marginBottom: '24px' }}>
+        <img src="/src/assets/billtable-logo.png" alt="BillTable" style={{ height: '40px' }} />
       </div>
 
-      {/* Table Illustration */}
-      <div style={{ padding: '16px 0', textAlign: 'center' }}>
-        <img src={tableImg} alt="your table" style={{ width: '100%', objectFit: 'contain' }} />
-      </div>
+      {/* Title */}
+      <h1 style={{ fontFamily: "'Caveat', cursive", fontSize: '1.8rem', fontWeight: '700', color: '#1A1A1A', textAlign: 'center', margin: '0 0 8px' }}>
+        Your Table is Ready
+      </h1>
+      <p style={{ textAlign: 'center', color: '#4A4A4A', fontSize: '14px', marginBottom: '28px' }}>
+        Bill AI found the best match for your event
+      </p>
 
-      {/* Restaurant + Menus */}
-      <div style={{ padding: '0 28px', display: 'flex', gap: '20px', alignItems: 'flex-start', marginBottom: '28px' }}>
+      {/* Match Cards */}
+      {matches.map((r, i) => (
+        <div key={i} style={{ border: '2px solid #1A1A1A', borderRadius: '16px', padding: '20px', marginBottom: '16px', background: '#fff' }}>
 
-        {/* Left: Restaurant Info */}
-        <div style={{ flex: '0 0 auto', width: '44%' }}>
-          <h2 style={{ fontFamily: "'Caveat', cursive", fontSize: '1.5rem', fontWeight: '700', color: '#1A1A1A', margin: '0 0 4px' }}>
-            {r.restaurant_name || r.name}
-          </h2>
-          <div style={{ display: 'flex', gap: '5px', flexWrap: 'wrap', marginBottom: '12px' }}>
-            {[store.theme, 'Casual', 'Family Friendly'].filter(Boolean).map((tag, i) => (
-              <span key={i} style={{ border: '1.5px solid #1A1A1A', borderRadius: '20px', padding: '1px 10px', fontSize: '11px', fontFamily: "'Kalam', cursive", color: '#1A1A1A', whiteSpace: 'nowrap' }}>
-                {tag}
-              </span>
-            ))}
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-            <p style={{ margin: 0, fontSize: '13px', color: '#333' }}>{store.guestCount || '—'} people</p>
-            <p style={{ margin: 0, fontSize: '13px', color: '#333' }}>${store.budget || '—'} budget</p>
-            <p style={{ margin: 0, fontSize: '13px', color: '#333' }}>~1.5 hr estimated duration</p>
-            <p style={{ margin: 0, fontSize: '13px', color: '#333' }}>{r.address || r.location || 'Los Angeles, CA'}</p>
-            {r.rating && <p style={{ margin: 0, fontSize: '13px', color: '#333' }}>☆ {r.rating} ({r.review_count || 0} reviews)</p>}
-          </div>
-        </div>
+          {/* Restaurant + Menus */}
+          <div style={{ padding: '0 28px', display: 'flex', gap: '20px', alignItems: 'flex-start', marginBottom: '28px' }}>
 
-        {/* Right: Menus */}
-        <div style={{ flex: 1 }}>
-          <p style={{ fontFamily: "'Kalam', cursive", fontSize: '11px', color: '#999', margin: '0 0 12px', textAlign: 'right' }}>
-            recommended for your table
-          </p>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-            {menus.map((menu, i) => (
-              <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
-                <div style={{ width: '44px', height: '44px', borderRadius: '50%', border: '1.5px solid #ccc', flexShrink: 0, background: '#f8f8f8' }} />
-                <div style={{ flex: 1 }}>
-                  <p style={{ margin: '0 0 2px', fontSize: '14px', fontFamily: "'Caveat', cursive", fontWeight: 'bold', color: '#1A1A1A' }}>
-                    {menu.name}
-                  </p>
-                  <p style={{ margin: 0, fontSize: '11px', color: '#888', fontFamily: "'Kalam', cursive", lineHeight: '1.3' }}>
-                    {menu.reason || menu.description || ''}
-                  </p>
-                </div>
+            {/* Left: Restaurant Info */}
+            <div style={{ flex: '0 0 auto', width: '44%' }}>
+              <h2 style={{ fontFamily: "'Caveat', cursive", fontSize: '1.5rem', fontWeight: '700', color: '#1A1A1A', margin: '0 0 4px' }}>
+                {r.restaurant?.name || r.name}
+              </h2>
+              <div style={{ display: 'flex', gap: '5px', flexWrap: 'wrap', marginBottom: '12px' }}>
+                {[store.theme, 'Casual', 'Family Friendly'].filter(Boolean).map((tag, i) => (
+                  <span key={i} style={{ border: '1.5px solid #1A1A1A', borderRadius: '20px', padding: '1px 10px', fontSize: '11px', fontFamily: "'Kalam', cursive", color: '#1A1A1A', whiteSpace: 'nowrap' }}>
+                    {tag}
+                  </span>
+                ))}
               </div>
-            ))}
-          </div>
-        </div>
-      </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                <p style={{ margin: 0, fontSize: '13px', color: '#333' }}>{store.guestCount || '-'} people</p>
+                <p style={{ margin: 0, fontSize: '13px', color: '#333' }}>${store.budget || '-'} budget</p>
+                <p style={{ margin: 0, fontSize: '13px', color: '#333' }}>~1.5 hr estimated duration</p>
+              </div>
+            </div>
 
-      {/* 3 Buttons */}
-      <div style={{ padding: '0 28px 48px', display: 'flex', gap: '10px' }}>
-        <button onClick={() => navigate('/edit-menu')}
-          style={{ flex: 1, padding: '14px 8px', background: 'none', color: '#1A1A1A', border: '1.5px solid #1A1A1A', borderRadius: '12px', fontFamily: "'Caveat', cursive", fontSize: '1rem', cursor: 'pointer' }}>
-          Edit
-        </button>
-        <button onClick={() => navigate('/community')}
-          style={{ flex: 1, padding: '14px 8px', background: '#1A1A1A', color: '#FEFEFE', border: 'none', borderRadius: '12px', fontFamily: "'Caveat', cursive", fontSize: '1.1rem', cursor: 'pointer', letterSpacing: '1px' }}>
-          Perfect
-        </button>
-        <button onClick={handleFind}
-          style={{ flex: 1, padding: '14px 8px', background: 'none', color: '#1A1A1A', border: '1.5px solid #1A1A1A', borderRadius: '12px', fontFamily: "'Caveat', cursive", fontSize: '1rem', cursor: 'pointer' }}>
-          Find
-        </button>
-      </div>
+            {/* Right: Menu Items */}
+            <div style={{ flex: 1 }}>
+              {(r.recommended_menus || r.menus || []).slice(0, 3).map((menu, j) => (
+                <div key={j} style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+                  <div style={{ width: '36px', height: '36px', borderRadius: '8px', border: '1.5px solid #1A1A1A', background: '#f5f5f5', flexShrink: 0, overflow: 'hidden' }}>
+                    {menu.image_url && <img src={menu.image_url} alt={menu.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />}
+                  </div>
+                  <div>
+                    <p style={{ margin: 0, fontSize: '12px', fontWeight: '600', color: '#1A1A1A' }}>{menu.name}</p>
+                    <p style={{ margin: 0, fontSize: '11px', color: '#4A4A4A' }}>${menu.price}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Action Buttons */}
+          <div style={{ display: 'flex', gap: '10px', marginTop: '4px' }}>
+            <button
+              onClick={handleEdit}
+              style={{ flex: 1, padding: '10px', border: '2px solid #1A1A1A', borderRadius: '12px', background: '#fff', fontFamily: "'Patrick Hand', sans-serif", fontSize: '14px', cursor: 'pointer' }}>
+              Edit Menu
+            </button>
+            <button
+              onClick={handleFind}
+              style={{ flex: 1, padding: '10px', border: '2px solid #1A1A1A', borderRadius: '12px', background: '#1A1A1A', color: '#fff', fontFamily: "'Patrick Hand', sans-serif", fontSize: '14px', cursor: 'pointer' }}>
+              Find
+            </button>
+          </div>
+
+        </div>
+      ))}
 
     </div>
   );
