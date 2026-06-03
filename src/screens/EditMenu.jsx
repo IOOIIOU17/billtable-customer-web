@@ -45,7 +45,7 @@ export default function EditMenu() {
 
       <button onClick={() => navigate('/result')}
         style={{ background: 'none', border: 'none', fontFamily: "'Kalam', cursive", fontSize: '14px', color: '#999', cursor: 'pointer', padding: '0 0 24px', display: 'block' }}>
-        ← back
+        back
       </button>
 
       <h1 style={{ fontFamily: "'Caveat', cursive", fontSize: '2rem', fontWeight: '700', color: '#1A1A1A', margin: '0 0 4px' }}>
@@ -55,8 +55,8 @@ export default function EditMenu() {
         pick what you want · swap what you don't
       </p>
 
-      <p style={{ fontFamily: "'Caveat', cursive", fontSize: '1.1rem', color: '#1A1A1A', margin: '0 0 12px' }}>
-        ✦ AI recommended
+      <p style={{ fontFamily: "'Caveat', cursive", fontWeight: '700', fontSize: '1.2rem', color: '#1A1A1A', margin: '0 0 12px' }}>
+        BillTable recommends
       </p>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '28px' }}>
@@ -89,7 +89,7 @@ export default function EditMenu() {
       </div>
 
       <p style={{ fontFamily: "'Caveat', cursive", fontSize: '1.1rem', color: '#1A1A1A', margin: '0 0 12px' }}>
-        ◎ swap with these
+        swap with these
       </p>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '32px' }}>
