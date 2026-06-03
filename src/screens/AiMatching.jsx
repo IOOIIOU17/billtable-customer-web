@@ -1,8 +1,27 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useOrderStore from '../store/orderStore';
-import api from '../services/api';
 import aiMatchingDoodle from '../assets/ai-matching-doodle.png';
+
+const mockMatch = {
+  restaurant: {
+    id: 1,
+    name: 'The Thai Kitchen',
+    address: '123 Main St, Los Angeles, CA',
+    phone: '213-555-0101',
+  },
+  recommended_menus: [
+    { id: 1, name: 'Pad Thai', price: 14.99, image_url: null },
+    { id: 2, name: 'Green Curry', price: 15.99, image_url: null },
+    { id: 3, name: 'Spring Rolls', price: 8.99, image_url: null },
+    { id: 4, name: 'Fried Rice', price: 13.99, image_url: null },
+    { id: 5, name: 'Tom Yum Soup', price: 12.99, image_url: null },
+    { id: 6, name: 'Mango Sticky Rice', price: 7.99, image_url: null },
+    { id: 7, name: 'Satay Chicken', price: 11.99, image_url: null },
+    { id: 8, name: 'Papaya Salad', price: 9.99, image_url: null },
+  ],
+  estimated_total: 89.99,
+};
 
 export default function AiMatching() {
   const navigate = useNavigate();
@@ -20,31 +39,18 @@ export default function AiMatching() {
   useEffect(() => {
     const interval = setInterval(() => {
       setStep((s) => (s < steps.length - 1 ? s + 1 : s));
-    }, 800);
+    }, 500);
 
-    const run = async () => {
-      try {
-        const res = await api.post('/api/matching/find', {
-          latitude: 34.0522,
-          longitude: -118.2437,
-          cuisine_type: store.theme,
-          budget: store.budget,
-          guest_count: store.guestCount,
-          allergies: store.allergies,
-          avoid_spicy: store.avoidSpicy,
-        });
-        store.setMatchedRestaurant(res.data.matches[0]);
-        clearInterval(interval);
-        navigate('/result');
-      } catch (e) {
-        console.log('matching error', e);
-        clearInterval(interval);
-        navigate('/matching');
-      }
+    const timer = setTimeout(() => {
+      clearInterval(interval);
+      store.setMatchedRestaurant(mockMatch);
+      navigate('/result');
+    }, 2500);
+
+    return () => {
+      clearInterval(interval);
+      clearTimeout(timer);
     };
-
-    run();
-    return () => clearInterval(interval);
   }, []);
 
   return (
