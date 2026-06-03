@@ -44,7 +44,7 @@ export default function Confirmation() {
       const data = await res.json();
       if (data.restaurant) {
         setMatchedRestaurant(data.restaurant);
-        navigate('/ai-matching');
+        navigate('/matching');
       }
     } catch (e) {
       console.error(e);
