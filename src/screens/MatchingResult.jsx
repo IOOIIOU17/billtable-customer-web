@@ -8,7 +8,7 @@ export default function MatchingResult() {
   const store = useOrderStore();
   const r = store.matchedRestaurant;
 
-  const handleFind = () => { navigate("/ai-matching"); };
+  const handleFind = () => { navigate("/matching"); };
 
   if (!r) return (
     <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Patrick Hand', cursive" }}>
