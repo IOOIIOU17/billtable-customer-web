@@ -1,96 +1,88 @@
-import api from '../services/api';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import logo from '../assets/billtable-logo.png';
+import api from '../services/api';
+import useOrderStore from '../store/orderStore';
 
 export default function SignUp() {
   const navigate = useNavigate();
+  const store = useOrderStore();
   const [form, setForm] = useState({ name: '', phone: '', email: '' });
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (field) => (e) => {
+    setForm(prev => ({ ...prev, [field]: e.target.value }));
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     if (!form.name || !form.phone || !form.email) return;
-    try {
-      const res = await api.post('/api/auth/register', {
-        name: form.name,
-        email: form.email,
-        password: form.phone,
-        role: 'customer'
-      });
-      if (res.data && (res.data.accessToken || res.data.token)) {
+    navigate('/theme');
+    api.post('/api/auth/register', {
+      name: form.name,
+      email: form.email,
+      password: form.phone,
+      role: 'customer'
+    }).then(res => {
+      if (res.data?.accessToken || res.data?.token) {
         localStorage.setItem('token', res.data.accessToken || res.data.token);
       }
-      navigate('/theme');
-    } catch (e) {
-      const msg = e?.response?.data?.message || '';
-      if (msg.toLowerCase().includes('already') || msg.toLowerCase().includes('exist') || e?.response?.status === 409) {
-        navigate('/theme');
-      }
-    }
+    }).catch(() => {});
   };
 
   const inputStyle = {
     width: '100%',
-    padding: '12px 16px',
-    border: '2px solid var(--color-ink)',
-    borderRadius: 'var(--radius)',
-    fontFamily: 'var(--font-body)',
+    padding: '16px',
+    fontFamily: "'Patrick Hand', cursive",
     fontSize: '16px',
-    background: 'var(--color-paper)',
-    color: 'var(--color-ink)',
+    border: '1.5px solid #1A1A1A',
+    borderRadius: '12px',
+    background: '#FEFEFE',
+    color: '#1A1A1A',
     outline: 'none',
+    boxSizing: 'border-box'
   };
 
   return (
-    <div style={{
-      minHeight: '100vh',
-      background: 'var(--color-paper)',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: '32px',
-      gap: '20px',
-      maxWidth: '400px',
-      margin: '0 auto',
-    }}>
+    <div style={{ minHeight: '100vh', background: '#FEFEFE', maxWidth: '480px', margin: '0 auto', padding: '48px 24px', fontFamily: "'Patrick Hand', cursive" }}>
 
-      <img
-        src={logo}
-        alt="BillTable"
-        style={{
-          height: '56px',
-          objectFit: 'contain',
-        }}
-      />
-
-      <p style={{ fontFamily: 'var(--font-body)', fontSize: '20px', textAlign: 'center' }}>
+      <h1 style={{ fontFamily: "'Caveat', cursive", fontSize: '2.5rem', fontWeight: '700', color: '#1A1A1A', textAlign: 'center', margin: '0 0 8px' }}>
+        BillTable
+      </h1>
+      <p style={{ fontFamily: "'Kalam', cursive", fontSize: '14px', color: '#999', textAlign: 'center', margin: '0 0 40px' }}>
         Let's save your table first.
       </p>
-      <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-        <input style={inputStyle} name="name" placeholder="Name" value={form.name} onChange={handleChange} />
-        <input style={inputStyle} name="phone" placeholder="Phone" value={form.phone} onChange={handleChange} />
-        <input style={inputStyle} name="email" placeholder="Email" value={form.email} onChange={handleChange} />
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '32px' }}>
+        <input
+          type="text"
+          placeholder="Your name"
+          value={form.name}
+          onChange={handleChange('name')}
+          style={inputStyle}
+        />
+        <input
+          type="tel"
+          placeholder="Phone number"
+          value={form.phone}
+          onChange={handleChange('phone')}
+          style={inputStyle}
+        />
+        <input
+          type="email"
+          placeholder="Email address"
+          value={form.email}
+          onChange={handleChange('email')}
+          style={inputStyle}
+        />
       </div>
-      <button
-        onClick={handleSubmit}
+
+      <button onClick={handleSubmit}
         style={{
-          width: '100%',
-          background: 'var(--color-ink)',
-          color: 'var(--color-paper)',
-          border: '2px solid var(--color-ink)',
-          borderRadius: 'var(--radius)',
-          padding: '14px',
-          fontFamily: 'var(--font-body)',
-          fontSize: '18px',
-          cursor: 'pointer',
-        }}
-      >
+          width: '100%', padding: '16px', background: '#1A1A1A', color: '#FEFEFE',
+          border: 'none', borderRadius: '12px', fontFamily: "'Caveat', cursive",
+          fontSize: '1.2rem', cursor: 'pointer', letterSpacing: '1px'
+        }}>
         Let's go
       </button>
+
     </div>
   );
 }
