@@ -6,26 +6,35 @@ import billTableLogo from '../assets/billtable-logo.png';
 export default function SignUp() {
   const navigate = useNavigate();
   const [form, setForm] = useState({ name: '', email: '', password: '' });
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (field) => (e) => {
     setForm(prev => ({ ...prev, [field]: e.target.value }));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!form.name || !form.email || !form.password) return;
-    api.post('/api/auth/register', {
-      name: form.name,
-      email: form.email,
-      password: form.password,
-      role: 'customer'
-    }).then(res => {
+    setLoading(true);
+    setError('');
+    try {
+      const res = await api.post('/api/auth/register', {
+        name: form.name,
+        email: form.email,
+        password: form.password,
+        role: 'customer'
+      });
       if (res.data?.accessToken) {
         localStorage.setItem('token', res.data.accessToken);
+        navigate('/theme');
+      } else {
+        setError('No token received. Please try again.');
       }
-      navigate('/theme');
-    }).catch(() => {
-      navigate('/theme');
-    });
+    } catch (err) {
+      setError(err.response?.data?.message || 'Connection failed. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const inputStyle = {
@@ -57,13 +66,15 @@ export default function SignUp() {
         <input type="password" placeholder="Password" value={form.password} onChange={handleChange('password')} style={inputStyle} />
       </div>
 
-      <button onClick={handleSubmit} style={{
-        width: '100%', padding: '16px', background: '#1A1A1A',
+      {error ? <p style={{ color: 'red', fontFamily: "'Kalam', cursive", fontSize: '14px', marginBottom: '16px', textAlign: 'center' }}>{error}</p> : null}
+
+      <button onClick={handleSubmit} disabled={loading} style={{
+        width: '100%', padding: '16px', background: loading ? '#999' : '#1A1A1A',
         color: '#FEFEFE', border: 'none', borderRadius: '12px',
         fontFamily: "'Caveat', cursive", fontSize: '1.2rem',
-        cursor: 'pointer', letterSpacing: '1px'
+        cursor: loading ? 'not-allowed' : 'pointer', letterSpacing: '1px'
       }}>
-        Let's go
+        {loading ? 'Please wait...' : "Let's go"}
       </button>
     </div>
   );
