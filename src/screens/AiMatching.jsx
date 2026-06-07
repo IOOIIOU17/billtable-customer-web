@@ -5,8 +5,8 @@ import aiMatchingDoodle from '../assets/ai-matching-doodle.png';
 
 const mockMatch = {
   restaurant: {
-    id: 1,
-    name: 'The Thai Kitchen',
+    id: 6,
+    name: 'Downy Thai Kitchen',
     address: '123 Main St, Los Angeles, CA',
     phone: '213-555-0101',
   },
@@ -73,7 +73,7 @@ export default function AiMatching() {
       <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', width: '100%' }}>
         {steps.map((s, i) => (
           <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px', opacity: i <= step ? 1 : 0.2, transition: 'opacity 0.4s' }}>
-            <span style={{ fontSize: '16px' }}>{i <= step ? '✓' : 'O'}</span>
+            <span style={{ fontSize: '16px' }}>{i <= step ? '✓' : '○'}</span>
             <span style={{ fontFamily: 'var(--font-body)', fontSize: '16px', color: 'var(--color-ink)' }}>{s}</span>
           </div>
         ))}
