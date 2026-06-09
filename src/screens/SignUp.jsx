@@ -17,7 +17,7 @@ export default function SignUp() {
         email: form.email,
         password: form.password,
       });
-      const token = res.data?.data?.token || res.data?.token;
+      const token = res.data?.accessToken || res.data?.data?.token || res.data?.token;
       if (token) {
         localStorage.setItem('token', token);
         navigate('/theme');
