@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Welcome from './screens/Welcome';
 import SignUp from './screens/SignUp';
+import Login from './screens/Login';
 import ThemeSelector from './screens/ThemeSelector';
 import GuestCount from './screens/GuestCount';
 import Budget from './screens/Budget';
@@ -21,6 +22,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Welcome />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/theme" element={<ThemeSelector />} />
         <Route path="/guests" element={<GuestCount />} />
         <Route path="/budget" element={<Budget />} />
