@@ -1,27 +1,23 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
-import billTableLogo from '../assets/billtable-logo.png';
+import billTableLogo from '../assets/billtable-logo.svg';
 
 export default function SignUp() {
   const navigate = useNavigate();
-  const [form, setForm] = useState({ name: '', password: '' });
+  const [form, setForm] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async () => {
-    if (!form.name || !form.password) {
-      setError('Please fill in all fields');
-      return;
-    }
-    setLoading(true);
     setError('');
+    setLoading(true);
     try {
       const res = await api.post('/api/auth/login', {
-        email: form.name,
+        email: form.email,
         password: form.password,
       });
-      const token = res.data.data?.token || res.data.token;
+      const token = res.data?.data?.token || res.data?.token;
       if (token) {
         localStorage.setItem('token', token);
         navigate('/theme');
@@ -29,7 +25,7 @@ export default function SignUp() {
         setError('Login failed. Please try again.');
       }
     } catch (err) {
-      setError(err.response?.data?.message || 'Login failed');
+      setError(err.response?.data?.message || 'Login failed.');
     } finally {
       setLoading(false);
     }
@@ -52,8 +48,21 @@ export default function SignUp() {
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '16px', width: '100%' }}>
-        <input type="text" placeholder="Your name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} style={inputStyle} />
-        <input type="password" placeholder="Password" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} onKeyDown={(e) => e.key === 'Enter' && handleSubmit()} style={inputStyle} />
+        <input
+          type="email"
+          placeholder="Email address"
+          value={form.email}
+          onChange={(e) => setForm({ ...form, email: e.target.value })}
+          style={inputStyle}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={form.password}
+          onChange={(e) => setForm({ ...form, password: e.target.value })}
+          onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
+          style={inputStyle}
+        />
       </div>
 
       {error && <p style={{ color: 'red', fontFamily: "'Kalam', cursive", fontSize: '14px', marginBottom: '16px', textAlign: 'center' }}>{error}</p>}
