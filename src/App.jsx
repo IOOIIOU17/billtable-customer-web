@@ -15,6 +15,8 @@ import Payment from './screens/Payment';
 import Confirmation from './screens/Confirmation';
 import MatchingResult from './screens/MatchingResult';
 import EditMenu from './screens/EditMenu';
+import OrderHistory from './screens/OrderHistory';
+import OrderTracking from './screens/OrderTracking';
 
 export default function App() {
   return (
@@ -36,6 +38,8 @@ export default function App() {
         <Route path="/summary" element={<Summary />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/confirmation" element={<Confirmation />} />
+        <Route path="/history" element={<OrderHistory />} />
+        <Route path="/tracking/:orderId" element={<OrderTracking />} />
       </Routes>
     </BrowserRouter>
   );
