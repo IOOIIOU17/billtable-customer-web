@@ -1,32 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useOrderStore from '../store/orderStore';
+import api from '../services/api';
 import aiMatchingDoodle from '../assets/ai-matching-doodle.png';
-
-const mockMatch = {
-  restaurant: {
-    id: 6,
-    name: 'Downy Thai Kitchen',
-    address: '123 Main St, Los Angeles, CA',
-    phone: '213-555-0101',
-  },
-  recommended_menus: [
-    { id: 1, name: 'Pad Thai', price: 14.99, image_url: null },
-    { id: 2, name: 'Green Curry', price: 15.99, image_url: null },
-    { id: 3, name: 'Spring Rolls', price: 8.99, image_url: null },
-    { id: 4, name: 'Fried Rice', price: 13.99, image_url: null },
-    { id: 5, name: 'Tom Yum Soup', price: 12.99, image_url: null },
-    { id: 6, name: 'Mango Sticky Rice', price: 7.99, image_url: null },
-    { id: 7, name: 'Satay Chicken', price: 11.99, image_url: null },
-    { id: 8, name: 'Papaya Salad', price: 9.99, image_url: null },
-  ],
-  estimated_total: 89.99,
-};
 
 export default function AiMatching() {
   const navigate = useNavigate();
   const store = useOrderStore();
   const [step, setStep] = useState(0);
+  const [error, setError] = useState('');
 
   const steps = [
     'Matching theme...',
@@ -41,11 +23,36 @@ export default function AiMatching() {
       setStep((s) => (s < steps.length - 1 ? s + 1 : s));
     }, 500);
 
+    const runMatching = async () => {
+      try {
+        const res = await api.post('/api/matching/find', {
+          latitude: store.latitude,
+          longitude: store.longitude,
+          cuisine_type: store.theme || null,
+          budget: store.budget || null,
+          guest_count: store.guestCount || 1,
+          allergies: store.allergies || [],
+          avoid_spicy: store.avoidSpicy || false,
+        });
+
+        const data = res.data;
+
+        if (data.count > 0) {
+          store.setMatchedRestaurant(data.matches[0]);
+          navigate('/result');
+        } else {
+          setError('ไม่พบร้านที่ตรงกับเงื่อนไข ลองปรับ budget หรือ theme ดูนะครับ');
+        }
+      } catch (err) {
+        console.error('Matching error:', err);
+        setError('เกิดข้อผิดพลาดในการค้นหาร้าน กรุณาลองใหม่');
+      }
+    };
+
     const timer = setTimeout(() => {
       clearInterval(interval);
-      store.setMatchedRestaurant(mockMatch);
-      navigate('/result');
-    }, 2500);
+      runMatching();
+    }, 2000);
 
     return () => {
       clearInterval(interval);
@@ -70,14 +77,39 @@ export default function AiMatching() {
       <p style={{ fontFamily: 'var(--font-logo)', fontSize: '28px', textAlign: 'center' }}>
         Bill AI is building your table.
       </p>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', width: '100%' }}>
-        {steps.map((s, i) => (
-          <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px', opacity: i <= step ? 1 : 0.2, transition: 'opacity 0.4s' }}>
-            <span style={{ fontSize: '16px' }}>{i <= step ? '✓' : '○'}</span>
-            <span style={{ fontFamily: 'var(--font-body)', fontSize: '16px', color: 'var(--color-ink)' }}>{s}</span>
-          </div>
-        ))}
-      </div>
+
+      {!error && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', width: '100%' }}>
+          {steps.map((s, i) => (
+            <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px', opacity: i <= step ? 1 : 0.2, transition: 'opacity 0.4s' }}>
+              <span style={{ fontSize: '16px' }}>{i <= step ? '✓' : 'O'}</span>
+              <span style={{ fontFamily: 'var(--font-body)', fontSize: '16px', color: 'var(--color-ink)' }}>{s}</span>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {error && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '100%', alignItems: 'center' }}>
+          <p style={{ fontFamily: 'var(--font-body)', fontSize: '18px', textAlign: 'center' }}>{error}</p>
+          <button
+            onClick={() => navigate('/time')}
+            style={{
+              width: '100%',
+              background: 'var(--color-ink)',
+              color: 'var(--color-paper)',
+              border: '2px solid var(--color-ink)',
+              borderRadius: 'var(--radius)',
+              padding: '14px',
+              fontFamily: 'var(--font-body)',
+              fontSize: '18px',
+              cursor: 'pointer',
+            }}
+          >
+            ← Back
+          </button>
+        </div>
+      )}
     </div>
   );
 }

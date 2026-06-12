@@ -6,11 +6,16 @@ export default function TimeLocation() {
   const navigate = useNavigate();
   const setDeliveryTime = useOrderStore((s) => s.setDeliveryTime);
   const setDeliveryAddress = useOrderStore((s) => s.setDeliveryAddress);
+  const setLocation = useOrderStore((s) => s.setLocation);
+  const latitude = useOrderStore((s) => s.latitude);
+  const longitude = useOrderStore((s) => s.longitude);
+
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const [address, setAddress] = useState('');
   const [building, setBuilding] = useState('');
   const [phone, setPhone] = useState('');
+  const [locationStatus, setLocationStatus] = useState('');
 
   const inputStyle = {
     width: '100%',
@@ -22,6 +27,23 @@ export default function TimeLocation() {
     background: 'var(--color-paper)',
     color: 'var(--color-ink)',
     outline: 'none',
+  };
+
+  const handleUseLocation = () => {
+    if (!navigator.geolocation) {
+      setLocationStatus('เบราว์เซอร์นี้ไม่รองรับการหาตำแหน่ง');
+      return;
+    }
+    setLocationStatus('กำลังค้นหาตำแหน่ง...');
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        setLocation(pos.coords.latitude, pos.coords.longitude);
+        setLocationStatus('✓ ได้ตำแหน่งปัจจุบันแล้ว');
+      },
+      () => {
+        setLocationStatus('ไม่สามารถเข้าถึงตำแหน่งได้ กรุณากรอกที่อยู่เอง');
+      }
+    );
   };
 
   const handleNext = () => {
@@ -53,6 +75,35 @@ export default function TimeLocation() {
         <input style={{ ...inputStyle, flex: 1 }} type="date" value={date} onChange={(e) => setDate(e.target.value)} />
         <input style={{ ...inputStyle, width: '120px' }} type="time" value={time} onChange={(e) => setTime(e.target.value)} />
       </div>
+
+      <button
+        onClick={handleUseLocation}
+        style={{
+          width: '100%',
+          background: 'var(--color-paper)',
+          color: 'var(--color-ink)',
+          border: '2px dashed var(--color-ink)',
+          borderRadius: 'var(--radius)',
+          padding: '12px',
+          fontFamily: 'var(--font-body)',
+          fontSize: '16px',
+          cursor: 'pointer',
+        }}
+      >
+        📍 Use my current location
+      </button>
+
+      {locationStatus && (
+        <p style={{ fontFamily: 'var(--font-hint)', fontSize: '14px', textAlign: 'center', margin: 0 }}>
+          {locationStatus}
+        </p>
+      )}
+
+      {latitude && longitude && (
+        <p style={{ fontFamily: 'var(--font-hint)', fontSize: '12px', color: 'var(--color-pencil)', margin: 0 }}>
+          Lat: {latitude.toFixed(4)}, Lng: {longitude.toFixed(4)}
+        </p>
+      )}
 
       <input style={inputStyle} placeholder="Delivery address" value={address} onChange={(e) => setAddress(e.target.value)} />
       <input style={inputStyle} placeholder="Building / unit (optional)" value={building} onChange={(e) => setBuilding(e.target.value)} />

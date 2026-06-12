@@ -15,6 +15,8 @@ export default function Confirmation() {
   const avoidSpicy = useOrderStore((s) => s.avoidSpicy);
   const deliveryTime = useOrderStore((s) => s.deliveryTime);
   const deliveryAddress = useOrderStore((s) => s.deliveryAddress);
+  const latitude = useOrderStore((s) => s.latitude);
+  const longitude = useOrderStore((s) => s.longitude);
 
   const steps = [
     'Order received',
@@ -47,6 +49,8 @@ export default function Confirmation() {
           avoidSpicy,
           deliveryTime,
           deliveryAddress,
+          latitude,
+          longitude,
         }, {
           headers: { Authorization: `Bearer ${token}` }
         });
