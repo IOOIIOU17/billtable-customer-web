@@ -28,7 +28,11 @@ export default function AiMatching() {
         const res = await api.post('/api/matching/find', {
           latitude: store.latitude,
           longitude: store.longitude,
-          cuisine_type: store.theme || null,
+          cuisine_type: (() => {
+            const knownCuisines = ['thai', 'japanese', 'sushi', 'mexican', 'italian', 'chinese'];
+            const t = (store.theme || '').toLowerCase();
+            return knownCuisines.includes(t) ? store.theme : null;
+          })(),
           budget: store.budget || null,
           guest_count: store.guestCount || 1,
           allergies: store.allergies || [],
