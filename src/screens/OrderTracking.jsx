@@ -15,7 +15,7 @@ export default function OrderTracking() {
   const fetchOrder = () => {
     api.get(`/api/orders/${orderId}`)
       .then(res => {
-        setOrder(res.data.order || res.data)
+        setOrder(res.data?.data?.order || res.data?.order || res.data)
         setLoading(false)
       })
       .catch(() => setLoading(false))
