@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import api from '../services/api'
+import useOrderStore from '../store/orderStore'
 
 export default function OrderHistory() {
   const navigate = useNavigate()
@@ -33,7 +34,32 @@ export default function OrderHistory() {
       return
     }
 
-    navigate('/reorder', { state: { order } })
+    const menuItems = (order.order_items || []).map(i => ({
+      name: i.item_name,
+      price: parseFloat(i.unit_price),
+      reason: 'From your previous order',
+    }))
+
+    useOrderStore.setState({
+      theme: order.theme || '',
+      guestCount: order.guest_count || 0,
+      budget: order.budget || 0,
+      allergies: order.allergies ? order.allergies.split(',').map(s => s.trim()).filter(Boolean) : [],
+      avoidSpicy: !!order.avoid_spicy,
+      deliveryTime: order.delivery_time || '',
+      deliveryAddress: order.delivery_address || '',
+      latitude: order.latitude,
+      longitude: order.longitude,
+      isReorder: true,
+      matchedRestaurant: {
+        restaurant: { id: order.restaurant_id },
+        menus: menuItems,
+        extra_menus: [],
+        recommended_menus: menuItems,
+      },
+    })
+
+    navigate('/edit-menu')
   }
 
   const setDraft = (orderId, field, value) => {

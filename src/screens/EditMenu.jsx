@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useOrderStore from '../store/orderStore';
 import billTableLogo from '../assets/billtable-logo.png';
+import api from '../services/api';
 
 const MOCK_AI_MENUS = [
   { id: 1, name: 'Pad Thai', reason: 'Popular choice for groups' },
@@ -28,6 +29,7 @@ export default function EditMenu() {
 
   const [selected, setSelected] = useState(aiMenus.map((_, i) => i));
   const [comment, setComment] = useState('');
+  const [submitting, setSubmitting] = useState(false);
 
   const toggleMenu = (index) => {
     setSelected(prev =>
@@ -37,6 +39,39 @@ export default function EditMenu() {
 
   const handleConfirm = () => {
     const finalMenus = allMenus.filter((_, i) => selected.includes(i));
+
+    if (store.isReorder) {
+      if (finalMenus.length === 0) {
+        alert('กรุณาเลือกเมนูอย่างน้อย 1 รายการ');
+        return;
+      }
+      setSubmitting(true);
+      const token = localStorage.getItem('token');
+      api.post('/api/orders', {
+        restaurantId: r?.restaurant?.id,
+        items: finalMenus.map((m) => ({ name: m.name, quantity: 1, unitPrice: m.price })),
+        theme: store.theme,
+        guestCount: store.guestCount,
+        budget: store.budget,
+        allergies: (store.allergies || []).join(', '),
+        avoidSpicy: store.avoidSpicy,
+        deliveryTime: store.deliveryTime,
+        deliveryAddress: store.deliveryAddress,
+        latitude: store.latitude,
+        longitude: store.longitude,
+      }, {
+        headers: { Authorization: `Bearer ${token}` }
+      }).then((res) => {
+        const newOrder = res.data?.data || res.data?.order || res.data;
+        store.setIsReorder(false);
+        navigate(`/tracking/${newOrder.id}`);
+      }).catch(() => {
+        alert('Order failed. Please try again.');
+        setSubmitting(false);
+      });
+      return;
+    }
+
     store.setMatchedRestaurant({ ...r, menus: finalMenus, comment });
     navigate('/result');
   };
@@ -140,13 +175,14 @@ export default function EditMenu() {
         }}
       />
 
-      <button onClick={handleConfirm}
+      <button onClick={handleConfirm} disabled={submitting}
         style={{
           width: '100%', padding: '16px', background: '#1A1A1A', color: '#FEFEFE',
           border: 'none', borderRadius: '12px', fontFamily: "'Caveat', cursive",
-          fontSize: '1.2rem', cursor: 'pointer', letterSpacing: '1px'
+          fontSize: '1.2rem', cursor: submitting ? 'default' : 'pointer', letterSpacing: '1px',
+          opacity: submitting ? 0.6 : 1,
         }}>
-        Done
+        {submitting ? 'placing order...' : (store.isReorder ? 'Confirm & Order \u2192' : 'Done')}
       </button>
 
     </div>

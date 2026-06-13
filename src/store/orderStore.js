@@ -13,6 +13,7 @@ const useOrderStore = create((set) => ({
   matchedRestaurant: null,
   latitude: null,
   longitude: null,
+  isReorder: false,
 
   setTheme: (v) => set({ theme: v }),
   setGuestCount: (v) => set({ guestCount: v }),
@@ -25,6 +26,7 @@ const useOrderStore = create((set) => ({
   setCommunityType: (v) => set({ communityType: v }),
   setMatchedRestaurant: (v) => set({ matchedRestaurant: v }),
   setLocation: (lat, lng) => set({ latitude: lat, longitude: lng }),
+  setIsReorder: (v) => set({ isReorder: v }),
 
   reset: () => set({
     theme: '', guestCount: 0, budget: 0,
@@ -32,6 +34,7 @@ const useOrderStore = create((set) => ({
     deliveryTime: '', deliveryAddress: '',
     communityType: '', matchedRestaurant: null,
     latitude: null, longitude: null,
+    isReorder: false,
   }),
 }));
 
