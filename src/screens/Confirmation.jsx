@@ -32,7 +32,9 @@ export default function Confirmation() {
       try {
         const token = localStorage.getItem('token');
         const restaurantId = matchedRestaurant?.restaurant?.id || 1;
-        const menus = matchedRestaurant?.recommended_menus || [];
+        const editedMenus = matchedRestaurant?.menus;
+        const hasValidPrices = editedMenus?.length && editedMenus.every((m) => typeof m.price === 'number');
+        const menus = hasValidPrices ? editedMenus : (matchedRestaurant?.recommended_menus || []);
         const items = menus.slice(0, 5).map((m) => ({
           name: m.name,
           quantity: 1,

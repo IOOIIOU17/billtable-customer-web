@@ -7,7 +7,9 @@ export default function Summary() {
 
   const deliveryFee = 40;
   const serviceFee = 40;
-  const menus = store.matchedRestaurant?.recommended_menus?.slice(0, 5) || [];
+  const editedMenus = store.matchedRestaurant?.menus;
+  const hasValidPrices = editedMenus?.length && editedMenus.every((m) => typeof m.price === 'number');
+  const menus = (hasValidPrices ? editedMenus : (store.matchedRestaurant?.recommended_menus || [])).slice(0, 5);
   const foodTotal = menus.reduce((sum, m) => sum + (m.price || 0), 0);
   const total = foodTotal + deliveryFee + serviceFee;
 
