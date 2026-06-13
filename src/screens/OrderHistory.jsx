@@ -28,28 +28,12 @@ export default function OrderHistory() {
     const token = localStorage.getItem('token')
     if (!token) { navigate('/login'); return }
 
-    const items = (order.order_items || []).map(i => ({ name: i.item_name, quantity: i.quantity, unitPrice: i.unit_price }))
-    if (items.length === 0) {
+    if (!(order.order_items || []).length) {
       alert('This order has no items to reorder.')
       return
     }
 
-    api.post('/api/orders', {
-      restaurantId: order.restaurant_id,
-      items,
-      theme: order.theme,
-      guestCount: order.guest_count,
-      budget: order.budget,
-      allergies: order.allergies,
-      avoidSpicy: order.avoid_spicy,
-      deliveryTime: order.delivery_time,
-      deliveryAddress: order.delivery_address,
-      latitude: order.latitude,
-      longitude: order.longitude,
-    }).then(res => {
-      const newOrder = res.data?.data || res.data?.order || res.data
-      navigate(`/tracking/${newOrder.id}`)
-    }).catch(() => alert('Reorder failed. Please try again.'))
+    navigate('/reorder', { state: { order } })
   }
 
   const setDraft = (orderId, field, value) => {
