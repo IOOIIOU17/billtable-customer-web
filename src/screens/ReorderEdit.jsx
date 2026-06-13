@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import api from '../services/api'
+import billTableLogo from '../assets/billtable-logo.png'
 
 export default function ReorderEdit() {
   const navigate = useNavigate()
@@ -20,9 +21,9 @@ export default function ReorderEdit() {
 
   if (!order) {
     return (
-      <div style={{ minHeight: '100vh', background: 'var(--color-paper)', padding: '32px 24px', maxWidth: '500px', margin: '0 auto', textAlign: 'center' }}>
-        <p style={{ fontFamily: 'var(--font-body)', color: 'var(--color-pencil)' }}>No order data found.</p>
-        <button onClick={() => navigate('/history')} style={{ marginTop: '16px', padding: '12px 24px', border: '2px solid var(--color-ink)', borderRadius: 'var(--radius)', fontFamily: 'var(--font-body)', fontSize: '14px', cursor: 'pointer', background: 'var(--color-ink)', color: 'var(--color-paper)' }}>← Back to Orders</button>
+      <div style={{ minHeight: '100vh', background: '#FEFEFE', maxWidth: '480px', margin: '0 auto', padding: '32px 24px', textAlign: 'center', fontFamily: "'Patrick Hand', cursive" }}>
+        <p style={{ color: '#888' }}>No order data found.</p>
+        <button onClick={() => navigate('/history')} style={{ marginTop: '16px', padding: '14px 24px', background: '#1A1A1A', color: '#FEFEFE', border: 'none', borderRadius: '12px', fontFamily: "'Caveat', cursive", fontSize: '1.1rem', cursor: 'pointer' }}>back to orders</button>
       </div>
     )
   }
@@ -34,8 +35,7 @@ export default function ReorderEdit() {
   const changeQty = (key, delta) => {
     setItems(prev => prev.map(it => {
       if (it.key !== key) return it
-      const q = Math.max(1, it.quantity + delta)
-      return { ...it, quantity: q }
+      return { ...it, quantity: Math.max(1, it.quantity + delta) }
     }))
   }
 
@@ -70,62 +70,79 @@ export default function ReorderEdit() {
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: 'var(--color-paper)', padding: '32px 24px', maxWidth: '500px', margin: '0 auto' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
-        <button onClick={() => navigate('/history')} style={{ padding: '8px 16px', border: '2px solid var(--color-ink)', borderRadius: 'var(--radius)', fontFamily: 'var(--font-body)', fontSize: '14px', cursor: 'pointer', background: 'var(--color-paper)' }}>← Back</button>
-        <h1 style={{ fontFamily: 'var(--font-logo)', fontSize: '28px' }}>Edit & Reorder</h1>
-      </div>
+    <div style={{ minHeight: '100vh', background: '#FEFEFE', maxWidth: '480px', margin: '0 auto', padding: '32px 24px 48px', fontFamily: "'Patrick Hand', cursive" }}>
 
-      <p style={{ fontFamily: 'var(--font-hint)', fontSize: '13px', color: 'var(--color-pencil)', marginBottom: '20px' }}>
-        Uncheck items you don't want, or adjust quantity.
+      <button onClick={() => navigate('/history')}
+        style={{ background: 'none', border: 'none', fontFamily: "'Kalam', cursive", fontSize: '14px', color: '#999', cursor: 'pointer', padding: '0 0 24px', display: 'block' }}>
+        back
+      </button>
+
+      <h1 style={{ fontFamily: "'Caveat', cursive", fontSize: '2rem', fontWeight: '700', color: '#1A1A1A', margin: '0 0 4px' }}>
+        edit your order
+      </h1>
+      <p style={{ fontFamily: "'Kalam', cursive", fontSize: '13px', color: '#999', margin: '0 0 28px' }}>
+        keep what you want · uncheck the rest · adjust quantity
       </p>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '24px' }}>
-        {items.map(item => (
-          <div key={item.key} style={{
-            display: 'flex', alignItems: 'center', gap: '12px', padding: '12px',
-            border: item.selected ? '2px solid var(--color-ink)' : '1.5px solid var(--color-light)',
-            borderRadius: 'var(--radius)',
-            background: item.selected ? 'var(--color-paper)' : '#F8F8F8',
-            opacity: item.selected ? 1 : 0.5,
-          }}>
-            <div
-              onClick={() => toggleSelected(item.key)}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
+        <img src={billTableLogo} alt="BillTable" style={{ height: '22px', objectFit: 'contain' }} />
+        <span style={{ fontFamily: "'Kalam', cursive", fontSize: '13px', color: '#999' }}>from your last order</span>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '28px' }}>
+        {items.map((item) => {
+          const isSelected = item.selected
+          return (
+            <div key={item.key}
               style={{
-                width: '22px', height: '22px', borderRadius: '6px', flexShrink: 0, cursor: 'pointer',
-                border: '2px solid var(--color-ink)',
-                background: item.selected ? 'var(--color-ink)' : 'transparent',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                display: 'flex', alignItems: 'center', gap: '12px',
+                padding: '14px', borderRadius: '12px',
+                border: isSelected ? '2px solid #1A1A1A' : '1.5px solid #D8D8D8',
+                background: isSelected ? '#F4F4F4' : '#FEFEFE',
+                transition: 'all 0.15s'
               }}>
-              {item.selected && <span style={{ color: 'var(--color-paper)', fontSize: '13px' }}>✓</span>}
-            </div>
+              <div onClick={() => toggleSelected(item.key)}
+                style={{
+                  width: '22px', height: '22px', borderRadius: '6px', flexShrink: 0, cursor: 'pointer',
+                  border: '2px solid #1A1A1A',
+                  background: isSelected ? '#1A1A1A' : 'transparent',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center'
+                }}>
+                {isSelected && <span style={{ color: '#FEFEFE', fontSize: '13px' }}>✓</span>}
+              </div>
 
-            <div style={{ flex: 1 }}>
-              <p style={{ margin: 0, fontFamily: 'var(--font-body)', fontSize: '15px' }}>{item.name}</p>
-              <p style={{ margin: 0, fontFamily: 'var(--font-hint)', fontSize: '12px', color: 'var(--color-pencil)' }}>${item.unitPrice.toFixed(2)} each</p>
-            </div>
+              <div style={{ flex: 1 }}>
+                <p style={{ margin: 0, fontFamily: "'Patrick Hand', cursive", fontSize: '15px', color: '#1A1A1A' }}>{item.name}</p>
+                <p style={{ margin: 0, fontFamily: "'Kalam', cursive", fontSize: '12px', color: '#888' }}>${item.unitPrice.toFixed(2)} each</p>
+              </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <button onClick={() => changeQty(item.key, -1)} disabled={!item.selected} style={{ width: '28px', height: '28px', border: '2px solid var(--color-ink)', borderRadius: '8px', background: 'var(--color-paper)', cursor: item.selected ? 'pointer' : 'default', fontFamily: 'var(--font-body)', fontSize: '14px' }}>-</button>
-              <span style={{ fontFamily: 'var(--font-body)', fontSize: '14px', minWidth: '20px', textAlign: 'center' }}>{item.quantity}</span>
-              <button onClick={() => changeQty(item.key, 1)} disabled={!item.selected} style={{ width: '28px', height: '28px', border: '2px solid var(--color-ink)', borderRadius: '8px', background: 'var(--color-paper)', cursor: item.selected ? 'pointer' : 'default', fontFamily: 'var(--font-body)', fontSize: '14px' }}>+</button>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
+                <button onClick={() => changeQty(item.key, -1)} disabled={!isSelected}
+                  style={{ width: '26px', height: '26px', border: '2px solid #1A1A1A', borderRadius: '8px', background: '#FEFEFE', cursor: isSelected ? 'pointer' : 'default', fontFamily: "'Patrick Hand', cursive", fontSize: '14px', opacity: isSelected ? 1 : 0.4 }}>-</button>
+                <span style={{ fontFamily: "'Patrick Hand', cursive", fontSize: '14px', minWidth: '18px', textAlign: 'center', color: '#1A1A1A' }}>{item.quantity}</span>
+                <button onClick={() => changeQty(item.key, 1)} disabled={!isSelected}
+                  style={{ width: '26px', height: '26px', border: '2px solid #1A1A1A', borderRadius: '8px', background: '#FEFEFE', cursor: isSelected ? 'pointer' : 'default', fontFamily: "'Patrick Hand', cursive", fontSize: '14px', opacity: isSelected ? 1 : 0.4 }}>+</button>
+              </div>
             </div>
-          </div>
-        ))}
+          )
+        })}
       </div>
 
-      <div style={{ display: 'flex', justifyContent: 'space-between', borderTop: '2px solid var(--color-ink)', paddingTop: '12px', marginBottom: '24px' }}>
-        <span style={{ fontFamily: 'var(--font-logo)', fontSize: '20px' }}>Total</span>
-        <span style={{ fontFamily: 'var(--font-logo)', fontSize: '20px' }}>${total.toFixed(2)}</span>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1.5px solid #1A1A1A', paddingTop: '16px', marginBottom: '28px' }}>
+        <span style={{ fontFamily: "'Caveat', cursive", fontSize: '1.3rem', color: '#1A1A1A' }}>Total</span>
+        <span style={{ fontFamily: "'Caveat', cursive", fontSize: '1.3rem', color: '#1A1A1A' }}>${total.toFixed(2)}</span>
       </div>
 
-      <button onClick={handleConfirm} disabled={submitting} style={{
-        width: '100%', padding: '14px', border: '2px solid var(--color-ink)', borderRadius: 'var(--radius)',
-        fontFamily: 'var(--font-body)', fontSize: '16px', cursor: submitting ? 'default' : 'pointer',
-        background: 'var(--color-ink)', color: 'var(--color-paper)', opacity: submitting ? 0.6 : 1,
-      }}>
-        {submitting ? 'Placing order...' : 'Confirm & Order →'}
+      <button onClick={handleConfirm} disabled={submitting}
+        style={{
+          width: '100%', padding: '16px', background: '#1A1A1A', color: '#FEFEFE',
+          border: 'none', borderRadius: '12px', fontFamily: "'Caveat', cursive",
+          fontSize: '1.2rem', cursor: submitting ? 'default' : 'pointer', letterSpacing: '1px',
+          opacity: submitting ? 0.6 : 1,
+        }}>
+        {submitting ? 'placing order...' : 'confirm & order →'}
       </button>
+
     </div>
   )
 }
