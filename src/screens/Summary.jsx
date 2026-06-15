@@ -13,7 +13,10 @@ export default function Summary() {
   const foodTotal = menus.reduce((sum, m) => sum + (m.price || 0), 0);
   const total = foodTotal + deliveryFee + serviceFee;
 
+  const restaurantName = store.matchedRestaurant?.restaurant?.name || store.matchedRestaurant?.name || '-';
+
   const rows = [
+    { label: 'Restaurant', value: restaurantName },
     { label: 'Theme', value: store.theme || '-' },
     { label: 'Guests', value: store.guestCount ? `${store.guestCount} people` : '-' },
     { label: 'Allergy', value: store.allergies?.length ? store.allergies.join(', ') : 'None' },
