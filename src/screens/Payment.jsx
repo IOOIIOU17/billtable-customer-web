@@ -5,6 +5,14 @@ export default function Payment() {
   const navigate = useNavigate();
   const store = useOrderStore();
 
+  const deliveryFee = 40;
+  const serviceFee = 40;
+  const editedMenus = store.matchedRestaurant?.menus;
+  const hasValidPrices = editedMenus?.length && editedMenus.every((m) => typeof m.price === 'number');
+  const menus = (hasValidPrices ? editedMenus : (store.matchedRestaurant?.recommended_menus || [])).slice(0, 5);
+  const foodTotal = menus.reduce((sum, m) => sum + (m.price || 0), 0);
+  const total = foodTotal + deliveryFee + serviceFee;
+
   return (
     <div style={{
       minHeight: '100vh',
@@ -43,7 +51,7 @@ export default function Payment() {
 
       <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', padding: '12px 0', borderTop: '2px solid var(--color-ink)' }}>
         <span style={{ fontFamily: 'var(--font-logo)', fontSize: '20px' }}>Total</span>
-        <span style={{ fontFamily: 'var(--font-logo)', fontSize: '20px' }}>${store.budget || 0}</span>
+        <span style={{ fontFamily: 'var(--font-logo)', fontSize: '20px' }}>${total}</span>
       </div>
 
       <p style={{ fontFamily: 'var(--font-hint)', fontSize: '13px', color: 'var(--color-pencil)', textAlign: 'center' }}>
