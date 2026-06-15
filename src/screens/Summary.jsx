@@ -4,6 +4,7 @@ import useOrderStore from '../store/orderStore';
 export default function Summary() {
   const navigate = useNavigate();
   const store = useOrderStore();
+  const setOrderTotal = useOrderStore((s) => s.setOrderTotal);
 
   const deliveryFee = 40;
   const serviceFee = 40;
@@ -12,6 +13,7 @@ export default function Summary() {
   const menus = (hasValidPrices ? editedMenus : (store.matchedRestaurant?.recommended_menus || [])).slice(0, 5);
   const foodTotal = menus.reduce((sum, m) => sum + (m.price || 0), 0);
   const total = foodTotal + deliveryFee + serviceFee;
+  setOrderTotal(total);
 
   const restaurantName = store.matchedRestaurant?.restaurant?.name || store.matchedRestaurant?.name || '-';
 
