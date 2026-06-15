@@ -80,7 +80,7 @@ export default function TimeLocation() {
       return;
     }
     setDeliveryTime(`${date} ${time}`);
-    setDeliveryAddress(`${savedAddress.address} ${savedAddress.building || ''}`);
+    setDeliveryAddress(`${savedAddress.address}${savedAddress.building ? ', ' + savedAddress.building : ''}`.trim());
     setLocation(parseFloat(savedAddress.latitude), parseFloat(savedAddress.longitude));
     navigate('/matching');
   };
@@ -99,7 +99,7 @@ export default function TimeLocation() {
       });
 
       setDeliveryTime(`${date} ${time}`);
-      setDeliveryAddress(`${address} ${building}`);
+      setDeliveryAddress(`${address}${building ? ', ' + building : ''}`.trim());
       setLocation(latitude, longitude);
       navigate('/matching');
     } catch (err) {
