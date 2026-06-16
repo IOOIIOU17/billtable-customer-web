@@ -105,7 +105,7 @@ export default function OrderHistory() {
   return (
     <div style={{ minHeight: '100vh', background: 'var(--color-paper)', padding: '32px 24px', maxWidth: '500px', margin: '0 auto' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '32px' }}>
-        <button onClick={() => navigate('/')} style={{ padding: '8px 16px', border: '2px solid var(--color-ink)', borderRadius: 'var(--radius)', fontFamily: 'var(--font-body)', fontSize: '14px', cursor: 'pointer', background: 'var(--color-paper)' }}>← Back</button>
+        <button onClick={() => navigate(-1)} style={{ padding: '8px 16px', border: '2px solid var(--color-ink)', borderRadius: 'var(--radius)', fontFamily: 'var(--font-body)', fontSize: '14px', cursor: 'pointer', background: 'var(--color-paper)' }}>← Back</button>
         <h1 style={{ fontFamily: 'var(--font-logo)', fontSize: '28px' }}>My Orders</h1>
       </div>
 
@@ -115,7 +115,7 @@ export default function OrderHistory() {
         <div style={{ textAlign: 'center', marginTop: '80px' }}>
           <p style={{ fontFamily: 'var(--font-body)', fontSize: '18px', color: 'var(--color-pencil)' }}>No orders yet.</p>
           <p style={{ fontFamily: 'var(--font-hint)', fontSize: '14px', color: 'var(--color-light)', marginTop: '8px' }}>Your order history will appear here.</p>
-          <button onClick={() => navigate('/')} style={{ marginTop: '24px', padding: '12px 24px', border: '2px solid var(--color-ink)', borderRadius: 'var(--radius)', fontFamily: 'var(--font-body)', fontSize: '14px', cursor: 'pointer', background: 'var(--color-ink)', color: 'var(--color-paper)' }}>Start an Order</button>
+          <button onClick={() => navigate(-1)} style={{ marginTop: '24px', padding: '12px 24px', border: '2px solid var(--color-ink)', borderRadius: 'var(--radius)', fontFamily: 'var(--font-body)', fontSize: '14px', cursor: 'pointer', background: 'var(--color-ink)', color: 'var(--color-paper)' }}>Start an Order</button>
         </div>
       )}
 
