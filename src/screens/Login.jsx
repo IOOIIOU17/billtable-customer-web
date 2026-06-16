@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { subscribePush } from '../services/pushNotification';
 import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
 import billTableLogo from '../assets/billtable-logo.png';
@@ -31,6 +32,7 @@ export default function Login() {
       const token = res.data?.accessToken || res.data?.data?.token || res.data?.token;
       if (token) {
         localStorage.setItem('token', token);
+        subscribePush(api, 'customer');
         navigate('/theme');
       } else {
         setError('No token received. Please try again.');

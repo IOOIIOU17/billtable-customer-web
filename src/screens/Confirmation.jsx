@@ -42,7 +42,7 @@ export default function Confirmation() {
           unitPrice: m.price,
         }));
 
-        await api.post('/api/orders', {
+        const orderRes = await api.post('/api/orders', {
           restaurantId,
           items,
           theme,
@@ -59,6 +59,14 @@ export default function Confirmation() {
         }, {
           headers: { Authorization: `Bearer ${token}` }
         });
+        const newOrder = orderRes.data?.data;
+        if (newOrder?.id) {
+          await api.post('/api/notifications/send-restaurant', {
+            restaurantId,
+            orderId: newOrder.id,
+            orderNumber: newOrder.order_number
+          }, { headers: { Authorization: `Bearer ${token}` } }).catch(() => {});
+        }
       } catch (err) {
         console.error(err);
       }
