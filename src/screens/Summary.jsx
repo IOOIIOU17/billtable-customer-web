@@ -6,6 +6,7 @@ export default function Summary() {
   const navigate = useNavigate();
   const store = useOrderStore();
   const setOrderTotal = useOrderStore((s) => s.setOrderTotal);
+  const setBudgetWarningAcknowledged = useOrderStore((s) => s.setBudgetWarningAcknowledged);
 
   const deliveryFee = 40;
   const serviceFee = 40;
@@ -79,7 +80,7 @@ export default function Summary() {
         <div style={{ width: '100%', background: '#fef9c3', border: '2px solid #ca8a04', borderRadius: 'var(--radius)', padding: '16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
           <p style={{ fontFamily: 'var(--font-body)', fontSize: '15px', color: '#92400e', margin: 0 }}>⚠️ This order exceeds your budget by <strong>${overBy}</strong></p>
           <div style={{ display: 'flex', gap: '8px' }}>
-            <button onClick={() => navigate('/payment')} style={{ flex: 1, background: 'var(--color-ink)', color: 'var(--color-paper)', border: '2px solid var(--color-ink)', borderRadius: 'var(--radius)', padding: '12px', fontFamily: 'var(--font-body)', fontSize: '15px', cursor: 'pointer' }}>Confirm Anyway</button>
+            <button onClick={() => { setBudgetWarningAcknowledged(true); navigate('/payment'); }} style={{ flex: 1, background: 'var(--color-ink)', color: 'var(--color-paper)', border: '2px solid var(--color-ink)', borderRadius: 'var(--radius)', padding: '12px', fontFamily: 'var(--font-body)', fontSize: '15px', cursor: 'pointer' }}>Confirm Anyway</button>
             <button onClick={() => navigate('/matching')} style={{ flex: 1, background: 'var(--color-paper)', color: 'var(--color-ink)', border: '2px solid var(--color-ink)', borderRadius: 'var(--radius)', padding: '12px', fontFamily: 'var(--font-body)', fontSize: '15px', cursor: 'pointer' }}>Re-match</button>
           </div>
         </div>

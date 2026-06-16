@@ -17,6 +17,7 @@ export default function Confirmation() {
   const deliveryAddress = useOrderStore((s) => s.deliveryAddress);
   const latitude = useOrderStore((s) => s.latitude);
   const longitude = useOrderStore((s) => s.longitude);
+  const budgetWarningAcknowledged = useOrderStore((s) => s.budgetWarningAcknowledged);
 
   const steps = [
     'Order received',
@@ -53,6 +54,8 @@ export default function Confirmation() {
           deliveryAddress,
           latitude,
           longitude,
+          budgetWarningShown: budgetWarningAcknowledged,
+          budgetWarningAcknowledged,
         }, {
           headers: { Authorization: `Bearer ${token}` }
         });
