@@ -72,7 +72,7 @@ export default function OrderHistory() {
   const handleSubmitRating = (order) => {
     const draft = ratingDrafts[order.id] || { stars: 0, review: '' }
     if (!draft.stars || draft.stars < 1 || draft.stars > 5) {
-      alert('กรุณาเลือกจำนวนดาว (1-5)')
+      alert('Please select a rating between 1 and 5')
       return
     }
     setSubmitting(prev => ({ ...prev, [order.id]: true }))
@@ -82,7 +82,7 @@ export default function OrderHistory() {
         setOrders(prev => prev.map(o => o.id === order.id ? { ...o, rating: updated?.rating ?? draft.stars, review: updated?.review ?? draft.review } : o))
       })
       .catch((err) => {
-        alert(err.response?.data?.message || 'ส่งรีวิวไม่สำเร็จ ลองใหม่อีกครั้ง')
+        alert(err.response?.data?.message || 'Failed to submit review. Please try again.')
       })
       .finally(() => {
         setSubmitting(prev => ({ ...prev, [order.id]: false }))

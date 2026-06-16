@@ -76,7 +76,7 @@ export default function TimeLocation() {
 
   const useSavedAddress = () => {
     if (!date || !time) {
-      setError('กรุณาเลือกวันและเวลาก่อน');
+      setError('Please select a date and time first.');
       return;
     }
     setDeliveryTime(`${date} ${time}`);
@@ -105,7 +105,7 @@ export default function TimeLocation() {
       navigate('/matching');
     } catch (err) {
       console.error(err);
-      setError('ไม่พบที่อยู่นี้ กรุณาตรวจสอบและลองใหม่');
+      setError('Address not found. Please check and try again.');
     } finally {
       setLoading(false);
     }
@@ -136,7 +136,7 @@ export default function TimeLocation() {
 
       {loading && (
         <p style={{ fontFamily: 'var(--font-hint)', fontSize: '14px', textAlign: 'center' }}>
-          กำลังโหลด...
+          Loading...
         </p>
       )}
 

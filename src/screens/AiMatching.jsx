@@ -45,11 +45,11 @@ export default function AiMatching() {
           store.setMatchedRestaurant(data.matches[0]);
           navigate('/result');
         } else {
-          setError('ไม่พบร้านที่ตรงกับเงื่อนไข ลองปรับ budget หรือ theme ดูนะครับ');
+          setError('No restaurants found matching your criteria. Try adjusting your budget or theme.');
         }
       } catch (err) {
         console.error('Matching error:', err);
-        setError('เกิดข้อผิดพลาดในการค้นหาร้าน กรุณาลองใหม่');
+        setError('An error occurred while searching. Please try again.');
       }
     };
 
