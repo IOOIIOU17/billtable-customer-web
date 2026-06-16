@@ -92,8 +92,9 @@ export default function TimeLocation() {
     try {
       const { latitude, longitude } = await geocodeAddress(`${address} ${building}`);
       const token = localStorage.getItem('token');
+      const cleanBuilding = building && !address.toLowerCase().includes(building.toLowerCase()) ? building : '';
       await api.post('/api/addresses', {
-        address, building, phone, latitude, longitude,
+        address, building: cleanBuilding, phone, latitude, longitude,
       }, {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -152,7 +153,7 @@ export default function TimeLocation() {
             <p style={{ margin: 0, fontFamily: 'var(--font-hint)', fontSize: '14px', color: 'var(--color-pencil)' }}>
               ส่งที่อยู่นี้?
             </p>
-            <p style={{ margin: '4px 0 0 0' }}>{savedAddress.address} {savedAddress.building}</p>
+            <p style={{ margin: '4px 0 0 0' }}>{savedAddress.address}{savedAddress.building ? ', ' + savedAddress.building : ''}</p>
           </div>
 
           {error && <p style={{ color: 'crimson', fontFamily: 'var(--font-hint)', fontSize: '14px' }}>{error}</p>}
