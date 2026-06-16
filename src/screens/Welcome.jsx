@@ -39,11 +39,13 @@ export default function Welcome() {
 
       <p style={{
         fontFamily: 'var(--font-body)',
-        fontSize: '18px',
+        fontSize: '17px',
+        lineHeight: '1.5',
         color: 'var(--color-pencil)',
         textAlign: 'center',
+        maxWidth: '320px',
       }}>
-        Table first. Food follows.
+        Those who give their best often receive the best in return.
       </p>
 
       <button
