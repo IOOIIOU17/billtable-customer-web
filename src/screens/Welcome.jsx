@@ -39,11 +39,11 @@ export default function Welcome() {
 
       <p style={{
         fontFamily: 'var(--font-body)',
-        fontSize: '17px',
-        lineHeight: '1.5',
+        fontSize: '12px',
+        lineHeight: '1.4',
         color: 'var(--color-pencil)',
         textAlign: 'center',
-        maxWidth: '320px',
+        whiteSpace: 'nowrap',
       }}>
         Those who give their best often receive the best in return.
       </p>
