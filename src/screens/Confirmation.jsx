@@ -58,6 +58,7 @@ export default function Confirmation() {
           longitude,
           budgetWarningShown: budgetWarningAcknowledged,
           budgetWarningAcknowledged,
+          customerComment: matchedRestaurant?.comment || '',
         }, {
           headers: { Authorization: `Bearer ${token}` }
         });
