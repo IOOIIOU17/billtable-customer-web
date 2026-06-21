@@ -64,9 +64,7 @@ export default function Confirmation() {
         const newOrder = orderRes.data?.data;
         if (newOrder?.id) {
           await api.post('/api/notifications/send-restaurant', {
-            restaurantId,
-            orderId: newOrder.id,
-            orderNumber: newOrder.order_number
+            orderId: newOrder.id
           }, { headers: { Authorization: `Bearer ${token}` } }).catch(() => {});
         }
       } catch (err) {
