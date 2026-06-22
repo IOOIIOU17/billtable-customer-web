@@ -39,9 +39,9 @@ export default function Confirmation() {
         const hasValidPrices = editedMenus?.length && editedMenus.every((m) => typeof m.price === 'number');
         const menus = hasValidPrices ? editedMenus : (matchedRestaurant?.recommended_menus || []);
         const items = menus.slice(0, 5).map((m) => ({
+          menuItemId: m.id,
           name: m.name,
-          quantity: 1,
-          unitPrice: m.price,
+          quantity: m.quantity || 1,
         }));
 
         const orderRes = await api.post('/api/orders', {
