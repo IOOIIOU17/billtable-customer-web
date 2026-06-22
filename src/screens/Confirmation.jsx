@@ -20,6 +20,8 @@ export default function Confirmation() {
   const budgetWarningAcknowledged = useOrderStore((s) => s.budgetWarningAcknowledged);
 
   const [closingMessage, setClosingMessage] = useState('Thank you! ♡');
+  const [orderSuccess, setOrderSuccess] = useState(false);
+  const [orderError, setOrderError] = useState('');
 
   const steps = [
     'Order received',
@@ -63,13 +65,17 @@ export default function Confirmation() {
           headers: { Authorization: `Bearer ${token}` }
         });
         const newOrder = orderRes.data?.data;
-        if (newOrder?.id) {
-          await api.post('/api/notifications/send-restaurant', {
-            orderId: newOrder.id
-          }, { headers: { Authorization: `Bearer ${token}` } }).catch(() => {});
+        if (!newOrder?.id) {
+          setOrderError('Order could not be confirmed. Please try again.');
+          return;
         }
+        setOrderSuccess(true);
+        await api.post('/api/notifications/send-restaurant', {
+          orderId: newOrder.id
+        }, { headers: { Authorization: `Bearer ${token}` } }).catch(() => {});
       } catch (err) {
         console.error(err);
+        setOrderError('Something went wrong. Please try again.');
       }
     };
     sendOrder();
@@ -99,6 +105,24 @@ export default function Confirmation() {
   };
 
   const handleChangeRestaurant = () => { navigate('/matching'); };
+
+  if (orderError) {
+    return (
+      <div style={{ minHeight: '100vh', background: 'var(--color-paper)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '32px', gap: '24px', maxWidth: '400px', margin: '0 auto' }}>
+        <p style={{ fontFamily: 'var(--font-logo)', fontSize: '28px', textAlign: 'center' }}>Something went wrong.</p>
+        <p style={{ fontFamily: 'var(--font-body)', fontSize: '16px', textAlign: 'center', color: '#dc2626' }}>{orderError}</p>
+        <button onClick={() => navigate('/summary')} style={{ width: '100%', background: 'var(--color-ink)', color: 'var(--color-paper)', border: '2px solid var(--color-ink)', borderRadius: 'var(--radius)', padding: '14px', fontFamily: 'var(--font-body)', fontSize: '18px', cursor: 'pointer' }}>← Try Again</button>
+      </div>
+    );
+  }
+
+  if (!orderSuccess) {
+    return (
+      <div style={{ minHeight: '100vh', background: 'var(--color-paper)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '32px', gap: '24px', maxWidth: '400px', margin: '0 auto' }}>
+        <p style={{ fontFamily: 'var(--font-logo)', fontSize: '28px', textAlign: 'center' }}>Confirming your table...</p>
+      </div>
+    );
+  }
 
   return (
     <div style={{ minHeight: '100vh', background: 'var(--color-paper)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '32px', gap: '24px', maxWidth: '400px', margin: '0 auto' }}>
