@@ -36,7 +36,11 @@ export default function Confirmation() {
     const sendOrder = async () => {
       try {
         const token = localStorage.getItem('token');
-        const restaurantId = matchedRestaurant?.restaurant?.id || 1;
+        const restaurantId = matchedRestaurant?.restaurant?.id;
+        if (!restaurantId) {
+          setOrderError('Restaurant not found. Please try matching again.');
+          return;
+        }
         const editedMenus = matchedRestaurant?.menus;
         const hasValidPrices = editedMenus?.length && editedMenus.every((m) => typeof m.price === 'number');
         const menus = hasValidPrices ? editedMenus : (matchedRestaurant?.recommended_menus || []);
