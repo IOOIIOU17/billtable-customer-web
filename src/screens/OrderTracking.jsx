@@ -28,6 +28,25 @@ export default function OrderTracking() {
   }, [orderId])
 
   const currentStep = order ? steps.indexOf(order.status) : 0
+  const [cancelling, setCancelling] = useState(false)
+  const [cancelMsg, setCancelMsg] = useState('')
+
+  const handleCancel = async () => {
+    if (!window.confirm('Cancel this order? You will receive a full refund.')) return
+    setCancelling(true)
+    try {
+      const token = localStorage.getItem('token')
+      await api.post(`/api/payments/refund`,
+        { orderId: order.id, refundType: 'full' },
+        { headers: { Authorization: `Bearer ${token}` } }
+      )
+      setCancelMsg('Order cancelled. Refund is being processed.')
+      fetchOrder()
+    } catch (err) {
+      setCancelMsg(err.response?.data?.message || 'Could not cancel order.')
+    }
+    setCancelling(false)
+  }
 
   return (
     <div style={{ minHeight: '100vh', background: 'var(--color-paper)', padding: '32px 24px', maxWidth: '500px', margin: '0 auto' }}>
@@ -72,6 +91,14 @@ export default function OrderTracking() {
             })}
           </div>
 
+          {order.status === 'pending' && (
+            <div style={{ marginBottom: '16px' }}>
+              <button onClick={handleCancel} disabled={cancelling} style={{ width: '100%', padding: '12px', border: '2px solid #dc2626', borderRadius: 'var(--radius)', fontFamily: 'var(--font-body)', fontSize: '15px', color: '#dc2626', background: 'var(--color-paper)', cursor: cancelling ? 'not-allowed' : 'pointer' }}>
+                {cancelling ? 'Cancelling...' : 'Cancel Order (Full Refund)'}
+              </button>
+              {cancelMsg && <p style={{ fontFamily: 'var(--font-hint)', fontSize: '13px', color: '#dc2626', textAlign: 'center', marginTop: '8px' }}>{cancelMsg}</p>}
+            </div>
+          )}
           <p style={{ fontFamily: 'var(--font-hint)', fontSize: '12px', color: 'var(--color-pencil)', textAlign: 'center' }}>Auto-refreshes every 15 seconds</p>
         </div>
       )}
