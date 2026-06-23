@@ -1,12 +1,47 @@
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import useOrderStore from '../store/orderStore';
+import api from '../services/api';
 
 export default function Summary() {
   const navigate = useNavigate();
   const store = useOrderStore();
   const setOrderTotal = useOrderStore((s) => s.setOrderTotal);
   const setBudgetWarningAcknowledged = useOrderStore((s) => s.setBudgetWarningAcknowledged);
+  const setCurrentOrderId = useOrderStore((s) => s.setCurrentOrderId);
+  const [creating, setCreating] = useState(false);
+  const [createError, setCreateError] = useState('');
+
+  const handleConfirm = async () => {
+    setCreating(true);
+    setCreateError('');
+    try {
+      const token = localStorage.getItem('token');
+      const matchedRestaurant = store.matchedRestaurant;
+      const restaurantId = matchedRestaurant?.restaurant?.id;
+      if (!restaurantId) { setCreateError('Restaurant not found.'); setCreating(false); return; }
+      const editedMenus = matchedRestaurant?.menus;
+      const hasValidPrices = editedMenus?.length && editedMenus.every((m) => typeof m.price === 'number');
+      const menus = hasValidPrices ? editedMenus : (matchedRestaurant?.recommended_menus || []);
+      const items = menus.slice(0, 5).map((m) => ({ menuItemId: m.id, name: m.name, quantity: m.quantity || 1 }));
+      const orderRes = await api.post('/api/orders', {
+        restaurantId, items,
+        theme: store.theme, guestCount: store.guestCount, budget: store.budget,
+        allergies: (store.allergies || []).join(', '), avoidSpicy: store.avoidSpicy,
+        deliveryTime: store.deliveryTime, deliveryAddress: store.deliveryAddress,
+        latitude: store.latitude, longitude: store.longitude,
+        budgetWarningShown: store.budgetWarningAcknowledged, budgetWarningAcknowledged: store.budgetWarningAcknowledged,
+        customerComment: matchedRestaurant?.comment || '',
+      }, { headers: { Authorization: `Bearer ${token}` } });
+      const newOrder = orderRes.data?.data;
+      if (!newOrder?.id) { setCreateError('Could not create order. Please try again.'); setCreating(false); return; }
+      setCurrentOrderId(newOrder.id);
+      navigate('/payment');
+    } catch (err) {
+      setCreateError(err.response?.data?.message || 'Something went wrong.');
+      setCreating(false);
+    }
+  };
 
   const deliveryFee = 40;
   const serviceFee = 40;
@@ -80,13 +115,13 @@ export default function Summary() {
         <div style={{ width: '100%', background: '#fef9c3', border: '2px solid #ca8a04', borderRadius: 'var(--radius)', padding: '16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
           <p style={{ fontFamily: 'var(--font-body)', fontSize: '15px', color: '#92400e', margin: 0 }}>⚠️ This order exceeds your budget by <strong>${overBy}</strong></p>
           <div style={{ display: 'flex', gap: '8px' }}>
-            <button onClick={() => { setBudgetWarningAcknowledged(true); navigate('/payment'); }} style={{ flex: 1, background: 'var(--color-ink)', color: 'var(--color-paper)', border: '2px solid var(--color-ink)', borderRadius: 'var(--radius)', padding: '12px', fontFamily: 'var(--font-body)', fontSize: '15px', cursor: 'pointer' }}>Confirm Anyway</button>
+            <button onClick={() => { setBudgetWarningAcknowledged(true); handleConfirm(); }} style={{ flex: 1, background: 'var(--color-ink)', color: 'var(--color-paper)', border: '2px solid var(--color-ink)', borderRadius: 'var(--radius)', padding: '12px', fontFamily: 'var(--font-body)', fontSize: '15px', cursor: 'pointer' }}>Confirm Anyway</button>
             <button onClick={() => navigate('/matching')} style={{ flex: 1, background: 'var(--color-paper)', color: 'var(--color-ink)', border: '2px solid var(--color-ink)', borderRadius: 'var(--radius)', padding: '12px', fontFamily: 'var(--font-body)', fontSize: '15px', cursor: 'pointer' }}>Re-match</button>
           </div>
         </div>
       )}
       {!isOverBudget && (
-        <button onClick={() => navigate('/payment')} style={{ width: '100%', background: 'var(--color-ink)', color: 'var(--color-paper)', border: '2px solid var(--color-ink)', borderRadius: 'var(--radius)', padding: '14px', fontFamily: 'var(--font-body)', fontSize: '18px', cursor: 'pointer' }}>Confirm Table →</button>
+        <button onClick={handleConfirm} style={{ width: '100%', background: 'var(--color-ink)', color: 'var(--color-paper)', border: '2px solid var(--color-ink)', borderRadius: 'var(--radius)', padding: '14px', fontFamily: 'var(--font-body)', fontSize: '18px', cursor: 'pointer' }}>Confirm Table →</button>
       )}
     </div>
   );
