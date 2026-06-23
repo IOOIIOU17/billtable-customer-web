@@ -7,6 +7,7 @@ import confirmationDoodle from '../assets/confirmation-doodle.png';
 export default function Confirmation() {
   const navigate = useNavigate();
   const reset = useOrderStore((s) => s.reset);
+  const setCurrentOrderId = useOrderStore((s) => s.setCurrentOrderId);
   const matchedRestaurant = useOrderStore((s) => s.matchedRestaurant);
   const theme = useOrderStore((s) => s.theme);
   const guestCount = useOrderStore((s) => s.guestCount);
@@ -73,6 +74,7 @@ export default function Confirmation() {
           setOrderError('Order could not be confirmed. Please try again.');
           return;
         }
+        setCurrentOrderId(newOrder.id);
         setOrderSuccess(true);
         await api.post('/api/notifications/send-restaurant', {
           orderId: newOrder.id
