@@ -151,7 +151,7 @@ export default function TimeLocation() {
             fontSize: '16px',
           }}>
             <p style={{ margin: 0, fontFamily: 'var(--font-hint)', fontSize: '14px', color: 'var(--color-pencil)' }}>
-              ส่งที่อยู่นี้?
+              Deliver to this address?
             </p>
             <p style={{ margin: '4px 0 0 0' }}>{savedAddress.address}{savedAddress.building ? ', ' + savedAddress.building : ''}</p>
           </div>
