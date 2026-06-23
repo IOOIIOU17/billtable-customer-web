@@ -12,7 +12,11 @@ export default function MatchingResult() {
     if (!match) navigate('/');
   }, []);
 
-  if (!match) return null;
+  if (!match) return (
+    <div style={{ minHeight: '100vh', background: '#FEFEFE', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <p style={{ fontFamily: "'Kalam', cursive", color: '#4A4A4A' }}>Loading...</p>
+    </div>
+  );
 
   const restaurant = match.restaurant || match;
   const menus = match.recommended_menus || match.menus || [];
