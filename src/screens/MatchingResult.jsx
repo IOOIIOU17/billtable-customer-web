@@ -24,7 +24,7 @@ export default function MatchingResult() {
       maxWidth: '480px',
       margin: '0 auto',
       fontFamily: "'Patrick Hand', sans-serif",
-      padding: '24px',
+      padding: '64px 24px 24px',
     }}>
 
       {/* we found the perfect place */}
