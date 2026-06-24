@@ -110,7 +110,7 @@ function CheckoutForm({ orderId, total }) {
       </button>
 
       <p style={{ fontFamily: 'var(--font-hint)', fontSize: '12px', color: 'var(--color-pencil)', textAlign: 'center', margin: 0 }}>
-        🔒 Secured by Stripe
+        Secured by Stripe
       </p>
     </div>
   );
