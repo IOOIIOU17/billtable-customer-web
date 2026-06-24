@@ -9,6 +9,7 @@ export default function OrderHistory() {
   const [loading, setLoading] = useState(true)
   const [ratingDrafts, setRatingDrafts] = useState({}) // { [orderId]: { stars: 0, review: '' } }
   const [submitting, setSubmitting] = useState({}) // { [orderId]: true/false }
+  const [expandedId, setExpandedId] = useState(null)
 
   useEffect(() => {
     api.get('/api/orders')
@@ -126,7 +127,7 @@ export default function OrderHistory() {
           const alreadyRated = order.rating !== null && order.rating !== undefined
 
           return (
-            <div key={order.id} style={{ border: '2px solid var(--color-ink)', borderRadius: 'var(--radius)', padding: '16px' }}>
+            <div key={order.id} style={{ border: '2px solid var(--color-ink)', borderRadius: 'var(--radius)', padding: '16px', cursor: 'pointer' }} onClick={() => setExpandedId(expandedId === order.id ? null : order.id)}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
                 <div>
                   <p style={{ fontFamily: 'var(--font-body)', fontSize: '16px', margin: '0 0 4px' }}>Order #{order.order_number?.slice(0, 8) || order.id?.toString().slice(0, 8)}</p>
@@ -146,6 +147,31 @@ export default function OrderHistory() {
                 <span style={{ fontFamily: 'var(--font-hint)', fontSize: '13px', color: statusColor(order.status), border: '1px solid var(--color-light)', borderRadius: '999px', padding: '4px 12px' }}>{order.status}</span>
               </div>
 
+              {expandedId === order.id && (
+                <div style={{ marginTop: '12px', paddingTop: '12px', borderTop: '1px solid var(--color-light)' }}>
+                  {order.restaurant_name && (
+                    <p style={{ fontFamily: 'var(--font-hint)', fontSize: '13px', color: 'var(--color-pencil)', margin: '0 0 4px' }}>
+                      🍽 {order.restaurant_name}
+                      {order.restaurant_phone && (
+                        <> · <a href={`tel:${order.restaurant_phone}`} style={{ color: 'var(--color-ink)', textDecoration: 'none', fontWeight: 'bold' }}>{order.restaurant_phone}</a></>
+                      )}
+                    </p>
+                  )}
+                  {order.delivery_address && <p style={{ fontFamily: 'var(--font-hint)', fontSize: '13px', color: 'var(--color-pencil)', margin: '4px 0' }}>📍 {order.delivery_address}</p>}
+                  {order.delivery_time && <p style={{ fontFamily: 'var(--font-hint)', fontSize: '13px', color: 'var(--color-pencil)', margin: '4px 0' }}>🕐 {order.delivery_time}</p>}
+                  {order.allergies && <p style={{ fontFamily: 'var(--font-hint)', fontSize: '13px', color: 'var(--color-pencil)', margin: '4px 0' }}>⚠️ Allergies: {order.allergies}</p>}
+                  {(order.order_items || []).length > 0 && (
+                    <div style={{ marginTop: '8px' }}>
+                      <p style={{ fontFamily: 'var(--font-hint)', fontSize: '12px', color: 'var(--color-pencil)', margin: '0 0 4px' }}>Items:</p>
+                      {(order.order_items || []).map((item, i) => (
+                        <p key={i} style={{ fontFamily: 'var(--font-hint)', fontSize: '13px', margin: '2px 0', color: 'var(--color-ink)' }}>
+                          · {item.item_name} x{item.quantity} — ${parseFloat(item.total_price || item.unit_price).toFixed(2)}
+                        </p>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
               <div style={{ display: 'flex', gap: '8px', marginTop: '12px' }}>
                 {order.status !== 'delivered' && order.status !== 'cancelled' && (
                   <button onClick={() => navigate(`/tracking/${order.id}`)} style={{ flex: 1, padding: '8px', border: '2px solid var(--color-ink)', borderRadius: 'var(--radius)', fontFamily: 'var(--font-body)', fontSize: '13px', cursor: 'pointer', background: 'var(--color-paper)' }}>Track Order</button>
