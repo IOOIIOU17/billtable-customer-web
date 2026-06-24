@@ -132,6 +132,11 @@ export default function OrderHistory() {
                   <p style={{ fontFamily: 'var(--font-body)', fontSize: '16px', margin: '0 0 4px' }}>Order #{order.order_number?.slice(0, 8) || order.id?.toString().slice(0, 8)}</p>
                   <p style={{ fontFamily: 'var(--font-hint)', fontSize: '13px', color: 'var(--color-pencil)', margin: 0 }}>{order.guest_count} people · ${order.total_amount}</p>
                   {order.theme && <p style={{ fontFamily: 'var(--font-hint)', fontSize: '13px', color: 'var(--color-pencil)', margin: '4px 0 0' }}>Theme: {order.theme}</p>}
+                  {order.restaurant_phone && (
+                    <p style={{ fontFamily: 'var(--font-hint)', fontSize: '13px', color: 'var(--color-pencil)', margin: '4px 0 0' }}>
+                      Restaurant: <a href={`tel:${order.restaurant_phone}`} style={{ color: 'var(--color-ink)', textDecoration: 'none', fontWeight: 'bold' }}>{order.restaurant_phone}</a>
+                    </p>
+                  )}
                 </div>
                 <span style={{ fontFamily: 'var(--font-hint)', fontSize: '13px', color: statusColor(order.status), border: '1px solid var(--color-light)', borderRadius: '999px', padding: '4px 12px' }}>{order.status}</span>
               </div>

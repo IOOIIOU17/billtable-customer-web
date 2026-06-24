@@ -78,7 +78,7 @@ export default function Confirmation() {
         await api.post('/api/notifications/send-restaurant', {
           orderId: newOrder.id
         }, { headers: { Authorization: `Bearer ${token}` } }).catch(() => {});
-        navigate('/payment');
+        setOrderSuccess(true);
       } catch (err) {
         console.error(err);
         setOrderError('Something went wrong. Please try again.');
@@ -146,6 +146,15 @@ export default function Confirmation() {
       </div>
 
       <p style={{ fontFamily: 'var(--font-hint)', fontSize: '16px', color: 'var(--color-pencil)', textAlign: 'center' }}>{closingMessage}</p>
+
+      {matchedRestaurant?.restaurant?.phone && (
+        <div style={{ width: '100%', border: '2px solid var(--color-ink)', borderRadius: 'var(--radius)', padding: '16px', textAlign: 'center' }}>
+          <p style={{ fontFamily: 'var(--font-hint)', fontSize: '14px', color: 'var(--color-pencil)', marginBottom: '6px' }}>Questions? Contact the restaurant</p>
+          <a href={`tel:${matchedRestaurant.restaurant.phone}`} style={{ fontFamily: 'var(--font-body)', fontSize: '20px', color: 'var(--color-ink)', textDecoration: 'none', fontWeight: 'bold' }}>
+            {matchedRestaurant.restaurant.phone}
+          </a>
+        </div>
+      )}
 
       <button onClick={handleDone} style={{ width: '100%', background: 'var(--color-ink)', color: 'var(--color-paper)', border: '2px solid var(--color-ink)', borderRadius: 'var(--radius)', padding: '14px', fontFamily: 'var(--font-body)', fontSize: '18px', cursor: 'pointer' }}>Start a new table</button>
 

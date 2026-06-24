@@ -120,6 +120,8 @@ export default function Payment() {
   const store = useOrderStore();
   const total = store.orderTotal || 0;
   const orderId = store.currentOrderId;
+  const matchedRestaurant = store.matchedRestaurant;
+  const restaurantPhone = matchedRestaurant?.restaurant?.phone;
 
   return (
     <div style={{
@@ -144,6 +146,15 @@ export default function Payment() {
       <Elements stripe={stripePromise}>
         <CheckoutForm orderId={orderId} total={total} />
       </Elements>
+
+      {restaurantPhone && (
+        <div style={{ width: '100%', border: '2px solid var(--color-ink)', borderRadius: 'var(--radius)', padding: '16px', textAlign: 'center' }}>
+          <p style={{ fontFamily: 'var(--font-hint)', fontSize: '14px', color: 'var(--color-pencil)', marginBottom: '6px' }}>Questions before paying? Contact the restaurant</p>
+          <a href={`tel:${restaurantPhone}`} style={{ fontFamily: 'var(--font-body)', fontSize: '20px', color: 'var(--color-ink)', textDecoration: 'none', fontWeight: 'bold' }}>
+            {restaurantPhone}
+          </a>
+        </div>
+      )}
     </div>
   );
 }
