@@ -75,10 +75,10 @@ export default function Confirmation() {
           return;
         }
         setCurrentOrderId(newOrder.id);
-        setOrderSuccess(true);
         await api.post('/api/notifications/send-restaurant', {
           orderId: newOrder.id
         }, { headers: { Authorization: `Bearer ${token}` } }).catch(() => {});
+        navigate('/payment');
       } catch (err) {
         console.error(err);
         setOrderError('Something went wrong. Please try again.');

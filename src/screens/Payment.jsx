@@ -11,8 +11,10 @@ function CheckoutForm({ orderId, total }) {
   const stripe = useStripe();
   const elements = useElements();
   const navigate = useNavigate();
+  const reset = useOrderStore((s) => s.reset);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [paid, setPaid] = useState(false);
 
   const handleSubmit = async () => {
     if (!stripe || !elements) return;
@@ -43,13 +45,24 @@ function CheckoutForm({ orderId, total }) {
       }
 
       if (result.paymentIntent.status === 'succeeded') {
-        navigate('/confirmation');
+        setPaid(true);
       }
     } catch (err) {
       setError(err.response?.data?.message || 'Payment failed. Please try again.');
       setLoading(false);
     }
   };
+
+  if (paid) {
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px' }}>
+        <p style={{ fontFamily: 'var(--font-logo)', fontSize: '32px', textAlign: 'center' }}>Payment confirmed! ✓</p>
+        <p style={{ fontFamily: 'var(--font-body)', fontSize: '16px', textAlign: 'center', color: 'var(--color-pencil)' }}>Your table is confirmed. The restaurant will start preparing your order.</p>
+        <button onClick={() => { reset(); navigate('/'); }} style={{ width: '100%', background: 'var(--color-ink)', color: 'var(--color-paper)', border: '2px solid var(--color-ink)', borderRadius: 'var(--radius)', padding: '14px', fontFamily: 'var(--font-body)', fontSize: '18px', cursor: 'pointer' }}>Start a new table</button>
+        <button onClick={() => navigate('/history')} style={{ width: '100%', background: 'var(--color-paper)', color: 'var(--color-ink)', border: '2px solid var(--color-ink)', borderRadius: 'var(--radius)', padding: '14px', fontFamily: 'var(--font-body)', fontSize: '18px', cursor: 'pointer' }}>My Orders</button>
+      </div>
+    );
+  }
 
   return (
     <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '20px' }}>
