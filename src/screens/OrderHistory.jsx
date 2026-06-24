@@ -133,16 +133,7 @@ export default function OrderHistory() {
                   <p style={{ fontFamily: 'var(--font-body)', fontSize: '16px', margin: '0 0 4px' }}>Order #{order.order_number?.slice(0, 8) || order.id?.toString().slice(0, 8)}</p>
                   <p style={{ fontFamily: 'var(--font-hint)', fontSize: '13px', color: 'var(--color-pencil)', margin: 0 }}>{order.guest_count} people · ${order.total_amount}</p>
                   {order.theme && <p style={{ fontFamily: 'var(--font-hint)', fontSize: '13px', color: 'var(--color-pencil)', margin: '4px 0 0' }}>Theme: {order.theme}</p>}
-                  {order.restaurant_name && (
-                    <p style={{ fontFamily: 'var(--font-hint)', fontSize: '13px', color: 'var(--color-pencil)', margin: '4px 0 0' }}>
-                      {order.restaurant_name}
-                    </p>
-                  )}
-                  {order.restaurant_phone && (
-                    <p style={{ fontFamily: 'var(--font-hint)', fontSize: '13px', color: 'var(--color-pencil)', margin: '2px 0 0' }}>
-                      <a href={`tel:${order.restaurant_phone}`} style={{ color: 'var(--color-ink)', textDecoration: 'none', fontWeight: 'bold' }}>{order.restaurant_phone}</a>
-                    </p>
-                  )}
+
                 </div>
                 <span style={{ fontFamily: 'var(--font-hint)', fontSize: '13px', color: statusColor(order.status), border: '1px solid var(--color-light)', borderRadius: '999px', padding: '4px 12px' }}>{order.status}</span>
               </div>
@@ -158,7 +149,7 @@ export default function OrderHistory() {
                     </p>
                   )}
                   {order.delivery_address && <p style={{ fontFamily: 'var(--font-hint)', fontSize: '13px', color: 'var(--color-pencil)', margin: '4px 0' }}>{order.delivery_address}</p>}
-                  {order.delivery_time && <p style={{ fontFamily: 'var(--font-hint)', fontSize: '13px', color: 'var(--color-pencil)', margin: '4px 0' }}>{order.delivery_time}</p>}
+                  {order.delivery_time && <p style={{ fontFamily: 'var(--font-hint)', fontSize: '13px', color: 'var(--color-pencil)', margin: '4px 0' }}>{new Date(order.delivery_time).toLocaleString('en-US', { weekday: 'short', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>}
                   {order.allergies && <p style={{ fontFamily: 'var(--font-hint)', fontSize: '13px', color: 'var(--color-pencil)', margin: '4px 0' }}>Allergies: {order.allergies}</p>}
                   {(order.order_items || []).length > 0 && (
                     <div style={{ marginTop: '8px' }}>
