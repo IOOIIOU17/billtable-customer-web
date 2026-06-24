@@ -15,6 +15,17 @@ function CheckoutForm({ orderId, total }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [paid, setPaid] = useState(false);
+  const [closingMessage, setClosingMessage] = useState('');
+  const theme = useOrderStore(s => s.theme);
+  const guestCount = useOrderStore(s => s.guestCount);
+
+  useEffect(() => {
+    if (paid) {
+      api.get('/api/orders/closing-message', { params: { theme, guestCount } })
+        .then(res => setClosingMessage(res.data?.data?.message || ''))
+        .catch(() => {});
+    }
+  }, [paid]);
 
   const handleSubmit = async () => {
     if (!stripe || !elements) return;
@@ -58,6 +69,9 @@ function CheckoutForm({ orderId, total }) {
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px' }}>
         <p style={{ fontFamily: 'var(--font-logo)', fontSize: '32px', textAlign: 'center' }}>Payment confirmed! ✓</p>
         <p style={{ fontFamily: 'var(--font-body)', fontSize: '16px', textAlign: 'center', color: 'var(--color-pencil)' }}>Your table is confirmed. The restaurant will start preparing your order.</p>
+        {closingMessage && (
+          <p style={{ fontFamily: 'var(--font-hint)', fontSize: '15px', textAlign: 'center', color: 'var(--color-pencil)', fontStyle: 'italic', marginTop: '8px', lineHeight: '1.6' }}>{closingMessage}</p>
+        )}
         <button onClick={() => { reset(); navigate('/'); }} style={{ width: '100%', background: 'var(--color-ink)', color: 'var(--color-paper)', border: '2px solid var(--color-ink)', borderRadius: 'var(--radius)', padding: '14px', fontFamily: 'var(--font-body)', fontSize: '18px', cursor: 'pointer' }}>Start a new table</button>
         <button onClick={() => navigate('/history')} style={{ width: '100%', background: 'var(--color-paper)', color: 'var(--color-ink)', border: '2px solid var(--color-ink)', borderRadius: 'var(--radius)', padding: '14px', fontFamily: 'var(--font-body)', fontSize: '18px', cursor: 'pointer' }}>My Orders</button>
       </div>
