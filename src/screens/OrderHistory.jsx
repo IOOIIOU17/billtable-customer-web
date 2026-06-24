@@ -151,15 +151,15 @@ export default function OrderHistory() {
                 <div style={{ marginTop: '12px', paddingTop: '12px', borderTop: '1px solid var(--color-light)' }}>
                   {order.restaurant_name && (
                     <p style={{ fontFamily: 'var(--font-hint)', fontSize: '13px', color: 'var(--color-pencil)', margin: '0 0 4px' }}>
-                      🍽 {order.restaurant_name}
+                      {order.restaurant_name}
                       {order.restaurant_phone && (
                         <> · <a href={`tel:${order.restaurant_phone}`} style={{ color: 'var(--color-ink)', textDecoration: 'none', fontWeight: 'bold' }}>{order.restaurant_phone}</a></>
                       )}
                     </p>
                   )}
-                  {order.delivery_address && <p style={{ fontFamily: 'var(--font-hint)', fontSize: '13px', color: 'var(--color-pencil)', margin: '4px 0' }}>📍 {order.delivery_address}</p>}
-                  {order.delivery_time && <p style={{ fontFamily: 'var(--font-hint)', fontSize: '13px', color: 'var(--color-pencil)', margin: '4px 0' }}>🕐 {order.delivery_time}</p>}
-                  {order.allergies && <p style={{ fontFamily: 'var(--font-hint)', fontSize: '13px', color: 'var(--color-pencil)', margin: '4px 0' }}>⚠️ Allergies: {order.allergies}</p>}
+                  {order.delivery_address && <p style={{ fontFamily: 'var(--font-hint)', fontSize: '13px', color: 'var(--color-pencil)', margin: '4px 0' }}>{order.delivery_address}</p>}
+                  {order.delivery_time && <p style={{ fontFamily: 'var(--font-hint)', fontSize: '13px', color: 'var(--color-pencil)', margin: '4px 0' }}>{order.delivery_time}</p>}
+                  {order.allergies && <p style={{ fontFamily: 'var(--font-hint)', fontSize: '13px', color: 'var(--color-pencil)', margin: '4px 0' }}>Allergies: {order.allergies}</p>}
                   {(order.order_items || []).length > 0 && (
                     <div style={{ marginTop: '8px' }}>
                       <p style={{ fontFamily: 'var(--font-hint)', fontSize: '12px', color: 'var(--color-pencil)', margin: '0 0 4px' }}>Items:</p>
