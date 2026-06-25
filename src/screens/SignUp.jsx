@@ -71,7 +71,7 @@ export default function SignUp() {
         {loading ? 'Please wait...' : "Let's go"}
       </button>
 
-      <p onClick={() => alert('Forgot Password — coming soon in OTP phase')} style={{ fontFamily: "'Kalam', cursive", fontSize: '13px', color: '#999', textAlign: 'center', margin: '0 0 24px 0', cursor: 'pointer', textDecoration: 'underline' }}>
+      <p onClick={() => navigate('/forgot-password')} style={{ fontFamily: "'Kalam', cursive", fontSize: '13px', color: '#999', textAlign: 'center', margin: '0 0 24px 0', cursor: 'pointer', textDecoration: 'underline' }}>
         Forgot password?
       </p>
 
