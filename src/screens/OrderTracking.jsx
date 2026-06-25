@@ -93,10 +93,10 @@ export default function OrderTracking() {
 
           {order.status === 'pending' && (
             <div style={{ marginBottom: '16px' }}>
-              <button onClick={handleCancel} disabled={cancelling} style={{ width: '100%', padding: '12px', border: '2px solid #dc2626', borderRadius: 'var(--radius)', fontFamily: 'var(--font-body)', fontSize: '15px', color: '#dc2626', background: 'var(--color-paper)', cursor: cancelling ? 'not-allowed' : 'pointer' }}>
+              <button onClick={handleCancel} disabled={cancelling} style={{ width: '100%', padding: '12px', border: '2px solid var(--color-ink)', borderRadius: 'var(--radius)', fontFamily: 'var(--font-body)', fontSize: '15px', color: 'var(--color-ink)', background: 'var(--color-paper)', cursor: cancelling ? 'not-allowed' : 'pointer' }}>
                 {cancelling ? 'Cancelling...' : 'Cancel Order (Full Refund)'}
               </button>
-              {cancelMsg && <p style={{ fontFamily: 'var(--font-hint)', fontSize: '13px', color: '#dc2626', textAlign: 'center', marginTop: '8px' }}>{cancelMsg}</p>}
+              {cancelMsg && <p style={{ fontFamily: 'var(--font-hint)', fontSize: '13px', color: 'var(--color-ink)', textAlign: 'center', marginTop: '8px' }}>{cancelMsg}</p>}
             </div>
           )}
           <p style={{ fontFamily: 'var(--font-hint)', fontSize: '12px', color: 'var(--color-pencil)', textAlign: 'center' }}>Auto-refreshes every 15 seconds</p>

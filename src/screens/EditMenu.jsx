@@ -46,20 +46,20 @@ export default function EditMenu() {
     <div style={{ minHeight: '100vh', background: '#FEFEFE', maxWidth: '480px', margin: '0 auto', padding: '32px 24px 48px', fontFamily: "'Patrick Hand', cursive" }}>
 
       <button onClick={() => navigate('/result')}
-        style={{ background: 'none', border: 'none', fontFamily: "'Kalam', cursive", fontSize: '14px', color: '#999', cursor: 'pointer', padding: '0 0 24px', display: 'block' }}>
+        style={{ background: 'none', border: 'none', fontFamily: "'Kalam', cursive", fontSize: '14px', color: 'var(--color-pencil)', cursor: 'pointer', padding: '0 0 24px', display: 'block' }}>
         back
       </button>
 
       <h1 style={{ fontFamily: "'Caveat', cursive", fontSize: '2rem', fontWeight: '700', color: '#1A1A1A', margin: '0 0 4px' }}>
         edit your menu
       </h1>
-      <p style={{ fontFamily: "'Kalam', cursive", fontSize: '13px', color: '#999', margin: '0 0 28px' }}>
+      <p style={{ fontFamily: "'Kalam', cursive", fontSize: '13px', color: 'var(--color-pencil)', margin: '0 0 28px' }}>
         pick what you want · swap what you don't
       </p>
 
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
         <img src={billTableLogo} alt="BillTable" style={{ height: '22px', objectFit: 'contain' }} />
-        <span style={{ fontFamily: "'Kalam', cursive", fontSize: '13px', color: '#999' }}>recommends</span>
+        <span style={{ fontFamily: "'Kalam', cursive", fontSize: '13px', color: 'var(--color-pencil)' }}>recommends</span>
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '28px' }}>
@@ -84,7 +84,7 @@ export default function EditMenu() {
               </div>
               <div>
                 <p style={{ margin: 0, fontFamily: "'Patrick Hand', cursive", fontSize: '15px', color: '#1A1A1A' }}>{menu.name}</p>
-                <p style={{ margin: 0, fontFamily: "'Kalam', cursive", fontSize: '12px', color: '#888' }}>{menu.reason || ''}</p>
+                <p style={{ margin: 0, fontFamily: "'Kalam', cursive", fontSize: '12px', color: 'var(--color-pencil)' }}>{menu.reason || ''}</p>
               </div>
             </div>
           );
@@ -118,14 +118,14 @@ export default function EditMenu() {
               </div>
               <div>
                 <p style={{ margin: 0, fontFamily: "'Patrick Hand', cursive", fontSize: '15px', color: '#1A1A1A' }}>{menu.name}</p>
-                <p style={{ margin: 0, fontFamily: "'Kalam', cursive", fontSize: '12px', color: '#888' }}>{menu.reason || ''}</p>
+                <p style={{ margin: 0, fontFamily: "'Kalam', cursive", fontSize: '12px', color: 'var(--color-pencil)' }}>{menu.reason || ''}</p>
               </div>
             </div>
           );
         })}
       </div>
 
-      <p style={{ fontFamily: "'Kalam', cursive", fontSize: '13px', color: '#999', margin: '0 0 8px' }}>
+      <p style={{ fontFamily: "'Kalam', cursive", fontSize: '13px', color: 'var(--color-pencil)', margin: '0 0 8px' }}>
         anything else you'd like to add?
       </p>
       <textarea

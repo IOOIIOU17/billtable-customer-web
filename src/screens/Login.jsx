@@ -80,7 +80,7 @@ export default function Login() {
 
       <div style={{ textAlign: 'center', marginBottom: '32px', width: '100%' }}>
         <img src={billTableLogo} alt="BillTable" style={{ height: '64px', objectFit: 'contain', display: 'block', margin: '0 auto 8px' }} />
-        <p style={{ fontFamily: "'Kalam', cursive", fontSize: '14px', color: '#999', margin: 0 }}>
+        <p style={{ fontFamily: "'Kalam', cursive", fontSize: '14px', color: 'var(--color-pencil)', margin: 0 }}>
           {step === 'form' ? 'Create your account' : 'Verify your phone'}
         </p>
       </div>
@@ -94,13 +94,13 @@ export default function Login() {
             <input type="password" placeholder="Password" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} style={inputStyle} />
           </div>
 
-          <p style={{ fontFamily: "'Kalam', cursive", fontSize: '12px', color: '#999', width: '100%', marginBottom: '16px', lineHeight: '1.6' }}>
+          <p style={{ fontFamily: "'Kalam', cursive", fontSize: '12px', color: 'var(--color-pencil)', width: '100%', marginBottom: '16px', lineHeight: '1.6' }}>
             Password must be 8-10 characters, include uppercase, lowercase, number, and special character (e.g. !@#$%)
           </p>
 
           {(error || otpError) && <p style={{ color: 'red', fontFamily: "'Kalam', cursive", fontSize: '14px', marginBottom: '16px', textAlign: 'center' }}>{error || otpError}</p>}
 
-          <button onClick={handleSendOtp} disabled={otpLoading} style={{ width: '100%', padding: '16px', background: otpLoading ? '#999' : '#1A1A1A', color: '#FEFEFE', border: 'none', borderRadius: '12px', fontFamily: "'Caveat', cursive", fontSize: '1.2rem', cursor: otpLoading ? 'not-allowed' : 'pointer', letterSpacing: '1px', marginBottom: '16px' }}>
+          <button onClick={handleSendOtp} disabled={otpLoading} style={{ width: '100%', padding: '16px', background: otpLoading ? 'var(--color-pencil)' : '#1A1A1A', color: '#FEFEFE', border: 'none', borderRadius: '12px', fontFamily: "'Caveat', cursive", fontSize: '1.2rem', cursor: otpLoading ? 'not-allowed' : 'pointer', letterSpacing: '1px', marginBottom: '16px' }}>
             {otpLoading ? 'Sending code...' : 'Send verification code →'}
           </button>
         </>
@@ -108,7 +108,7 @@ export default function Login() {
 
       {step === 'otp' && (
         <>
-          <p style={{ fontFamily: "'Kalam', cursive", fontSize: '14px', color: '#666', width: '100%', marginBottom: '16px', textAlign: 'center' }}>
+          <p style={{ fontFamily: "'Kalam', cursive", fontSize: '14px', color: 'var(--color-pencil)', width: '100%', marginBottom: '16px', textAlign: 'center' }}>
             We sent a 6-digit code to {form.phone}
           </p>
           <input
@@ -123,17 +123,17 @@ export default function Login() {
 
           {(error || otpError) && <p style={{ color: 'red', fontFamily: "'Kalam', cursive", fontSize: '14px', marginBottom: '16px', textAlign: 'center' }}>{error || otpError}</p>}
 
-          <button onClick={handleVerifyAndRegister} disabled={loading || otpLoading} style={{ width: '100%', padding: '16px', background: (loading || otpLoading) ? '#999' : '#1A1A1A', color: '#FEFEFE', border: 'none', borderRadius: '12px', fontFamily: "'Caveat', cursive", fontSize: '1.2rem', cursor: (loading || otpLoading) ? 'not-allowed' : 'pointer', letterSpacing: '1px', marginBottom: '16px' }}>
+          <button onClick={handleVerifyAndRegister} disabled={loading || otpLoading} style={{ width: '100%', padding: '16px', background: (loading || otpLoading) ? 'var(--color-pencil)' : '#1A1A1A', color: '#FEFEFE', border: 'none', borderRadius: '12px', fontFamily: "'Caveat', cursive", fontSize: '1.2rem', cursor: (loading || otpLoading) ? 'not-allowed' : 'pointer', letterSpacing: '1px', marginBottom: '16px' }}>
             {loading ? 'Creating account...' : 'Verify & create account'}
           </button>
 
-          <p onClick={() => setStep('form')} style={{ fontFamily: "'Kalam', cursive", fontSize: '13px', color: '#999', textAlign: 'center', cursor: 'pointer', textDecoration: 'underline' }}>
+          <p onClick={() => setStep('form')} style={{ fontFamily: "'Kalam', cursive", fontSize: '13px', color: 'var(--color-pencil)', textAlign: 'center', cursor: 'pointer', textDecoration: 'underline' }}>
             ← Back to edit info
           </p>
         </>
       )}
 
-      <p style={{ fontFamily: "'Kalam', cursive", fontSize: '13px', color: '#999', textAlign: 'center', margin: '16px 0 0 0' }}>
+      <p style={{ fontFamily: "'Kalam', cursive", fontSize: '13px', color: 'var(--color-pencil)', textAlign: 'center', margin: '16px 0 0 0' }}>
         Already have an account?{' '}
         <span onClick={() => navigate('/signup')} style={{ color: '#1A1A1A', cursor: 'pointer', textDecoration: 'underline' }}>
           Login

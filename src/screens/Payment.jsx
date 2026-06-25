@@ -94,13 +94,13 @@ function CheckoutForm({ orderId, total }) {
               color: '#1A1A1A',
               '::placeholder': { color: '#4A4A4A' },
             },
-            invalid: { color: '#dc2626' },
+            invalid: { color: 'var(--color-ink)' },
           },
         }} />
       </div>
 
       {error && (
-        <p style={{ fontFamily: 'var(--font-hint)', fontSize: '14px', color: '#dc2626', margin: 0 }}>
+        <p style={{ fontFamily: 'var(--font-hint)', fontSize: '14px', color: 'var(--color-ink)', margin: 0 }}>
           {error}
         </p>
       )}

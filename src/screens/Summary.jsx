@@ -99,11 +99,11 @@ export default function Summary() {
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <span style={{ fontFamily: 'var(--font-body)', color: 'var(--color-pencil)' }}>Delivery</span>
-          <span style={{ fontFamily: 'var(--font-body)', color: '#16a34a' }}>FREE</span>
+          <span style={{ fontFamily: 'var(--font-body)', color: 'var(--color-ink)' }}>FREE</span>
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <span style={{ fontFamily: 'var(--font-body)', color: 'var(--color-pencil)' }}>Service</span>
-          <span style={{ fontFamily: 'var(--font-body)', color: '#16a34a' }}>FREE</span>
+          <span style={{ fontFamily: 'var(--font-body)', color: 'var(--color-ink)' }}>FREE</span>
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <span style={{ fontFamily: 'var(--font-body)', color: 'var(--color-pencil)' }}>Tax (8.75%)</span>
@@ -116,8 +116,8 @@ export default function Summary() {
       </div>
 
       {isOverBudget && (
-        <div style={{ width: '100%', background: '#fef9c3', border: '2px solid #ca8a04', borderRadius: 'var(--radius)', padding: '16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-          <p style={{ fontFamily: 'var(--font-body)', fontSize: '15px', color: '#92400e', margin: 0 }}>⚠️ This order exceeds your budget by <strong>${overBy}</strong></p>
+        <div style={{ width: '100%', background: 'var(--color-paper)', border: '2px solid var(--color-ink)', borderRadius: 'var(--radius)', padding: '16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <p style={{ fontFamily: 'var(--font-body)', fontSize: '15px', color: 'var(--color-ink)', margin: 0 }}>⚠️ This order exceeds your budget by <strong>${overBy}</strong></p>
           <div style={{ display: 'flex', gap: '8px' }}>
             <button onClick={() => { setBudgetWarningAcknowledged(true); handleConfirm(); }} style={{ flex: 1, background: 'var(--color-ink)', color: 'var(--color-paper)', border: '2px solid var(--color-ink)', borderRadius: 'var(--radius)', padding: '12px', fontFamily: 'var(--font-body)', fontSize: '15px', cursor: 'pointer' }}>Confirm Anyway</button>
             <button onClick={() => navigate('/matching')} style={{ flex: 1, background: 'var(--color-paper)', color: 'var(--color-ink)', border: '2px solid var(--color-ink)', borderRadius: 'var(--radius)', padding: '12px', fontFamily: 'var(--font-body)', fontSize: '15px', cursor: 'pointer' }}>Re-match</button>

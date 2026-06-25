@@ -68,10 +68,10 @@ export default function MatchingResult() {
               </span>
             ))}
           </div>
-          <p style={{ margin: '0 0 4px', fontSize: '13px', color: '#333' }}>{store.guestCount || '-'} people</p>
-          <p style={{ margin: '0 0 4px', fontSize: '13px', color: '#333' }}>${store.budget || '-'} budget</p>
-          <p style={{ margin: '0 0 4px', fontSize: '13px', color: '#333' }}>~1.5 hr estimated duration</p>
-          {restaurant.address && <p style={{ margin: 0, fontSize: '13px', color: '#333' }}>{restaurant.address}</p>}
+          <p style={{ margin: '0 0 4px', fontSize: '13px', color: 'var(--color-ink)' }}>{store.guestCount || '-'} people</p>
+          <p style={{ margin: '0 0 4px', fontSize: '13px', color: 'var(--color-ink)' }}>${store.budget || '-'} budget</p>
+          <p style={{ margin: '0 0 4px', fontSize: '13px', color: 'var(--color-ink)' }}>~1.5 hr estimated duration</p>
+          {restaurant.address && <p style={{ margin: 0, fontSize: '13px', color: 'var(--color-ink)' }}>{restaurant.address}</p>}
         </div>
 
         {/* ขวา — เมนู */}
@@ -81,7 +81,7 @@ export default function MatchingResult() {
           </p>
           {menus.slice(0, 5).map((menu, i) => (
             <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-              <div style={{ width: '36px', height: '36px', borderRadius: '8px', border: '1.5px solid #1A1A1A', background: '#f5f5f5', flexShrink: 0, overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <div style={{ width: '36px', height: '36px', borderRadius: '8px', border: '1.5px solid #1A1A1A', background: 'var(--color-light)', flexShrink: 0, overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 {menu.image_url
                   ? <img src={menu.image_url} alt={menu.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   : <span style={{ fontSize: '16px' }}>🍽</span>}

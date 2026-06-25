@@ -116,7 +116,7 @@ export default function Confirmation() {
     return (
       <div style={{ minHeight: '100vh', background: 'var(--color-paper)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '32px', gap: '24px', maxWidth: '400px', margin: '0 auto' }}>
         <p style={{ fontFamily: 'var(--font-logo)', fontSize: '28px', textAlign: 'center' }}>Something went wrong.</p>
-        <p style={{ fontFamily: 'var(--font-body)', fontSize: '16px', textAlign: 'center', color: '#dc2626' }}>{orderError}</p>
+        <p style={{ fontFamily: 'var(--font-body)', fontSize: '16px', textAlign: 'center', color: 'var(--color-ink)' }}>{orderError}</p>
         <button onClick={() => navigate('/summary')} style={{ width: '100%', background: 'var(--color-ink)', color: 'var(--color-paper)', border: '2px solid var(--color-ink)', borderRadius: 'var(--radius)', padding: '14px', fontFamily: 'var(--font-body)', fontSize: '18px', cursor: 'pointer' }}>← Try Again</button>
       </div>
     );
