@@ -43,15 +43,13 @@ export default function Summary() {
     }
   };
 
-  const deliveryFee = 40;
-  const serviceFee = 40;
   const TAX_RATE = 0.0875;
   const editedMenus = store.matchedRestaurant?.menus;
   const hasValidPrices = editedMenus?.length && editedMenus.every((m) => typeof m.price === 'number');
   const menus = (hasValidPrices ? editedMenus : (store.matchedRestaurant?.recommended_menus || [])).slice(0, 5);
   const foodTotal = menus.reduce((sum, m) => sum + (m.price || 0), 0);
   const taxAmount = parseFloat((foodTotal * TAX_RATE).toFixed(2));
-  const total = parseFloat((foodTotal + taxAmount + deliveryFee + serviceFee).toFixed(2));
+  const total = parseFloat((foodTotal + taxAmount).toFixed(2));
   useEffect(() => { setOrderTotal(total); }, [total]);
 
   const restaurantName = store.matchedRestaurant?.restaurant?.name || store.matchedRestaurant?.name || '-';
@@ -101,11 +99,11 @@ export default function Summary() {
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <span style={{ fontFamily: 'var(--font-body)', color: 'var(--color-pencil)' }}>Delivery</span>
-          <span style={{ fontFamily: 'var(--font-body)' }}>${deliveryFee}</span>
+          <span style={{ fontFamily: 'var(--font-body)', color: '#16a34a' }}>FREE</span>
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <span style={{ fontFamily: 'var(--font-body)', color: 'var(--color-pencil)' }}>Service</span>
-          <span style={{ fontFamily: 'var(--font-body)' }}>${serviceFee}</span>
+          <span style={{ fontFamily: 'var(--font-body)', color: '#16a34a' }}>FREE</span>
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <span style={{ fontFamily: 'var(--font-body)', color: 'var(--color-pencil)' }}>Tax (8.75%)</span>
