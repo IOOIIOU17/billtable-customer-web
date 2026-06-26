@@ -144,7 +144,7 @@ export default function OrderHistory() {
                     <p style={{ fontFamily: 'var(--font-hint)', fontSize: '13px', color: 'var(--color-pencil)', margin: '0 0 4px' }}>
                       {order.restaurant_name}
                       {order.restaurant_phone && (
-                        <> · <a href={`tel:${order.restaurant_phone}`} style={{ color: 'var(--color-ink)', textDecoration: 'none', fontWeight: 'bold' }}>{order.restaurant_phone}</a></>
+                        <> · <a href={`tel:${order.restaurant_phone}`} style={{ color: 'var(--color-ink)', textDecoration: 'none', fontWeight: 'bold', WebkitTextFillColor: 'var(--color-ink)' }}>{order.restaurant_phone}</a></>
                       )}
                     </p>
                   )}
