@@ -19,6 +19,9 @@ import OrderHistory from './screens/OrderHistory';
 import OrderTracking from './screens/OrderTracking';
 import ForgotPassword from './screens/ForgotPassword';
 import ResetPassword from './screens/ResetPassword';
+import Privacy from './screens/Privacy';
+import Support from './screens/Support';
+import DeleteAccount from './screens/DeleteAccount';
 
 export default function App() {
   return (
@@ -44,6 +47,9 @@ export default function App() {
         <Route path="/tracking/:orderId" element={<OrderTracking />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/privacy" element={<Privacy />} />
+        <Route path="/support" element={<Support />} />
+        <Route path="/delete" element={<DeleteAccount />} />
       </Routes>
     </BrowserRouter>
   );
