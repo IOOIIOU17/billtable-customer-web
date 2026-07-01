@@ -24,7 +24,7 @@ export default function Privacy() {
       <p>We retain your data for 1 year after your last order.</p>
 
       <h3>Your Rights</h3>
-      <p>You may request deletion of your account and all associated data at any time.</p>
+      <p>You may request deletion of your account and all associated data at any time. You can delete your account directly in the app, or submit a request at <a href="https://billtable.co/delete">billtable.co/delete</a>.</p>
 
       <h3>Contact</h3>
       <p>Email: <a href="mailto:billbebela@gmail.com">billbebela@gmail.com</a></p>
