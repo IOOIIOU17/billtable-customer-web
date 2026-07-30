@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import welcomeDoodle from '../assets/welcome-doodle.png';
 import logo from '../assets/billtable-logo.png';
 
@@ -64,6 +64,22 @@ export default function Welcome() {
       >
         Start a Table
       </button>
+
+      <footer style={{
+        marginTop: '48px',
+        textAlign: 'center',
+        fontFamily: 'var(--font-hint)',
+        fontSize: '11px',
+        color: 'var(--color-pencil)',
+        lineHeight: '1.6',
+      }}>
+        <p style={{ margin: 0 }}>BillBeBe Inc. · 45 S Arroyo Pkwy #1119, Pasadena, CA 91105</p>
+        <p style={{ margin: 0 }}>
+          <Link to="/terms" style={{ color: 'var(--color-pencil)' }}>Terms of Service</Link>
+          {' · '}
+          <Link to="/privacy" style={{ color: 'var(--color-pencil)' }}>Privacy Policy</Link>
+        </p>
+      </footer>
 
     </div>
   );

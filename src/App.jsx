@@ -20,6 +20,7 @@ import OrderTracking from './screens/OrderTracking';
 import ForgotPassword from './screens/ForgotPassword';
 import ResetPassword from './screens/ResetPassword';
 import Privacy from './screens/Privacy';
+import Terms from './screens/Terms';
 import Support from './screens/Support';
 import DeleteAccount from './screens/DeleteAccount';
 
@@ -48,6 +49,7 @@ export default function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/privacy" element={<Privacy />} />
+        <Route path="/terms" element={<Terms />} />
         <Route path="/support" element={<Support />} />
         <Route path="/delete" element={<DeleteAccount />} />
       </Routes>
