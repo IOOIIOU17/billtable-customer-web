@@ -24,6 +24,7 @@ import Terms from './screens/Terms';
 import Support from './screens/Support';
 import DeleteAccount from './screens/DeleteAccount';
 import Settings from './screens/Settings';
+import AiConsent from './screens/AiConsent';
 
 export default function App() {
   return (
@@ -54,6 +55,7 @@ export default function App() {
         <Route path="/support" element={<Support />} />
         <Route path="/delete" element={<DeleteAccount />} />
         <Route path="/settings" element={<Settings />} />
+        <Route path="/ai-consent" element={<AiConsent />} />
       </Routes>
     </BrowserRouter>
   );

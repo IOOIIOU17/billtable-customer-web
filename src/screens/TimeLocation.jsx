@@ -82,7 +82,7 @@ export default function TimeLocation() {
     setDeliveryTime(`${date} ${time}`);
     setDeliveryAddress(`${savedAddress.address}${savedAddress.building ? ', ' + savedAddress.building : ''}`.trim());
     setLocation(parseFloat(savedAddress.latitude), parseFloat(savedAddress.longitude));
-    navigate('/matching');
+    navigate(localStorage.getItem('aiConsentGiven') === 'true' ? '/matching' : '/ai-consent');
   };
 
   const handleNext = async () => {
@@ -102,7 +102,7 @@ export default function TimeLocation() {
       setDeliveryTime(`${date} ${time}`);
       setDeliveryAddress(`${address}${building ? ', ' + building : ''}`.trim());
       setLocation(latitude, longitude);
-      navigate('/matching');
+      navigate(localStorage.getItem('aiConsentGiven') === 'true' ? '/matching' : '/ai-consent');
     } catch (err) {
       console.error(err);
       setError('Address not found. Please check and try again.');
