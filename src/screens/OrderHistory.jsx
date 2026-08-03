@@ -108,6 +108,7 @@ export default function OrderHistory() {
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '32px' }}>
         <button onClick={() => navigate(-1)} style={{ padding: '8px 16px', border: '2px solid var(--color-ink)', borderRadius: 'var(--radius)', fontFamily: 'var(--font-body)', fontSize: '14px', cursor: 'pointer', background: 'var(--color-paper)' }}>← Back</button>
         <h1 style={{ fontFamily: 'var(--font-logo)', fontSize: '28px' }}>My Orders</h1>
+        <button onClick={() => navigate('/settings')} style={{ marginLeft: 'auto', padding: '8px 16px', border: '2px solid var(--color-ink)', borderRadius: 'var(--radius)', fontFamily: 'var(--font-body)', fontSize: '14px', cursor: 'pointer', background: 'var(--color-paper)' }}>⚙️ Settings</button>
       </div>
 
       {loading && <p style={{ fontFamily: 'var(--font-hint)', color: 'var(--color-pencil)' }}>Loading...</p>}

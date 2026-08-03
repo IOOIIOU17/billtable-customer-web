@@ -23,6 +23,7 @@ import Privacy from './screens/Privacy';
 import Terms from './screens/Terms';
 import Support from './screens/Support';
 import DeleteAccount from './screens/DeleteAccount';
+import Settings from './screens/Settings';
 
 export default function App() {
   return (
@@ -52,6 +53,7 @@ export default function App() {
         <Route path="/terms" element={<Terms />} />
         <Route path="/support" element={<Support />} />
         <Route path="/delete" element={<DeleteAccount />} />
+        <Route path="/settings" element={<Settings />} />
       </Routes>
     </BrowserRouter>
   );
