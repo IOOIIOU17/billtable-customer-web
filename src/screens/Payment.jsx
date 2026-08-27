@@ -7,6 +7,12 @@ import api from '../services/api';
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
+// TEST MODE — real Stripe charging is Phase 13 (deliberately last on the
+// roadmap; needs the Delaware C-Corp + EIN first). Until then this lets
+// the rest of the flow (Confirmation → Table Home) be tested without a
+// working payment_intent. Flip to false once Phase 13 is actually wired up.
+const TEST_MODE_SKIP_PAYMENT = true;
+
 function CheckoutForm({ orderId, total }) {
   const stripe = useStripe();
   const elements = useElements();
@@ -72,7 +78,10 @@ function CheckoutForm({ orderId, total }) {
         {closingMessage && (
           <p style={{ fontFamily: 'var(--font-hint)', fontSize: '15px', textAlign: 'center', color: 'var(--color-pencil)', fontStyle: 'italic', marginTop: '8px', lineHeight: '1.6' }}>{closingMessage}</p>
         )}
-        <button onClick={() => { reset(); navigate('/'); }} style={{ width: '100%', background: 'var(--color-ink)', color: 'var(--color-paper)', border: '2px solid var(--color-ink)', borderRadius: 'var(--radius)', padding: '14px', fontFamily: 'var(--font-body)', fontSize: '18px', cursor: 'pointer' }}>Start a new table</button>
+        {orderId && (
+          <button onClick={() => navigate('/table')} style={{ width: '100%', background: 'var(--color-ink)', color: 'var(--color-paper)', border: '2px solid var(--color-ink)', borderRadius: 'var(--radius)', padding: '14px', fontFamily: 'var(--font-body)', fontSize: '18px', cursor: 'pointer' }}>View Your Table →</button>
+        )}
+        <button onClick={() => { reset(); navigate('/'); }} style={{ width: '100%', background: 'var(--color-paper)', color: 'var(--color-ink)', border: '2px solid var(--color-ink)', borderRadius: 'var(--radius)', padding: '14px', fontFamily: 'var(--font-body)', fontSize: '18px', cursor: 'pointer' }}>Start a new table</button>
         <button onClick={() => navigate('/history')} style={{ width: '100%', background: 'var(--color-paper)', color: 'var(--color-ink)', border: '2px solid var(--color-ink)', borderRadius: 'var(--radius)', padding: '14px', fontFamily: 'var(--font-body)', fontSize: '18px', cursor: 'pointer' }}>My Orders</button>
       </div>
     );
@@ -122,6 +131,25 @@ function CheckoutForm({ orderId, total }) {
       >
         {loading ? 'Processing...' : `Pay $${total}`}
       </button>
+
+      {TEST_MODE_SKIP_PAYMENT && (
+        <button
+          onClick={() => setPaid(true)}
+          style={{
+            width: '100%',
+            background: 'var(--color-paper)',
+            color: 'var(--color-pencil)',
+            border: '2px dashed var(--color-pencil)',
+            borderRadius: 'var(--radius)',
+            padding: '12px',
+            fontFamily: 'var(--font-hint)',
+            fontSize: '14px',
+            cursor: 'pointer',
+          }}
+        >
+          Skip Payment (Test Mode)
+        </button>
+      )}
 
       <p style={{ fontFamily: 'var(--font-hint)', fontSize: '12px', color: 'var(--color-pencil)', textAlign: 'center', margin: 0 }}>
         Secured by Stripe

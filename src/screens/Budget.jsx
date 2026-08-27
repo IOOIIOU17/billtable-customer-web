@@ -11,7 +11,7 @@ export default function Budget() {
   const handleNext = () => {
     if (!amount || amount < 1) return;
     setBudget(Number(amount));
-    navigate('/allergy');
+    navigate('/taste');
   };
 
   return (

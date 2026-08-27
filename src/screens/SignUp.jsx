@@ -5,27 +5,38 @@ import billTableLogo from '../assets/billtable-logo.png';
 
 export default function SignUp() {
   const navigate = useNavigate();
-  const [form, setForm] = useState({ email: '', password: '' });
+  const [form, setForm] = useState({ name: '', email: '', phone: '', password: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async () => {
+  const handleRegister = async () => {
+    if (!form.name || !form.email || !form.password) {
+      setError('Please fill in all required fields');
+      return;
+    }
+    if (form.password.length < 8) {
+      setError('Password must be at least 8 characters');
+      return;
+    }
     setError('');
     setLoading(true);
     try {
-      const res = await api.post('/api/auth/login', {
+      const res = await api.post('/api/auth/register', {
+        name: form.name,
         email: form.email,
+        phone: form.phone || '',
         password: form.password,
+        role: 'customer'
       });
       const token = res.data?.accessToken || res.data?.data?.token || res.data?.token;
       if (token) {
         localStorage.setItem('token', token);
         navigate('/theme');
       } else {
-        setError('Login failed. Please try again.');
+        setError('No token received. Please try again.');
       }
     } catch (err) {
-      setError(err.response?.data?.message || 'Login failed.');
+      setError(err.response?.data?.message || 'Connection failed. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -42,44 +53,30 @@ export default function SignUp() {
   return (
     <div style={{ minHeight: '100vh', background: '#FEFEFE', maxWidth: '480px', margin: '0 auto', padding: '24px', fontFamily: "'Patrick Hand', cursive", display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
 
-      <div style={{ textAlign: 'center', marginBottom: '40px', width: '100%' }}>
+      <div style={{ textAlign: 'center', marginBottom: '32px', width: '100%' }}>
         <img src={billTableLogo} alt="BillTable" style={{ height: '64px', objectFit: 'contain', display: 'block', margin: '0 auto 8px' }} />
-        <p style={{ fontFamily: "'Kalam', cursive", fontSize: '14px', color: 'var(--color-pencil)', margin: 0 }}>Let's save your table first.</p>
+        <p style={{ fontFamily: "'Kalam', cursive", fontSize: '14px', color: 'var(--color-pencil)', margin: 0 }}>Create your account</p>
       </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '16px', width: '100%' }}>
-        <input
-          type="email"
-          placeholder="Email address"
-          value={form.email}
-          onChange={(e) => setForm({ ...form, email: e.target.value })}
-          style={inputStyle}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={form.password}
-          onChange={(e) => setForm({ ...form, password: e.target.value })}
-          onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
-          style={inputStyle}
-        />
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '8px', width: '100%' }}>
+        <input type="text" placeholder="Your name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} style={inputStyle} />
+        <input type="email" placeholder="Email address" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} style={inputStyle} />
+        <input type="tel" placeholder="Phone number (optional)" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} style={inputStyle} />
+        <input type="password" placeholder="Password (min 8 characters)" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} onKeyDown={(e) => e.key === 'Enter' && handleRegister()} style={inputStyle} />
       </div>
 
-      {error && <p style={{ color: 'red', fontFamily: "'Kalam', cursive", fontSize: '14px', marginBottom: '16px', textAlign: 'center' }}>{error}</p>}
+      {error && <p style={{ color: 'var(--color-ink)', fontFamily: "'Kalam', cursive", fontSize: '14px', marginBottom: '16px', textAlign: 'center' }}>{error}</p>}
 
-      <button onClick={handleSubmit} disabled={loading} style={{ width: '100%', padding: '16px', background: loading ? 'var(--color-pencil)' : '#1A1A1A', color: '#FEFEFE', border: 'none', borderRadius: '12px', fontFamily: "'Caveat', cursive", fontSize: '1.2rem', cursor: loading ? 'not-allowed' : 'pointer', letterSpacing: '1px', marginBottom: '16px' }}>
-        {loading ? 'Please wait...' : "Let's go"}
+      <button onClick={handleRegister} disabled={loading} style={{ width: '100%', padding: '16px', background: loading ? 'var(--color-pencil)' : '#1A1A1A', color: '#FEFEFE', border: 'none', borderRadius: '12px', fontFamily: "'Caveat', cursive", fontSize: '1.2rem', cursor: loading ? 'not-allowed' : 'pointer', letterSpacing: '1px', marginBottom: '16px' }}>
+        {loading ? 'Creating account...' : 'Create Account →'}
       </button>
 
-      <p onClick={() => navigate('/forgot-password')} style={{ fontFamily: "'Kalam', cursive", fontSize: '13px', color: 'var(--color-pencil)', textAlign: 'center', margin: '0 0 24px 0', cursor: 'pointer', textDecoration: 'underline' }}>
-        Forgot password?
+      <p style={{ fontFamily: "'Kalam', cursive", fontSize: '13px', color: 'var(--color-pencil)', textAlign: 'center', margin: '16px 0 0 0' }}>
+        Already have an account?{' '}
+        <span onClick={() => navigate('/login')} style={{ color: '#1A1A1A', cursor: 'pointer', textDecoration: 'underline' }}>
+          Login
+        </span>
       </p>
-
-      <div style={{ width: '100%', borderTop: '1px solid #E8E8E8', paddingTop: '24px' }}>
-        <button onClick={() => navigate('/login')} style={{ width: '100%', padding: '16px', background: '#FEFEFE', color: '#1A1A1A', border: '1.5px solid #1A1A1A', borderRadius: '12px', fontFamily: "'Caveat', cursive", fontSize: '1.2rem', cursor: 'pointer', letterSpacing: '1px' }}>
-          Create Account
-        </button>
-      </div>
 
     </div>
   );

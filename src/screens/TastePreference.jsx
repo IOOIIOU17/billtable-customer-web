@@ -28,7 +28,7 @@ export default function TastePreference() {
 
   const handleNext = () => {
     setAvoidSpicy(selected.includes('Spicy') ? false : true);
-    navigate('/time');
+    navigate('/allergy');
   };
 
   return (

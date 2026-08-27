@@ -111,6 +111,7 @@ export default function Confirmation() {
   };
 
   const handleChangeRestaurant = () => { navigate('/matching'); };
+  const handleGoToTable = () => { navigate('/table'); };
 
   if (orderError) {
     return (
@@ -147,9 +148,9 @@ export default function Confirmation() {
 
       <p style={{ fontFamily: 'var(--font-hint)', fontSize: '16px', color: 'var(--color-pencil)', textAlign: 'center' }}>{closingMessage}</p>
 
+      <button onClick={handleGoToTable} style={{ width: '100%', background: 'var(--color-ink)', color: 'var(--color-paper)', border: '2px solid var(--color-ink)', borderRadius: 'var(--radius)', padding: '14px', fontFamily: 'var(--font-body)', fontSize: '18px', cursor: 'pointer' }}>View Your Table →</button>
 
-
-      <button onClick={handleDone} style={{ width: '100%', background: 'var(--color-ink)', color: 'var(--color-paper)', border: '2px solid var(--color-ink)', borderRadius: 'var(--radius)', padding: '14px', fontFamily: 'var(--font-body)', fontSize: '18px', cursor: 'pointer' }}>Start a new table</button>
+      <button onClick={handleDone} style={{ width: '100%', background: 'var(--color-paper)', color: 'var(--color-ink)', border: '2px solid var(--color-ink)', borderRadius: 'var(--radius)', padding: '14px', fontFamily: 'var(--font-body)', fontSize: '18px', cursor: 'pointer' }}>Start a new table</button>
 
       <div style={{ width: '100%', display: 'flex', gap: '12px' }}>
         <button onClick={handleChangeRestaurant} style={{ flex: 1, background: 'var(--color-paper)', color: 'var(--color-ink)', border: '2px solid var(--color-ink)', borderRadius: 'var(--radius)', padding: '12px 8px', fontFamily: 'var(--font-body)', fontSize: '14px', cursor: 'pointer' }}>Change restaurant or menu</button>

@@ -62,7 +62,7 @@ export default function Welcome() {
           marginTop: '8px',
         }}
       >
-        Start a Table
+        Open Table
       </button>
 
       <footer style={{

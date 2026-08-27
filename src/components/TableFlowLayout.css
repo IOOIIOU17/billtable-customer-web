@@ -1,0 +1,15 @@
+/*
+ * Every step screen (SignUp.jsx, ThemeSelector.jsx, ...) renders its own
+ * root <div style={{ minHeight: '100vh', ... }}>. That's correct when the
+ * screen owns the whole page, but now it's rendered inside a floating
+ * card via <Outlet/>, so a real "100vh" would make the card as tall as
+ * the whole screen instead of hugging its content.
+ *
+ * We don't touch any of the screen files to fix this — a stylesheet rule
+ * with !important is the one thing that can override an inline style, so
+ * this single rule neutralizes minHeight:100vh only inside the card,
+ * without changing a single line in any screen's own code.
+ */
+.table-flow-outlet > div {
+  min-height: 0 !important;
+}
