@@ -236,12 +236,14 @@ export default function TableHome() {
             Invite
           </button>
         )}
-        <button
-          onClick={() => setChatOpen(true)}
-          style={{ flex: 1, padding: '14px 8px', border: '2px solid var(--color-ink)', borderRadius: 'var(--radius)', background: 'var(--color-paper)', color: 'var(--color-ink)', fontFamily: 'var(--font-body)', fontSize: '15px', cursor: 'pointer' }}
-        >
-          Chat
-        </button>
+        {isLive && (
+          <button
+            onClick={() => setChatOpen(true)}
+            style={{ flex: 1, padding: '14px 8px', border: '2px solid var(--color-ink)', borderRadius: 'var(--radius)', background: 'var(--color-paper)', color: 'var(--color-ink)', fontFamily: 'var(--font-body)', fontSize: '15px', cursor: 'pointer' }}
+          >
+            Chat
+          </button>
+        )}
       </div>
 
       <div style={{ padding: '4px 24px' }}>
@@ -280,6 +282,8 @@ export default function TableHome() {
       <ChatSheet
         open={chatOpen}
         onClose={() => setChatOpen(false)}
+        orderId={orderId}
+        myName={myName}
       />
     </div>
   );
