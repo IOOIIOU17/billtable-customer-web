@@ -22,7 +22,14 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      try { localStorage.removeItem('token'); } catch { /* ignore */ }
+      // Clear the dead token AND anything tied to that session, so a new
+      // Sign Up/Login right after doesn't inherit a stale name or AI
+      // consent flag from whoever was logged in before.
+      try {
+        localStorage.removeItem('token');
+        localStorage.removeItem('billtable_my_name');
+        localStorage.removeItem('aiConsentGiven');
+      } catch { /* ignore */ }
     }
     return Promise.reject(error);
   }

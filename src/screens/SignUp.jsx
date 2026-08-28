@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
+import useOrderStore from '../store/orderStore';
 import billTableLogo from '../assets/billtable-logo.png';
 
 export default function SignUp() {
   const navigate = useNavigate();
+  const resetOrderStore = useOrderStore((s) => s.reset);
   const [form, setForm] = useState({ name: '', email: '', phone: '', password: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -30,6 +32,17 @@ export default function SignUp() {
       });
       const token = res.data?.accessToken || res.data?.data?.token || res.data?.token;
       if (token) {
+        // Clear anything left over from a previous account/session in this
+        // same browser before storing the new token — a stale name, AI
+        // consent flag, or in-memory order/table state from a different
+        // account should never bleed into a fresh Sign Up. This is what
+        // caused the confusing "session expired" errors during testing
+        // (a leftover value from an earlier account, not a real bug).
+        try {
+          localStorage.removeItem('billtable_my_name');
+          localStorage.removeItem('aiConsentGiven');
+        } catch { /* ignore */ }
+        resetOrderStore();
         localStorage.setItem('token', token);
         navigate('/theme');
       } else {

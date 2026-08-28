@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
+import useOrderStore from '../store/orderStore';
 import billTableLogo from '../assets/billtable-logo.png';
 
 export default function Login() {
   const navigate = useNavigate();
+  const resetOrderStore = useOrderStore((s) => s.reset);
   const [form, setForm] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -19,6 +21,13 @@ export default function Login() {
       });
       const token = res.data?.accessToken || res.data?.data?.token || res.data?.token;
       if (token) {
+        // Same reasoning as SignUp.jsx — clear anything left over from a
+        // previous account in this browser before storing the new token.
+        try {
+          localStorage.removeItem('billtable_my_name');
+          localStorage.removeItem('aiConsentGiven');
+        } catch { /* ignore */ }
+        resetOrderStore();
         localStorage.setItem('token', token);
         navigate('/theme');
       } else {
