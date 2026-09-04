@@ -1,0 +1,11 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "W9N3NTW7QX.co.billtable.app",
+        "paths": [ "/join/*" ]
+      }
+    ]
+  }
+}
