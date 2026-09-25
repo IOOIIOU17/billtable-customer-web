@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "co.billtable.app",
+      "sha256_cert_fingerprints": [
+        "FE:1B:EC:5A:06:7C:A6:89:6C:CD:78:F4:24:5E:5B:C9:A5:02:08:83:5A:39:9E:06:1A:F5:F1:32:07:C1:A2:8E"
+      ]
+    }
+  }
+]
