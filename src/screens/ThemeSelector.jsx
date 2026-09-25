@@ -8,7 +8,7 @@ export default function ThemeSelector() {
   const [selected, setSelected] = useState('');
 
   const cuisines = ['Thai', 'Sushi', 'Italian', 'Custom'];
-  const events = ['My Party', 'Birthday', 'Wedding', 'Game Day @ Home', 'Game Day @ Office', 'Graduation', 'Other'];
+  const events = ['My Party', 'Birthday', 'Wedding', 'Game Day @ Home', 'Game Day @ Office', 'Graduation', 'Potluck', 'Other'];
 
   const pillStyle = (val) => ({
     padding: '10px 20px',
