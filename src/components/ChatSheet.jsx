@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import api from '../services/api';
 
 // ChatSheet — real table chat, slides in from the RIGHT edge of the screen
@@ -6,7 +6,7 @@ import api from '../services/api';
 // GET/POST /api/orders/:orderId/messages, polled every 4s while open (no
 // WebSocket infra needed). Messages auto-expire on the server 1 day after
 // the table's delivery_time passes.
-export default function ChatSheet({ open, onClose, orderId, myName }) {
+export default function ChatSheet({ open, onClose, orderId, myName, deliveryTime }) {
   const [mounted, setMounted] = useState(open);
   const [visible, setVisible] = useState(false);
   const [messages, setMessages] = useState([]);
@@ -15,6 +15,19 @@ export default function ChatSheet({ open, onClose, orderId, myName }) {
   const [error, setError] = useState('');
   const listRef = useRef(null);
   const lastIdRef = useRef(null);
+
+  // "This chat disappears 24h after your party" notice -- shown to anyone
+  // opening the chat, using the same 1-day window the server actually
+  // enforces (cleanupExpiredMessages in orderService.js). It steps aside
+  // once someone starts typing so it doesn't get in the way mid-chat.
+  const expiryLabel = useMemo(() => {
+    if (!deliveryTime) return null;
+    const d = new Date(deliveryTime);
+    if (Number.isNaN(d.getTime())) return null;
+    const expiry = new Date(d.getTime() + 24 * 60 * 60 * 1000);
+    return `${expiry.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}, ${expiry.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' })}`;
+  }, [deliveryTime]);
+  const showExpiryNotice = !!expiryLabel && text.trim().length === 0;
   const pollRef = useRef(null);
 
   // Keep the panel mounted briefly after close so the slide-out transition
@@ -140,6 +153,18 @@ export default function ChatSheet({ open, onClose, orderId, myName }) {
           <p style={{ fontFamily: 'var(--font-logo)', fontSize: '26px', margin: 0 }}>Chat</p>
           <button onClick={onClose} style={{ background: 'none', border: 'none', fontSize: '20px', cursor: 'pointer', color: 'var(--color-ink)' }}>✕</button>
         </div>
+
+        {showExpiryNotice && (
+          <div style={{
+            margin: '0 4px', padding: '6px 10px',
+            borderRadius: 'var(--radius)', border: '1px solid var(--color-light)',
+            background: 'var(--color-light)',
+          }}>
+            <p style={{ fontFamily: 'var(--font-hint)', fontSize: '11px', color: 'var(--color-pencil)', textAlign: 'center', margin: 0 }}>
+              This chat disappears {expiryLabel} (24h after your party).
+            </p>
+          </div>
+        )}
 
         <div
           ref={listRef}

@@ -302,6 +302,7 @@ export default function TableHome() {
         onClose={() => setChatOpen(false)}
         orderId={orderId}
         myName={myName}
+        deliveryTime={deliveryTime}
       />
     </div>
   );
