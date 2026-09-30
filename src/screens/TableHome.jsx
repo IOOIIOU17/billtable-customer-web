@@ -84,6 +84,24 @@ export default function TableHome() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLive, myName, orderId]);
 
+  // If nothing was ever saved to localStorage (first time on this table,
+  // or a fresh browser), fall back to the account's own name from
+  // /api/auth/me instead of leaving myName blank -- an empty name was
+  // defaulting every message (and the "mine" comparison in ChatSheet) to
+  // the literal string "You", which is why chat bubbles showed no real
+  // sender name.
+  useEffect(() => {
+    if (myName) return;
+    api.get('/api/auth/me').then((res) => {
+      const accountName = res.data?.data?.name;
+      if (accountName) {
+        setMyNameState(accountName);
+        try { localStorage.setItem(NAME_KEY, accountName); } catch { /* ignore */ }
+      }
+    }).catch(() => {});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const handleSetMyName = (name) => {
     setMyNameState(name);
     try { localStorage.setItem(NAME_KEY, name); } catch { /* ignore */ }

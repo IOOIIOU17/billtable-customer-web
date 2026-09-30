@@ -160,11 +160,9 @@ export default function ChatSheet({ open, onClose, orderId, myName }) {
             const mine = m.sender_name === (myName || 'You');
             return (
               <div key={m.id} style={{ display: 'flex', flexDirection: 'column', alignItems: mine ? 'flex-end' : 'flex-start' }}>
-                {!mine && (
-                  <span style={{ fontFamily: 'var(--font-hint)', fontSize: '11px', color: 'var(--color-pencil)', margin: '0 4px 2px' }}>
-                    {m.sender_name}
-                  </span>
-                )}
+                <span style={{ fontFamily: 'var(--font-hint)', fontSize: '11px', color: 'var(--color-pencil)', margin: '0 4px 2px' }}>
+                  {mine ? 'You' : m.sender_name}
+                </span>
                 <div style={{
                   maxWidth: '80%',
                   padding: '9px 13px',
