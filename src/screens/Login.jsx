@@ -29,6 +29,23 @@ export default function Login() {
         } catch { /* ignore */ }
         resetOrderStore();
         localStorage.setItem('token', token);
+        // Returning customers land on their past parties (so they can jump
+        // back into an old table's group) instead of always starting a new
+        // order from scratch. A brand-new account with no history yet just
+        // goes straight into the normal flow.
+        try {
+          const ordersRes = await api.get('/api/orders');
+          // API shape is { status: 'OK', data: [...] } -- read .data.data
+          // (same bug that crashed the native My Parties screen).
+          const orders = ordersRes.data?.data ?? ordersRes.data?.orders ?? [];
+          if (Array.isArray(orders) && orders.length > 0) {
+            navigate('/history');
+            return;
+          }
+        } catch {
+          // Couldn't check -- fall through to the normal new-order flow
+          // rather than block login on this.
+        }
         navigate('/theme');
       } else {
         setError('Login failed. Please try again.');
