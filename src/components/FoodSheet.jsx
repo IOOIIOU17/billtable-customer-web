@@ -5,7 +5,7 @@ import { useState } from 'react';
 // restriction). The first time someone without a saved name opens it,
 // they're asked for a name once — that name is what tags every item they
 // add ("added by ___"), and it's remembered for the rest of the session.
-export default function FoodSheet({ open, onClose, menus, partyItems, myName, onSetMyName, onAddItem, onDecrementItem }) {
+export default function FoodSheet({ open, onClose, menus, partyItems, myName, onSetMyName, onAddItem, onDecrementItem, readOnly = false }) {
   const [nameInput, setNameInput] = useState('');
 
   if (!open) return null;
@@ -38,7 +38,7 @@ export default function FoodSheet({ open, onClose, menus, partyItems, myName, on
         }}
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <p style={{ fontFamily: 'var(--font-logo)', fontSize: '26px', margin: 0 }}>Add to the table</p>
+          <p style={{ fontFamily: 'var(--font-logo)', fontSize: '26px', margin: 0 }}>{readOnly ? 'What was ordered' : 'Add to the table'}</p>
           <button
             onClick={onClose}
             style={{ background: 'none', border: 'none', fontSize: '20px', cursor: 'pointer', color: 'var(--color-ink)' }}
@@ -47,7 +47,26 @@ export default function FoodSheet({ open, onClose, menus, partyItems, myName, on
           </button>
         </div>
 
-        {!myName ? (
+        {readOnly ? (
+          // Party is over: no name prompt, no +/-, just what was on the table.
+          Object.keys(grouped).length === 0 ? (
+            <p style={{ fontFamily: 'var(--font-hint)', fontSize: '14px', color: 'var(--color-pencil)', margin: 0 }}>Nothing was added to this table.</p>
+          ) : (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              {Object.entries(grouped).map(([person, items]) => (
+                <div key={person}>
+                  <p style={{ margin: '0 0 4px', fontFamily: 'var(--font-body)', fontSize: '14px', fontWeight: 'bold' }}>{person}</p>
+                  {items.map((it) => (
+                    <div key={it.id} style={{ display: 'flex', justifyContent: 'space-between', fontFamily: 'var(--font-body)', fontSize: '14px', color: 'var(--color-pencil)' }}>
+                      <span>{it.quantity}× {it.name}</span>
+                      <span>${(it.price * it.quantity).toFixed(2)}</span>
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+          )
+        ) : !myName ? (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
             <p style={{ fontFamily: 'var(--font-hint)', fontSize: '15px', color: 'var(--color-pencil)', margin: 0 }}>
               What's your name? So we know who ordered what.

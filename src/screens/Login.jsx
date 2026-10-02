@@ -39,7 +39,7 @@ export default function Login() {
           // (same bug that crashed the native My Parties screen).
           const orders = ordersRes.data?.data ?? ordersRes.data?.orders ?? [];
           if (Array.isArray(orders) && orders.length > 0) {
-            navigate('/history');
+            navigate('/parties');
             return;
           }
         } catch {

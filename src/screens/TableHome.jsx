@@ -8,6 +8,7 @@ import MemberPanel from '../components/MemberPanel';
 import InviteSheet from '../components/InviteSheet';
 import ChatSheet from '../components/ChatSheet';
 import BillBar from '../components/BillBar';
+import { isPartyOver } from '../utils/partyTime';
 
 // Fallback so this screen can be checked directly (localhost/table) without
 // walking the whole SignUp → Matching flow first — same idea as the Phase 1
@@ -154,6 +155,9 @@ export default function TableHome() {
   const theme = isLive ? (remoteOrder?.theme || '') : store.theme;
   const guestCount = (isLive ? remoteOrder?.guest_count : store.guestCount) || store.guestCount || 6;
   const deliveryTime = isLive ? remoteOrder?.delivery_time : store.deliveryTime;
+  // Past party (24h after its date): read-only -- no Members/Invite/Chat,
+  // Food shows what was ordered. Same rule as the native app.
+  const isExpired = isLive && isPartyOver(deliveryTime);
 
   const menus = isLive
     ? remoteMenus.map((m) => ({ id: m.id, name: m.name, price: parseFloat(m.price) || 0 }))
@@ -238,15 +242,15 @@ export default function TableHome() {
           onClick={() => setFoodOpen(true)}
           style={{ flex: 1, padding: '14px 8px', border: '2px solid var(--color-ink)', borderRadius: 'var(--radius)', background: 'var(--color-ink)', color: 'var(--color-paper)', fontFamily: 'var(--font-body)', fontSize: '15px', cursor: 'pointer' }}
         >
-          Food
+          {isExpired ? 'What was ordered' : 'Food'}
         </button>
-        <button
+        {!isExpired && <button
           onClick={() => setMemberOpen(true)}
           style={{ flex: 1, padding: '14px 8px', border: '2px solid var(--color-ink)', borderRadius: 'var(--radius)', background: 'var(--color-paper)', color: 'var(--color-ink)', fontFamily: 'var(--font-body)', fontSize: '15px', cursor: 'pointer' }}
         >
           Members ({members.length})
-        </button>
-        {isLive && (
+        </button>}
+        {isLive && !isExpired && (
           <button
             onClick={() => setInviteOpen(true)}
             style={{ flex: 1, padding: '14px 8px', border: '2px solid var(--color-ink)', borderRadius: 'var(--radius)', background: 'var(--color-paper)', color: 'var(--color-ink)', fontFamily: 'var(--font-body)', fontSize: '15px', cursor: 'pointer' }}
@@ -254,7 +258,7 @@ export default function TableHome() {
             Invite
           </button>
         )}
-        {isLive && (
+        {isLive && !isExpired && (
           <button
             onClick={() => setChatOpen(true)}
             style={{ flex: 1, padding: '14px 8px', border: '2px solid var(--color-ink)', borderRadius: 'var(--radius)', background: 'var(--color-paper)', color: 'var(--color-ink)', fontFamily: 'var(--font-body)', fontSize: '15px', cursor: 'pointer' }}
@@ -264,12 +268,26 @@ export default function TableHome() {
         )}
       </div>
 
+      {isExpired && (
+        <div style={{ padding: '0 24px 8px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          <p style={{ fontFamily: 'var(--font-hint)', fontSize: '13px', color: 'var(--color-pencil)', textAlign: 'center', margin: 0 }}>
+            This party is over -- Invite and Chat have closed. What was ordered stays here.
+          </p>
+          <button
+            onClick={() => { store.reset(); navigate('/theme'); }}
+            style={{ width: '100%', padding: '14px', border: '2px solid var(--color-ink)', borderRadius: 'var(--radius)', background: 'var(--color-ink)', color: 'var(--color-paper)', fontFamily: 'var(--font-body)', fontSize: '15px', cursor: 'pointer' }}
+          >
+            Open a new Order →
+          </button>
+        </div>
+      )}
+
       <div style={{ padding: '4px 24px' }}>
         <button
-          onClick={() => navigate('/')}
+          onClick={() => navigate(isLive ? '/parties' : '/')}
           style={{ width: '100%', padding: '10px', border: 'none', background: 'none', color: 'var(--color-pencil)', fontFamily: 'var(--font-hint)', fontSize: '13px', cursor: 'pointer' }}
         >
-          ← Back home
+          {isLive ? '← My Parties' : '← Back home'}
         </button>
       </div>
 
@@ -284,6 +302,7 @@ export default function TableHome() {
         onSetMyName={handleSetMyName}
         onAddItem={handleAddItem}
         onDecrementItem={handleDecrementItem}
+        readOnly={isExpired}
       />
       <MemberPanel
         open={memberOpen}

@@ -18,6 +18,7 @@ import Confirmation from './screens/Confirmation';
 import MatchingResult from './screens/MatchingResult';
 import EditMenu from './screens/EditMenu';
 import OrderHistory from './screens/OrderHistory';
+import MyParties from './screens/MyParties';
 import OrderTracking from './screens/OrderTracking';
 import ForgotPassword from './screens/ForgotPassword';
 import ResetPassword from './screens/ResetPassword';
@@ -71,6 +72,7 @@ export default function App() {
 
         <Route path="/edit-menu" element={<EditMenu />} />
         <Route path="/history" element={<OrderHistory />} />
+        <Route path="/parties" element={<MyParties />} />
         <Route path="/tracking/:orderId" element={<OrderTracking />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
