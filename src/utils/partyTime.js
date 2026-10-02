@@ -13,6 +13,12 @@ export function isPartyOver(value) {
   return !!d && Date.now() > d.getTime() + 24 * 60 * 60 * 1000;
 }
 
+export function formatPartyWhen(value) {
+  const d = parsePartyTime(value);
+  if (!d) return value || '';
+  return `${d.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' })}, ${d.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' })}`;
+}
+
 export function formatPartyDate(value) {
   const d = parsePartyTime(value);
   return d ? d.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' }) : '';

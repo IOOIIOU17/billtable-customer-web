@@ -1,6 +1,6 @@
 // BillBar — sticky bottom bar on Table Home. Shows the live running total
 // for the whole table (everyone's items combined) and opens the Food Sheet.
-export default function BillBar({ itemCount, total, onOpenFood }) {
+export default function BillBar({ itemCount, total, onOpenFood, readOnly = false }) {
   return (
     <button
       onClick={onOpenFood}
@@ -30,7 +30,7 @@ export default function BillBar({ itemCount, total, onOpenFood }) {
       <span style={{ fontFamily: 'var(--font-logo)', fontSize: '22px', display: 'flex', alignItems: 'center', gap: '8px' }}>
         ${total.toFixed(2)}
         <span style={{ fontFamily: 'var(--font-body)', fontSize: '14px', border: '1.5px solid var(--color-paper)', borderRadius: '999px', padding: '4px 10px' }}>
-          + Add
+          {readOnly ? 'View' : '+ Add'}
         </span>
       </span>
     </button>

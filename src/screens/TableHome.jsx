@@ -8,7 +8,7 @@ import MemberPanel from '../components/MemberPanel';
 import InviteSheet from '../components/InviteSheet';
 import ChatSheet from '../components/ChatSheet';
 import BillBar from '../components/BillBar';
-import { isPartyOver } from '../utils/partyTime';
+import { isPartyOver, formatPartyWhen } from '../utils/partyTime';
 
 // Fallback so this screen can be checked directly (localhost/table) without
 // walking the whole SignUp → Matching flow first — same idea as the Phase 1
@@ -226,7 +226,7 @@ export default function TableHome() {
         </p>
         <h1 style={{ fontFamily: 'var(--font-logo)', fontSize: '30px', margin: '0 0 4px' }}>{restaurantName}</h1>
         <p style={{ fontFamily: 'var(--font-hint)', fontSize: '13px', color: 'var(--color-pencil)', margin: 0 }}>
-          {guestCount} guests{deliveryTime ? ` · ${deliveryTime}` : ''}
+          {guestCount} guests{deliveryTime ? ` · ${formatPartyWhen(deliveryTime)}` : ''}
         </p>
         {syncError && (
           <p style={{ fontFamily: 'var(--font-hint)', fontSize: '12px', color: 'var(--color-ink)', marginTop: '8px' }}>{syncError}</p>
@@ -291,7 +291,7 @@ export default function TableHome() {
         </button>
       </div>
 
-      <BillBar itemCount={itemCount} total={total} onOpenFood={() => setFoodOpen(true)} />
+      <BillBar itemCount={itemCount} total={total} onOpenFood={() => setFoodOpen(true)} readOnly={isExpired} />
 
       <FoodSheet
         open={foodOpen}
