@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import useOrderStore from '../store/orderStore';
 import api from '../services/api';
+import { platesNeeded } from '../utils/portions';
 
 export default function Summary() {
   const navigate = useNavigate();
@@ -23,7 +24,8 @@ export default function Summary() {
       const editedMenus = matchedRestaurant?.menus;
       const hasValidPrices = editedMenus?.length && editedMenus.every((m) => typeof m.price === 'number');
       const menus = hasValidPrices ? editedMenus : (matchedRestaurant?.recommended_menus || []);
-      const items = menus.slice(0, 5).map((m) => ({ menuItemId: m.id, name: m.name, quantity: m.quantity || 1 }));
+      const picked = menus.slice(0, 5);
+      const items = picked.map((m) => ({ menuItemId: m.id, name: m.name, quantity: platesNeeded(store.guestCount, picked.length, m.serving_size) }));
       const orderRes = await api.post('/api/orders', {
         restaurantId, items,
         theme: store.theme, guestCount: store.guestCount, budget: store.budget,
@@ -47,7 +49,9 @@ export default function Summary() {
   const editedMenus = store.matchedRestaurant?.menus;
   const hasValidPrices = editedMenus?.length && editedMenus.every((m) => typeof m.price === 'number');
   const menus = (hasValidPrices ? editedMenus : (store.matchedRestaurant?.recommended_menus || [])).slice(0, 5);
-  const foodTotal = menus.reduce((sum, m) => sum + (m.price || 0), 0);
+  // Plates per dish from guest count + the restaurant's plate size (was
+  // always 1 plate per dish before 2026-10-02). Same formula as the server.
+  const foodTotal = parseFloat(menus.reduce((sum, m) => sum + (m.price || 0) * platesNeeded(store.guestCount, menus.length, m.serving_size), 0).toFixed(2));
   const taxAmount = parseFloat((foodTotal * TAX_RATE).toFixed(2));
   const total = parseFloat((foodTotal + taxAmount).toFixed(2));
   useEffect(() => { setOrderTotal(total); }, [total]);
@@ -85,8 +89,8 @@ export default function Summary() {
           <p style={{ fontFamily: 'var(--font-hint)', fontSize: '14px', color: 'var(--color-pencil)' }}>Menu</p>
           {menus.map((m, i) => (
             <div key={i} style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <span style={{ fontFamily: 'var(--font-body)', fontSize: '15px' }}>{m.name}</span>
-              <span style={{ fontFamily: 'var(--font-body)', fontSize: '15px' }}>${m.price}</span>
+              <span style={{ fontFamily: 'var(--font-body)', fontSize: '15px' }}>{m.name} × {platesNeeded(store.guestCount, menus.length, m.serving_size)}</span>
+              <span style={{ fontFamily: 'var(--font-body)', fontSize: '15px' }}>${((m.price || 0) * platesNeeded(store.guestCount, menus.length, m.serving_size)).toFixed(2)}</span>
             </div>
           ))}
         </div>
