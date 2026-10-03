@@ -11,7 +11,7 @@ export default function Privacy() {
       <p>BillTable is operated by <strong>BillBeBe Inc.</strong>, a Delaware corporation located at 45 S Arroyo Pkwy #1119, Pasadena, CA 91105.</p>
 
       <h3>Information We Collect</h3>
-      <p>We collect: email, name, phone number, location (GPS), order history, and delivery address.</p>
+      <p>We collect: email, name, phone number, location (GPS), order history, delivery address, party chat messages, ratings and reviews you write, and friends&apos; birthdays you choose to save (first name and day only, no year) so we can remind you before them.</p>
 
       <h3>How We Use Your Information</h3>
       <p>We use your information to: process orders, match restaurants, and deliver food.</p>
