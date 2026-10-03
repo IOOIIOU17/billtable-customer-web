@@ -19,6 +19,8 @@ export default function Terms() {
       <h3>User Responsibilities</h3>
       <p>You agree to provide accurate order information, including guest count, allergies, and delivery details. You are responsible for reviewing your order before confirming.</p>
 
+      <h3>Party Chat and Community Rules</h3>
+      <p>Party chat is for the guests of your table. There is no tolerance for objectionable content or abusive users: no harassment, hate speech, threats, sexual content or spam. Press and hold any message to report it or to block the person who sent it. Reported messages are hidden right away and reviewed by BillTable within 24 hours; we remove content that breaks these rules and remove users who post it.</p>
       <h3>Orders and Payment</h3>
       <p>Prices are set by participating restaurants. Payment is processed at the time of order confirmation. Cancellation policies may vary by restaurant and event date.</p>
 

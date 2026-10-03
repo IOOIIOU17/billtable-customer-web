@@ -33,17 +33,45 @@ export default function JoinTable() {
   const [form, setForm] = useState({ name: '', email: '', password: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  // Oct 2026: guests also need the party's secret passcode (backend
+  // middleware/partyAccess.js). 'passcode' = signed in, now type it.
+  const [step, setStep] = useState('account');
+  const [passName, setPassName] = useState('');
+  const [passcode, setPasscode] = useState('');
 
-  // Already have an account on this device from an earlier visit? Skip
-  // straight to the table instead of asking them to sign up again.
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
+  const enterOrAskPasscode = async () => {
+    try {
+      await api.get(`/api/orders/${orderId}/table`);
       setCurrentOrderId(Number(orderId));
       navigate('/table');
+    } catch {
+      let saved = '';
+      try { saved = localStorage.getItem(NAME_KEY) || ''; } catch { /* ignore */ }
+      setPassName(saved);
+      setStep('passcode');
     }
+  };
+
+  useEffect(() => {
+    if (localStorage.getItem('token')) enterOrAskPasscode();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const handleJoin = async () => {
+    if (!passName.trim() || !passcode.trim()) { setError('Type your name and the passcode.'); return; }
+    setError('');
+    setLoading(true);
+    try {
+      await api.post(`/api/orders/${orderId}/join`, { name: passName.trim(), passcode });
+      try { localStorage.setItem(NAME_KEY, passName.trim()); } catch { /* ignore */ }
+      setCurrentOrderId(Number(orderId));
+      navigate('/table');
+    } catch (err) {
+      setError(err.response?.data?.message || 'Could not join. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleSubmit = async () => {
     if (!form.email || !form.password || (mode === 'signup' && !form.name)) {
@@ -68,14 +96,30 @@ export default function JoinTable() {
       if (mode === 'signup' && form.name) {
         try { localStorage.setItem(NAME_KEY, form.name); } catch { /* ignore */ }
       }
-      setCurrentOrderId(Number(orderId));
-      navigate('/table');
+      setLoading(false);
+      await enterOrAskPasscode();
+      return;
     } catch (err) {
       setError(err.response?.data?.message || 'Something went wrong. Please try again.');
     } finally {
       setLoading(false);
     }
   };
+
+  if (step === 'passcode') {
+    return (
+      <div style={{ minHeight: '100vh', background: 'var(--color-paper)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '32px', gap: '16px', maxWidth: '400px', margin: '0 auto' }}>
+        <p style={{ fontFamily: 'var(--font-logo)', fontSize: '32px', textAlign: 'center', margin: 0 }}>What's the passcode?</p>
+        <p style={{ fontFamily: 'var(--font-hint)', fontSize: '14px', color: 'var(--color-pencil)', textAlign: 'center', margin: '0 0 8px' }}>
+          The host has a secret passcode for this table. Ask them for it.
+        </p>
+        <input placeholder="Your name" value={passName} onChange={(e) => setPassName(e.target.value)} style={inputStyle} />
+        <input placeholder="Secret passcode" value={passcode} onChange={(e) => setPasscode(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && handleJoin()} style={inputStyle} />
+        {error && <p style={{ color: 'crimson', fontFamily: 'var(--font-hint)', fontSize: '14px', textAlign: 'center' }}>{error}</p>}
+        <button onClick={handleJoin} disabled={loading} style={buttonStyle(true)}>{loading ? 'Joining...' : 'Join the table →'}</button>
+      </div>
+    );
+  }
 
   return (
     <div style={{
