@@ -13,7 +13,7 @@ export default function DeleteAccount() {
 
   return (
     <div style={wrap}>
-      <h1 style={h1}>BillTable</h1>
+      <h1 style={h1}>TigTagTrue</h1>
       <h2 style={h2}>Delete Account</h2>
 
       {isLoggedIn ? (
@@ -28,7 +28,7 @@ export default function DeleteAccount() {
       ) : (
         <>
           <p>To request deletion of your account and all associated data, please email us at:</p>
-          <p><strong><a href="mailto:billtable@billtable.co?subject=Account Deletion Request">billtable@billtable.co</a></strong></p>
+          <p><strong><a href="mailto:support@tigtagtrue.com?subject=Account Deletion Request">support@tigtagtrue.com</a></strong></p>
           <p>Subject: Account Deletion Request</p>
           <p>Please include the email address associated with your account.</p>
           <p>We will process your request within 30 days.</p>

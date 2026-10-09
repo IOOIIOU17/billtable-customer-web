@@ -3,12 +3,12 @@ import React from 'react';
 export default function Privacy() {
   return (
     <div style={{ maxWidth: 800, margin: '0 auto', padding: '48px 24px', fontFamily: 'Patrick Hand, sans-serif', color: '#1A1A1A' }}>
-      <h1 style={{ fontFamily: 'Caveat, cursive', fontSize: 48, marginBottom: 8 }}>BillTable</h1>
+      <h1 style={{ fontFamily: 'Caveat, cursive', fontSize: 48, marginBottom: 8 }}>TigTagTrue</h1>
       <h2 style={{ fontSize: 28, marginBottom: 8 }}>Privacy Policy</h2>
       <p style={{ color: '#4A4A4A', marginBottom: 32 }}>Last updated: July 30, 2026</p>
 
       <h3>Company</h3>
-      <p>BillTable is operated by <strong>BillBeBe Inc.</strong>, a Delaware corporation located at 45 S Arroyo Pkwy #1119, Pasadena, CA 91105.</p>
+      <p>TigTagTrue is operated by <strong>BillBeBe Inc.</strong>, a Delaware corporation located at 45 S Arroyo Pkwy #1119, Pasadena, CA 91105.</p>
 
       <h3>Information We Collect</h3>
       <p>We collect: email, name, phone number, location (GPS), order history, delivery address, party chat messages, ratings and reviews you write, and friends&apos; birthdays you choose to save (first name and day only, no year) so we can remind you before them, and party photos you add (the party cover and the Memory album). Party photos are visible only to the host and guests of that party and are deleted 24 hours after the party ends.</p>
@@ -31,7 +31,7 @@ export default function Privacy() {
 
       <h3>Contact</h3>
       <p>BillBeBe Inc. · 45 S Arroyo Pkwy #1119, Pasadena, CA 91105<br />
-      Email: <a href="mailto:billtable@billtable.co">billtable@billtable.co</a></p>
+      Email: <a href="mailto:support@tigtagtrue.com">support@tigtagtrue.com</a></p>
     </div>
   );
 }
