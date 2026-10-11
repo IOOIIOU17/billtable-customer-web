@@ -5,7 +5,7 @@ export default function Privacy() {
     <div style={{ maxWidth: 800, margin: '0 auto', padding: '48px 24px', fontFamily: 'Patrick Hand, sans-serif', color: '#1A1A1A' }}>
       <h1 style={{ fontFamily: 'Caveat, cursive', fontSize: 48, marginBottom: 8 }}>TigTagTrue</h1>
       <h2 style={{ fontSize: 28, marginBottom: 8 }}>Privacy Policy</h2>
-      <p style={{ color: '#4A4A4A', marginBottom: 32 }}>Last updated: July 30, 2026</p>
+      <p style={{ color: '#4A4A4A', marginBottom: 32 }}>Last updated: October 11, 2026</p>
 
       <h3>Company</h3>
       <p>TigTagTrue is operated by <strong>BillBeBe Inc.</strong>, a Delaware corporation located at 45 S Arroyo Pkwy #1119, Pasadena, CA 91105.</p>
@@ -13,21 +13,37 @@ export default function Privacy() {
       <h3>Information We Collect</h3>
       <p>We collect: email, name, phone number, location (GPS), order history, delivery address, party chat messages, ratings and reviews you write, and friends&apos; birthdays you choose to save (first name and day only, no year) so we can remind you before them, and party photos you add (the party cover and the Memory album). Party photos are visible only to the host and guests of that party and are deleted 24 hours after the party ends.</p>
 
+      <h3>My TigTagTrue Day</h3>
+      <p>When you add an important day, we keep a first name, the date (the year only if you add it), what kind of day it is, a theme, when to remind you, and that person&apos;s favorite color, song, animal and place if you add them. We also keep the stories you write about your days, the notes close friends leave on them, and your list of close friends.</p>
+
+      <h3>Stories and Close Friends</h3>
+      <p>Every story is private when you write it: only you can see it. You can open a story to your close friends, to read it or to read it and add notes. Close friends are only the people who used a friend code you made, or whose code you used; there can be at most 10, and you can remove any of them at any time. Removing a friend also removes their notes on your stories. Stories and notes are stored encrypted.</p>
+
       <h3>How We Use Your Information</h3>
-      <p>We use your information to: process orders, match restaurants, and deliver food.</p>
+      <p>We use your information to process orders, match restaurants, deliver food, remind you before your important days, and show your stories only to the people you choose. We do not sell your information, and we do not use your stories or notes for advertising.</p>
 
       <h3>Third Parties We Share With</h3>
       <ul>
         <li>Stripe — payment processing</li>
-        <li>Cloudinary — food images</li>
-        <li>LocationIQ — geocoding</li>
+        <li>Cloudinary — storing photos</li>
+        <li>Expo — sending push notifications</li>
+        <li>U.S. Census Bureau Geocoder and OpenStreetMap Nominatim — turning a typed address into a map point (only the address is sent)</li>
+        <li>Sentry — error reports so we can fix problems</li>
+        <li>Google (Gmail) — sending emails such as receipts and password resets</li>
+        <li>Render — hosting our servers and database</li>
       </ul>
 
       <h3>Data Retention</h3>
-      <p>We retain your data for 1 year after your last order.</p>
+      <p>Order records are kept for 1 year after your last order. Your important days, stories and notes are kept until you delete them or delete your account.</p>
+
+      <h3>Children</h3>
+      <p>TigTagTrue is for people 13 and older. We do not knowingly collect information from children under 13. If you believe a child has created an account, contact us and we will delete it.</p>
+
+      <h3>If the Company Changes Hands</h3>
+      <p>If BillBeBe Inc. is merged, acquired or sells its business, your information may move with it, and this policy will keep protecting it. We will tell you before that happens.</p>
 
       <h3>Your Rights</h3>
-      <p>You may request deletion of your account and all associated data at any time. You can delete your account directly in the app, or submit a request at <a href="https://billtable.co/delete">billtable.co/delete</a>.</p>
+      <p>You may request deletion of your account and all associated data at any time. You can delete your account directly in the app, or submit a request at <a href="https://billtable.co/delete">billtable.co/delete</a>. Deleting your account removes your important days, stories, notes and close friends.</p>
 
       <h3>Contact</h3>
       <p>BillBeBe Inc. · 45 S Arroyo Pkwy #1119, Pasadena, CA 91105<br />

@@ -5,13 +5,16 @@ export default function Terms() {
     <div style={{ maxWidth: 800, margin: '0 auto', padding: '48px 24px', fontFamily: 'Patrick Hand, sans-serif', color: '#1A1A1A' }}>
       <h1 style={{ fontFamily: 'Caveat, cursive', fontSize: 48, marginBottom: 8 }}>TigTagTrue</h1>
       <h2 style={{ fontSize: 28, marginBottom: 8 }}>Terms of Service</h2>
-      <p style={{ color: '#4A4A4A', marginBottom: 32 }}>Last updated: July 30, 2026</p>
+      <p style={{ color: '#4A4A4A', marginBottom: 32 }}>Last updated: October 11, 2026</p>
 
       <h3>Company</h3>
       <p>TigTagTrue is operated by <strong>BillBeBe Inc.</strong>, a Delaware corporation located at 45 S Arroyo Pkwy #1119, Pasadena, CA 91105.</p>
 
       <h3>Acceptance of Terms</h3>
       <p>By creating an account or placing an order through TigTagTrue, you agree to these Terms of Service.</p>
+
+      <h3>Who Can Use TigTagTrue</h3>
+      <p>You must be 13 or older to create an account.</p>
 
       <h3>Our Service</h3>
       <p>TigTagTrue connects customers with restaurants for catering and event food orders. We facilitate the order and matching process between customers and participating restaurants.</p>
@@ -21,6 +24,9 @@ export default function Terms() {
 
       <h3>Party Chat and Community Rules</h3>
       <p>Party chat is for the guests of your table. There is no tolerance for objectionable content or abusive users: no harassment, hate speech, threats, sexual content or spam. Press and hold any message to report it or to block the person who sent it. Reported messages are hidden right away and reviewed by TigTagTrue within 24 hours; we remove content that breaks these rules and remove users who post it.</p>
+      <h3>Stories, Notes and Close Friends</h3>
+      <p>What you write in My TigTagTrue Day is yours. Only share stories and details about other people that you have the right to share. Notes on a friend&apos;s story follow the same community rules as party chat. The owner of a story can remove any note on it and can remove a close friend at any time. To report a problem, email <a href="mailto:support@tigtagtrue.com">support@tigtagtrue.com</a>.</p>
+
       <h3>Orders and Payment</h3>
       <p>Prices are set by participating restaurants. Payment is processed at the time of order confirmation. Cancellation policies may vary by restaurant and event date.</p>
 
