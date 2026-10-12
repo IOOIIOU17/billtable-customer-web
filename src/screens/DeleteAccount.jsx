@@ -53,13 +53,13 @@ export default function DeleteAccount() {
         <li>Your saved delivery addresses</li>
         <li>Push notification tokens</li>
         <li>Birthdays you saved</li>
-        <li>Parties you hosted, with their orders, items, chat, photos, ratings and reviews</li>
+        <li>For parties you hosted: the chat, photos, guest list and plans, and the delivery address, comments, allergies and review text on the order</li>
         <li>Your place in parties you joined, and the reports and blocks you made</li>
       </ul>
 
       <h3>What is kept (TigTagTrue)</h3>
       <ul>
-        <li>Orders for parties you hosted are deleted with your account — we do not keep a copy.</li>
+        <li>Orders for parties you hosted (what was ordered, the amounts, the star rating, and the type and status of any problem report) are kept for 1 year without your name or contact details, for accounting and for the restaurant that cooked them, and then deleted. An order that is still open is cancelled.</li>
         <li>A party you joined as a guest stays with its host, without your name, messages or photos.</li>
         <li>Our security log keeps a record of some actions (such as a table booking) without your name, email or IP address.</li>
       </ul>

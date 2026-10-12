@@ -39,7 +39,7 @@ export default function Privacy() {
       </ul>
 
       <h3>Data Retention</h3>
-      <p>Order records are kept for 1 year after your last order. Your important days, stories and notes are kept until you delete them or delete your account.</p>
+      <p>Your account, important days, stories and notes are kept until you delete them or delete your account, and your order history stays in your account while you have one. When you delete your account, the orders you hosted are kept for 1 year without your name or contact details (no address, comments, allergies or review text), for accounting and for the restaurants that cooked them, and then deleted. Party chat is deleted 1 day after the party starts, and party photos 24 hours after the party ends.</p>
 
       <h3>Children</h3>
       <p>TigTagTrue is for people 13 and older. We do not knowingly collect information from children under 13. If you believe a child has created an account, contact us and we will delete it.</p>
@@ -48,7 +48,7 @@ export default function Privacy() {
       <p>If BillBeBe Inc. is merged, acquired or sells its business, your information may move with it, and this policy will keep protecting it. We will tell you before that happens.</p>
 
       <h3>Your Rights</h3>
-      <p>You may request deletion of your account and all associated data at any time. You can delete your account directly in the app, or submit a request at <a href="https://billtable.co/delete">billtable.co/delete</a>. Deleting your account removes your important days, stories, notes and close friends.</p>
+      <p>You may request deletion of your account and its data at any time. You can delete your account directly in the app, or submit a request at <a href="https://billtable.co/delete">billtable.co/delete</a>. Deleting your account removes your important days, stories, notes and close friends. Orders you hosted are kept for 1 year without your name or contact details, as described under Data Retention.</p>
 
       <h3>Contact</h3>
       <p>BillBeBe Inc. · 45 S Arroyo Pkwy #1119, Pasadena, CA 91105<br />
