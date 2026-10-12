@@ -58,7 +58,7 @@ export default function EditMenu() {
       </p>
 
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
-        <img src={billTableLogo} alt="BillTable" style={{ height: '22px', objectFit: 'contain' }} />
+        <img src={billTableLogo} alt="TigTagTrue" style={{ height: '22px', objectFit: 'contain' }} />
         <span style={{ fontFamily: "'Kalam', cursive", fontSize: '13px', color: 'var(--color-pencil)' }}>recommends</span>
       </div>
 

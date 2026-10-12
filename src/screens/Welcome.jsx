@@ -19,7 +19,7 @@ export default function Welcome() {
 
       <img
         src={logo}
-        alt="BillTable"
+        alt="TigTagTrue"
         style={{
           height: '64px',
           objectFit: 'contain',

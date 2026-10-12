@@ -24,7 +24,7 @@ export default function ForgotPassword() {
 
   return (
     <div style={{ minHeight:'100vh', background:'var(--color-paper)', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', padding:'32px', maxWidth:'400px', margin:'0 auto' }}>
-      <p style={{ fontFamily:"'Caveat',cursive", fontSize:'2rem', marginBottom:'8px' }}>BillTable</p>
+      <p style={{ fontFamily:"'Caveat',cursive", fontSize:'2rem', marginBottom:'8px' }}>TigTagTrue</p>
       <p style={{ fontFamily:"'Kalam',sans-serif", fontSize:'14px', color:'var(--color-pencil)', marginBottom:'32px' }}>Reset your password</p>
 
       {sent ? (

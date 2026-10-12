@@ -24,7 +24,7 @@ export default function AiConsent() {
 
   return (
     <div style={wrap}>
-      <h1 style={h1}>BillTable AI — How your data is used</h1>
+      <h1 style={h1}>TigTagTrue AI — How your data is used</h1>
 
       <div style={section}>
         <p style={label}>What we share with Bill AI</p>
@@ -38,7 +38,7 @@ export default function AiConsent() {
 
       <div style={section}>
         <p style={label}>Who provides this</p>
-        <p style={text}>Matching is powered by BillTable's own matching service, using the details above only.</p>
+        <p style={text}>Matching is powered by TigTagTrue's own matching service, using the details above only.</p>
       </div>
 
       <div style={section}>

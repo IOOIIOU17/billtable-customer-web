@@ -56,7 +56,7 @@ export default function MyParties() {
   return (
     <div style={{ minHeight: '100vh', background: 'var(--color-paper)', padding: '32px 24px', maxWidth: '500px', margin: '0 auto' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
-        <span style={{ fontFamily: 'var(--font-logo)', fontSize: '28px', color: 'var(--color-ink)' }}>BillTable</span>
+        <span style={{ fontFamily: 'var(--font-logo)', fontSize: '28px', color: 'var(--color-ink)' }}>TigTagTrue</span>
         <button onClick={handleLogout} style={{ background: 'none', border: 'none', fontFamily: 'var(--font-body)', fontSize: '14px', color: 'var(--color-pencil)', textDecoration: 'underline', cursor: 'pointer' }}>Logout</button>
       </div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>

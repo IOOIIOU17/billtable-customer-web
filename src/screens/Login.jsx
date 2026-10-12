@@ -69,7 +69,7 @@ export default function Login() {
     <div style={{ minHeight: '100vh', background: '#FEFEFE', maxWidth: '480px', margin: '0 auto', padding: '24px', fontFamily: "'Patrick Hand', cursive", display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
 
       <div style={{ textAlign: 'center', marginBottom: '40px', width: '100%' }}>
-        <img src={billTableLogo} alt="BillTable" style={{ height: '64px', objectFit: 'contain', display: 'block', margin: '0 auto 8px' }} />
+        <img src={billTableLogo} alt="TigTagTrue" style={{ height: '64px', objectFit: 'contain', display: 'block', margin: '0 auto 8px' }} />
         <p style={{ fontFamily: "'Kalam', cursive", fontSize: '14px', color: 'var(--color-pencil)', margin: 0 }}>Let's save your table first.</p>
       </div>
 
