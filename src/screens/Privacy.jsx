@@ -5,19 +5,23 @@ export default function Privacy() {
     <div style={{ maxWidth: 800, margin: '0 auto', padding: '48px 24px', fontFamily: 'Patrick Hand, sans-serif', color: '#1A1A1A' }}>
       <h1 style={{ fontFamily: 'Caveat, cursive', fontSize: 48, marginBottom: 8 }}>TigTagTrue</h1>
       <h2 style={{ fontSize: 28, marginBottom: 8 }}>Privacy Policy</h2>
-      <p style={{ color: '#4A4A4A', marginBottom: 32 }}>Last updated: October 11, 2026</p>
+      <p style={{ color: '#4A4A4A', marginBottom: 32 }}>Last updated: October 12, 2026</p>
 
       <h3>Company</h3>
       <p>TigTagTrue is operated by <strong>BillBeBe Inc.</strong>, a Delaware corporation located at 45 S Arroyo Pkwy #1119, Pasadena, CA 91105.</p>
 
       <h3>Information We Collect</h3>
-      <p>We collect: email, name, phone number, location (GPS), order history, delivery address, party chat messages, ratings and reviews you write, and friends&apos; birthdays you choose to save (first name and day only, no year) so we can remind you before them, and party photos you add (the party cover and the Memory album). Party photos are visible only to the host and guests of that party and are deleted 24 hours after the party ends.</p>
+      <p>We collect: email, name, phone number, location (GPS), order history, delivery address, party chat messages, ratings and reviews you write, and party photos you add (the party cover and the Memory album). Party photos are visible only to the host and guests of that party and are deleted 24 hours after the party ends.</p>
 
       <h3>My TigTagTrue Day</h3>
       <p>When you add an important day, we keep a first name, the date (the year only if you add it), what kind of day it is, a theme, when to remind you, and that person&apos;s favorite color, song, animal and place if you add them. We also keep the stories you write about your days, the notes close friends leave on them, and your list of close friends.</p>
 
       <h3>Stories and Close Friends</h3>
       <p>Every story is private when you write it: only you can see it. You can open a story to your close friends, to read it or to read it and add notes. Close friends are only the people who used a friend code you made, or whose code you used; there can be at most 10, and you can remove any of them at any time. Removing a friend also removes their notes on your stories. Stories and notes are stored encrypted.</p>
+
+      <h3>Restaurant Partners</h3>
+      <p>If you run a restaurant on TigTagTrue (the TigTagTrue Orders app), we collect: business name, owner name, email, phone, business address, menu and storefront photos, opening hours, order and sales data, and the push token of the phone that receives order alerts. We use this to run your orders, show your restaurant to customers, and build your sales reports.</p>
+      <p>To delete a restaurant account, go to Settings → Delete restaurant account in the TigTagTrue Orders app. Your restaurant stops taking new orders right away, you can finish open orders, and you can cancel within 30 days. After 30 days the account and its data are removed. Order records are kept for tax purposes, without personal contact details.</p>
 
       <h3>How We Use Your Information</h3>
       <p>We use your information to process orders, match restaurants, deliver food, remind you before your important days, and show your stories only to the people you choose. We do not sell your information, and we do not use your stories or notes for advertising.</p>
@@ -31,6 +35,7 @@ export default function Privacy() {
         <li>Sentry — error reports so we can fix problems</li>
         <li>Google (Gmail) — sending emails such as receipts and password resets</li>
         <li>Render — hosting our servers and database</li>
+        <li>QR Server (api.qrserver.com, by goqr.me) — making the QR code for a party invite (it receives only the join link, no names or emails)</li>
       </ul>
 
       <h3>Data Retention</h3>
