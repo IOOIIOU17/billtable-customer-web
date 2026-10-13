@@ -5,13 +5,14 @@ export default function Privacy() {
     <div style={{ maxWidth: 800, margin: '0 auto', padding: '48px 24px', fontFamily: 'Patrick Hand, sans-serif', color: '#1A1A1A' }}>
       <h1 style={{ fontFamily: 'Caveat, cursive', fontSize: 48, marginBottom: 8 }}>TigTagTrue</h1>
       <h2 style={{ fontSize: 28, marginBottom: 8 }}>Privacy Policy</h2>
-      <p style={{ color: '#4A4A4A', marginBottom: 32 }}>Last updated: October 12, 2026</p>
+      <p style={{ color: '#4A4A4A', marginBottom: 32 }}>Last updated: October 13, 2026</p>
 
       <h3>Company</h3>
       <p>TigTagTrue is operated by <strong>BillBeBe Inc.</strong>, a Delaware corporation located at 45 S Arroyo Pkwy #1119, Pasadena, CA 91105.</p>
 
       <h3>Information We Collect</h3>
       <p>We collect: email, name, phone number, location (GPS), order history, delivery address, party chat messages, ratings and reviews you write, and party photos you add (the party cover and the Memory album). Party photos are visible only to the host and guests of that party and are deleted 24 hours after the party ends.</p>
+      <p>When you sign up, we email you a 6-digit code to confirm your email address. We keep only a scrambled (hashed) copy of the code, and it stops working after 15 minutes.</p>
 
       <h3>My TigTagTrue Day</h3>
       <p>When you add an important day, we keep a first name, the date (the year only if you add it), what kind of day it is, a theme, when to remind you, and that person&apos;s favorite color, song, animal and place if you add them. We also keep the stories you write about your days, the notes close friends leave on them, and your list of close friends.</p>
@@ -40,6 +41,7 @@ export default function Privacy() {
 
       <h3>Data Retention</h3>
       <p>Your account, important days, stories and notes are kept until you delete them or delete your account, and your order history stays in your account while you have one. When you delete your account, the orders you hosted are kept for 1 year without your name or contact details (no address, comments, allergies or review text), for accounting and for the restaurants that cooked them, and then deleted. Party chat is deleted 1 day after the party starts, and party photos 24 hours after the party ends.</p>
+      <p>Backups: we keep encrypted backups of our database for up to 95 days so we can recover from accidents. When you delete your account, your information is removed from the live service right away and disappears from backups within 95 days. If we ever restore a backup, we delete your information again.</p>
 
       <h3>Children</h3>
       <p>TigTagTrue is for people 13 and older. We do not knowingly collect information from children under 13. If you believe a child has created an account, contact us and we will delete it.</p>
