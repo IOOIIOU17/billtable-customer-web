@@ -50,7 +50,7 @@ export default function Privacy() {
       <p>If BillBeBe Inc. is merged, acquired or sells its business, your information may move with it, and this policy will keep protecting it. We will tell you before that happens.</p>
 
       <h3>Your Rights</h3>
-      <p>You may request deletion of your account and its data at any time. You can delete your account directly in the app, or submit a request at <a href="https://billtable.co/delete">billtable.co/delete</a>. Deleting your account removes your important days, stories, notes and close friends. Orders you hosted are kept for 1 year without your name or contact details, as described under Data Retention.</p>
+      <p>You may request deletion of your account and its data at any time. You can delete your account directly in the app, or submit a request at <a href="https://billtable.co/delete">billtable.co/delete</a>. Deleting your account removes your important days, stories, notes, close friends, the party chat messages you wrote, and your party photos. Orders you hosted are kept for 1 year without your name or contact details, as described under Data Retention.</p>
 
       <h3>Contact</h3>
       <p>BillBeBe Inc. · 45 S Arroyo Pkwy #1119, Pasadena, CA 91105<br />
