@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useOrderStore from '../store/orderStore';
-import billTableLogo from '../assets/billtable-logo.png';
+import billTableLogo from '../assets/tigtagtrue-logo.png';
 
 const MOCK_AI_MENUS = [
   { id: 1, name: 'Pad Thai', reason: 'Popular choice for groups' },

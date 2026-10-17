@@ -1,6 +1,6 @@
 self.addEventListener('push', (event) => {
   const data = event.data?.json() || {};
-  const title = data.title || 'BillTable';
+  const title = data.title || 'TigTagTrue';
   const options = {
     body: data.body || 'You have a new notification',
     icon: '/favicon.ico',

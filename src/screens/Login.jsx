@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
 import useOrderStore from '../store/orderStore';
-import billTableLogo from '../assets/billtable-logo.png';
+import billTableLogo from '../assets/tigtagtrue-logo.png';
 
 export default function Login() {
   const navigate = useNavigate();

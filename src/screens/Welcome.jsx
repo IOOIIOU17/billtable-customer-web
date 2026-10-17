@@ -1,6 +1,6 @@
 import { useNavigate, Link } from 'react-router-dom';
 import welcomeDoodle from '../assets/welcome-doodle.png';
-import logo from '../assets/billtable-logo.png';
+import logo from '../assets/tigtagtrue-logo.png';
 
 export default function Welcome() {
   const navigate = useNavigate();
