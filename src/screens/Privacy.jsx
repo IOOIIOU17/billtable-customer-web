@@ -5,7 +5,7 @@ export default function Privacy() {
     <div style={{ maxWidth: 800, margin: '0 auto', padding: '48px 24px', fontFamily: 'Patrick Hand, sans-serif', color: '#1A1A1A' }}>
       <h1 style={{ fontFamily: 'Caveat, cursive', fontSize: 48, marginBottom: 8 }}>TigTagTrue</h1>
       <h2 style={{ fontSize: 28, marginBottom: 8 }}>Privacy Policy</h2>
-      <p style={{ color: '#4A4A4A', marginBottom: 32 }}>Last updated: October 13, 2026</p>
+      <p style={{ color: '#4A4A4A', marginBottom: 32 }}>Last updated: October 17, 2026</p>
 
       <h3>Company</h3>
       <p>TigTagTrue is operated by <strong>BillBeBe Inc.</strong>, a Delaware corporation located at 45 S Arroyo Pkwy #1119, Pasadena, CA 91105.</p>
