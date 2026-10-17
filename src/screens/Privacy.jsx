@@ -15,7 +15,7 @@ export default function Privacy() {
       <p>When you sign up, we email you a 6-digit code to confirm your email address. We keep only a scrambled (hashed) copy of the code, and it stops working after 15 minutes.</p>
 
       <h3>My TigTagTrue Day</h3>
-      <p>When you add an important day, we keep a first name, the date (the year only if you add it), what kind of day it is, a theme, when to remind you, and that person&apos;s favorite color, song, animal and place if you add them. We also keep the stories you write about your days, the notes close friends leave on them, and your list of close friends.</p>
+      <p>When you add an important day, we keep a first name, the date (the year only if you add it), what kind of day it is, a theme, when to remind you, and that person&apos;s favorite color, song, animal and place if you add them, and any photos you add to a day. We also keep the stories you write about your days, the notes close friends leave on them, and your list of close friends.</p>
 
       <h3>Stories and Close Friends</h3>
       <p>Every story is private when you write it: only you can see it. You can open a story to your close friends, to read it or to read it and add notes. Close friends are only the people who used a friend code you made, or whose code you used; there can be at most 10, and you can remove any of them at any time. Removing a friend also removes their notes on your stories. Stories and notes are stored encrypted.</p>
@@ -30,7 +30,8 @@ export default function Privacy() {
       <h3>Third Parties We Share With</h3>
       <ul>
         <li>Stripe — payment processing</li>
-        <li>Cloudinary — storing photos</li>
+        <li>Cloudinary — storing party photos</li>
+        <li>Cloudflare R2 — storing the photos you add to your important days</li>
         <li>Expo — sending push notifications</li>
         <li>U.S. Census Bureau Geocoder and OpenStreetMap Nominatim — turning a typed address into a map point (only the address is sent)</li>
         <li>Sentry — error reports so we can fix problems</li>
